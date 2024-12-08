@@ -12,6 +12,7 @@ public abstract class Figure {
         x = x_;
         y = y_;
         isWhite = team;
+        isActive = true;
     }
     // Getters
     public int getX(){ return x; }

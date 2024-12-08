@@ -75,12 +75,12 @@ public class Helpers {
     public List< List< Integer > > UpgradeArray8x8( List< Figure > figures, List< List< Integer > > Array8x8){
         Figure elem;
         int val, x, y;
-        System.out.println("Siema");
+	// System.out.println("Siema");
         for( int i=0; i<32; i++ ){
             elem = figures.get( i );
             x = elem.getX();
             y = elem.getY();
-            System.out.println("x: " + x + "|y: "+y);
+            // System.out.println("x: " + x + "|y: "+y);
             if( elem.getActivity() ) val = i;
             else val = 69;
             Array8x8.get(x).set(y,val);

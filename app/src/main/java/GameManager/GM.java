@@ -11,7 +11,7 @@ public class GM {
     List<Figure> AllFigures;
     public
     GM(){
-        System.out.println("GM");
+        // System.out.println("GM");
         Helpers helper = new Helpers();
         helper.testowa();
         selectedPieceId = -1;
