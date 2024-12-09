@@ -1,10 +1,10 @@
-# czeski_szach
+# 必死に勉強しているだけがある場所へようこそ
 
-Chess human bot vs a computer bot
-
-## UML Diagram
-
-placeholder uml diagram 😈
+```plantuml
+@startuml
+Alice -> Bob: Hi
+Bob -> Alice: Waltuh
+```
 
 ```plantuml
 @startuml
