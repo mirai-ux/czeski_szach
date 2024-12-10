@@ -4,7 +4,8 @@ Chess human bot vs a computer bot
 
 ## UML Diagram
 
-placeholder uml diagram 😈
+placeholder uml diagram
+sadly mermaid is very slow due to using puppeteer x chromium for rendering 💀
 
 ```plantuml
 @startuml
