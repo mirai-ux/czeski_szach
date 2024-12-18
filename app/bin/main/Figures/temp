@@ -1,0 +1,12 @@
+Figure.Rook -> Figure
+Figure.Knight -> Figure
+Figure.Bishop -> Figure
+Figure.Queen -> Figure
+Figure.King -> Figure
+
+Figure.Figure <- Figure.Pawn
+Figure.Figure <- Figure.Rook
+Figure.Figure <- Figure.Knight
+Figure.Figure <- Figure.Bishop
+Figure.Figure <- Figure.Queen
+Figure.Figure <- Figure.King

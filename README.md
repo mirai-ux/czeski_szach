@@ -9,71 +9,108 @@ sadly mermaid is very slow due to using puppeteer x chromium for rendering 💀
 
 ```plantuml
 @startuml
-allowmixing
-class Figure.Figure {
-    # x : int
-    # y : int
-    # isActive : bool
-    # isWhite : bool
-    # value : int
-    # type : char
+package Figures {
 
-    + getX() : int
-    + getY() : int
-    + getTeam() : bool
-    + getActivity() : bool
-    + getValue() : int
-    + getType() : char
-    + setX(x : int)
-    + setY(y : int)
-    + setActivity(status : bool)
-    + pathDisplay(start_x : int, start_y : int) : int[][]
+    abstract class Figure {
+        # int x
+        # int y
+        # boolean isActive
+        # boolean isWhite
+        # int value
+        # char type
+
+        + Figure(int x_, int y_, boolean team)
+        + int[][] pathDisplay()
+        + int getX()
+        + int getY()
+        + boolean getTeam()
+        + boolean getActivity()
+        + int getValue()
+        + char getType()
+        + void setX(int x_)
+        + void setY(int y_)
+        + void setActivity(boolean status)
+        + void setActivity(int x_, int y_, boolean status)
+    }
+    Figure <|-- Pawn
+    Figure <|-- Rook
+    Figure <|-- Knight
+    Figure <|-- Bishop
+    Figure <|-- Queen
+    Figure <|-- King
+
+    Pawn : type = 'P'
+    Pawn : value = 1
+    Rook : type = 'R'
+    Rook : value = 5
+    Knight : type = 'N'
+    Knight : value = 3
+    Bishop : type = 'B'
+    Bishop : value = 3
+    Queen : type = 'Q'
+    Queen : value = 9
+    King : type = 'K'
+    King : value = 100
 }
-class Figure.Pawn {
-    - type = P
+package Figures {
+    class Figure {
+        # int x
+        # int y
+        # boolean isActive
+        # boolean isWhite
+        # int value
+        # char type
+
+        + int getX()
+        + int getY()
+        + boolean getActivity()
+    }
+
+    class Rook
+    class Knight
+    class Bishop
+    class King
+    class Queen
+    class Pawn
+
+    Figure <|-- Rook
+    Figure <|-- Knight
+    Figure <|-- Bishop
+    Figure <|-- King
+    Figure <|-- Queen
+    Figure <|-- Pawn
 }
-class Figure.Rook {
-    - type = R
-}
-class Figure.Knight {
-    - type = K
-}
-class Figure.Bishop {
-    - type = B
-}
-class Figure.Queen {
-    - type = Q
-}
-class Figure.King {
-    - type = K
-}
-class GameManager {
-    - board : Board
-    + move(move : Move)
-    + isGameOver() : boolean
-    + getWinner() : Player
+package GameManager {
+
+    class GM {
+        - int selectedPieceId
+        - boolean isTurnWhite
+        - List<List<Integer>> board
+        - List<Figure> AllFigures
+
+        + GM()
+    }
+
+    class Helpers {
+        + testowa()
+        - Figure interpretFromSave(String save)
+        + List<Figure> ReadFromFile(String fileName)
+        + List<List<Integer>> InitializeArray8x8()
+        + List<List<Integer>> UpgradeArray8x8(List<Figure> figures, List<List<Integer>> board)
+    }
+
+    GM ..> Helpers : uses
+    GM .l.> Figures : uses
+    GM ..> "List<List<Integer>>" : uses
+    GM ..> "List<Figure>" : uses
 }
 
-class Board
-class TurnEngine
 
-actor White #white
-actor Black #black
-
-White --> TurnEngine
-Black --> TurnEngine
-
-TurnEngine -u-> Board
-
-Figure --> Board
-Board --> GameManager
-Figure.Figure <-d- Figure.Pawn
-Figure.Figure <-d- Figure.Rook
-Figure.Figure <-d- Figure.Knight
-Figure.Figure <-d- Figure.Bishop
-Figure.Figure <-d- Figure.Queen
-Figure.Figure <-d- Figure.King
-
-
+Helpers ..> Rook : creates
+Helpers ..> Knight : creates
+Helpers ..> Bishop : creates
+Helpers ..> King : creates
+Helpers ..> Queen : creates
+Helpers ..> Pawn : creates
 @enduml
 ```
