@@ -1,0 +1,3 @@
+# this file is so that telescope.nvim doesn't give me useless search results
+*.class
+bin
