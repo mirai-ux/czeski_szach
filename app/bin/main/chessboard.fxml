@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.chess.ChessController">
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="BoardController">
     <top>
         <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10; -fx-background-color: lightgray;">
             <Label text="Chess Game" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
@@ -18,8 +18,8 @@
 
     <right>
         <VBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
-            <Button fx:id="newGameButton" text="New Game" onAction="#handleNewGame" />
-            <Button fx:id="undoButton" text="Undo Move" onAction="#handleUndoMove" />
+            <Button fx:id="newGameButton" text="New Game" />
+            <Button fx:id="undoButton" text="Undo Move" />
             <Label fx:id="statusLabel" text="White's Turn" style="-fx-font-size: 14px; -fx-font-style: italic;" />
         </VBox>
     </right>
