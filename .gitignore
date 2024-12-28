@@ -21,3 +21,7 @@ buildNumber.properties
 
 # Ignore Gradle build output directory
 build
+
+# Local only folders for beautifying the pieces
+app/src/main/resources/pieces/old
+app/src/main/resources/pieces/xcf
