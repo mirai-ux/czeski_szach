@@ -99,6 +99,8 @@ public class BoardController {
           }
           ;
           tile.getChildren().add(piece);
+          piece.setFitWidth(tileSize);
+          piece.setFitHeight(tileSize);
           // Label piece = new Label(initialPositions[row][col]);
           // piece.setFont(new Font(60)); // Adjust font size for visibility
           // piece.setStyle("-fx-text-fill: " + (color.equals("white") ? "black" :
