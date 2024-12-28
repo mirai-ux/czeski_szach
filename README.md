@@ -1,6 +1,6 @@
-# czeski_szach
+# TESTING BRANCH
 
-Chess human bot vs a computer bot
+Last line of resort before going to main
 
 ## UML Diagram
 
