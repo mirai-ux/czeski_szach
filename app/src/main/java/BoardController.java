@@ -4,8 +4,8 @@ import javafx.scene.layout.Pane;
 // import javafx.event.ActionEvent;
 // import javafx.fxml.FXML;
 // import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.text.Font;
+// import javafx.scene.control.Label;
+// import javafx.scene.text.Font;
 // import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -40,6 +40,8 @@ public class BoardController {
         String color = (row + col) % 2 == 0 ? "white" : "black";
         tile.setStyle("-fx-background-color: " + color + ";");
 
+        // Image w_king = new Image("pieces/w_king.png");
+        // ImageView piece = new ImageView(w_king);
         // Add the chess piece if present
         if (initialPositions[row][col] != null) {
           ImageView piece = new ImageView();
@@ -69,7 +71,7 @@ public class BoardController {
               piece.setImage(w_pawn);
               break;
             case "b_king":
-              Image b_king = new Image("pieces/b_king");
+              Image b_king = new Image("pieces/b_king.png");
               piece.setImage(b_king);
               break;
             case "b_queen":
