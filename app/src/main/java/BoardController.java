@@ -31,10 +31,9 @@ public class BoardController {
   };
 
   public void initialize() {
-    int tileSize = 60; // Size of each tile
+    int tileSize = 60;
     for (int row = 0; row < 8; row++) {
       for (int col = 0; col < 8; col++) {
-        // Create the tile
         Pane tile = new Pane();
         tile.setPrefSize(tileSize, tileSize);
         String color = (row + col) % 2 == 0 ? "white" : "black";
@@ -42,7 +41,6 @@ public class BoardController {
 
         // Image w_king = new Image("pieces/w_king.png");
         // ImageView piece = new ImageView(w_king);
-        // Add the chess piece if present
         if (initialPositions[row][col] != null) {
           ImageView piece = new ImageView();
           switch (initialPositions[row][col]) {
@@ -110,7 +108,6 @@ public class BoardController {
           // piece.setLayoutY((tileSize - 60) / 4.0); // Center vertically
         }
 
-        // Add the tile to the GridPane
         chessBoard.add(tile, col, row);
       }
     }
