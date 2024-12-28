@@ -114,3 +114,9 @@ Helpers ..> Queen : creates
 Helpers ..> Pawn : creates
 @enduml
 ```
+
+## Credit
+
+Chess Piece art courtesy of:
+By Cburnett - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces
+Black pieces were modified to have white borders around them for visibility
