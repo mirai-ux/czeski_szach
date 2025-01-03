@@ -18,7 +18,7 @@ public class GM {
     selectedPieceId = -1;
     isTurnWhite = false;
     // Add option to choose save for load
-    AllFigures = helper.ReadFromFile("newGameTemplate.txt");
+    AllFigures = helper.ReadFromFile("testTemplate.txt");
     board = helper.InitializeArray8x8();
     board = helper.UpgradeArray8x8(AllFigures, board);
     helper.printArray8x8(board);
