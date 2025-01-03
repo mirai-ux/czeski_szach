@@ -1,5 +1,8 @@
 package Figures;
 
+import java.util.*;
+import GameManager.*;
+
 public abstract class Figure {
   protected int x; // X coordinate
   protected int y; // Y coordinate
@@ -70,4 +73,8 @@ public abstract class Figure {
     isActive = status;
   }
 
+  // returns 69 if piece cant move there
+  //         1  if can move there
+  //         2  if can attack there 
+  public abstract List< List< Integer >> getPossibleMoves( GameManager.GM gm );
 }

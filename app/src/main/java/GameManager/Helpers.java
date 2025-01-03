@@ -61,12 +61,12 @@ public class Helpers {
     return figures;
   }
 
-  public List<List<Integer>> InitializeArray8x8() {
+  public static List<List<Integer>> InitializeArray8x8() {
     List<List<Integer>> Array8x8 = new ArrayList<>();
     for (int i = 0; i < 8; i++) {
       List<Integer> row = new ArrayList<>();
       for (int j = 0; j < 8; j++) {
-        row.add(0);
+        row.add(69);
       }
       Array8x8.add(row);
     }
@@ -86,9 +86,19 @@ public class Helpers {
         val = i;
       else
         val = 69;
-      Array8x8.get(x).set(y, val);
+      Array8x8.get(y).set(x, val);
     }
 
     return Array8x8;
+  }
+  
+  public void printArray8x8( List<List<Integer>> array){
+    for(int i=0; i<8; i++){
+      System.out.println();
+      for(int j=0; j<8; j++){
+        System.out.print(array.get(i).get(j));
+        System.out.print( "\t");
+      }
+    }
   }
 }
