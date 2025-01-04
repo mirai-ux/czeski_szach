@@ -12,6 +12,24 @@ public class Knight extends Figure {
         List< List< Integer >> moves = GameManager.Helpers.InitializeArray8x8();
         List< List< Integer >> board = gm.getBoard();
 
+        int[][] possibilities = {{-2,-1},{-2,1},{-1,-2},{-1,2},{1,-2},{1,2},{2,-1},{2,1}};
+
+        for (int i = 0; i < 8; i++) {
+          int newX = x + possibilities[i][0];
+          int newY = y + possibilities[i][1];
+          System.out.println( newX + "  " + newY);
+          if( (newX<8 && newX>=0) && (newY<8 && newY>=0)){
+            System.out.println("Pierwszy");
+            if( board.get( newY ).get( newX ) == 69 )
+              moves.get( newY ).set( newX, 1 );
+            else if ( board.get( newY ).get( newX ) != 69 && gm.getPieceAt( newX, newY ).getTeam() != this.isWhite )
+              moves.get( newY ).set( newX, 2 );
+            else
+              ;
+          }
+          
+        }
+        /* Lepszy plan jest
         // x++ y+
         if ( (x+2<8) && (y+1<8) ){
           if( board.get( y+1 ).get( x+2 ) == 69 )
@@ -85,6 +103,7 @@ public class Knight extends Figure {
           else
             ;
         }
+            */
         return moves;
     }
 }
