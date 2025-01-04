@@ -21,7 +21,7 @@ public class Bishop extends Figure {
             break;
           }
           else
-            ;
+            break;
     }
     // x+ y-
     for (int i = 1; ( x+i<8 && y-i>=0 ); i++) {
@@ -32,7 +32,7 @@ public class Bishop extends Figure {
             break;
           }
           else
-            ;
+            break;
     }
     // x- y+
     for (int i = 1; ( x-i>=0 && y+i<8 ); i++) {
@@ -43,7 +43,7 @@ public class Bishop extends Figure {
             break;
           }
           else
-            ;
+            break;
     }
     // x- y-
     for (int i = 1; ( x-i>=0 && y-i>=0 ); i++) {
@@ -54,7 +54,7 @@ public class Bishop extends Figure {
             break;
           }
           else
-            ;
+            break;
     }
 
 
