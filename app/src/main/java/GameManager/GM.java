@@ -24,9 +24,11 @@ public class GM {
     helper.printArray8x8(board);
     System.out.println("\n");
 
-    //System.out.println("\n"+getPieceAt(1, 1).getType());
-    //System.out.println(getPieceAt(1, 1).getTeam ());
-    selectedPiece = getPieceAt(1, 1);
+    
+    selectedPiece = getPieceAt(2,2);
+    System.out.println(selectedPiece.getType());
+    System.out.println(selectedPiece.getTeam ());
+
     possibleMoves = selectedPiece.getPossibleMoves(this);
     helper.printArray8x8(possibleMoves);
 
@@ -34,7 +36,7 @@ public class GM {
   public List<List<Integer>> getBoard(){ return board; }
 
   public Figure getPieceAt( int x_, int y_ ){
-    int selectedPieceId = board.get( x_ ).get( y_ );
+    int selectedPieceId = board.get( y_ ).get( x_ );
     return AllFigures.get( selectedPieceId );
   }
 }

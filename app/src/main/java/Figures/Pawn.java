@@ -36,20 +36,20 @@ public class Pawn extends Figure {
         }
         // possible attacks
         if( x == 0 )
-            if( board.get( 0 ).get( y+direction ) != 69 )
+            if( board.get( y+direction ).get( 0 ) != 69 )
                 if( gm.getPieceAt( 1 , y+direction ).getTeam() != this.isWhite )
-                    moves.get( 0 ).set( y+direction, 2 );
+                    moves.get( y+direction ).set( 0, 2 );
         if( x == 7 )
-            if( board.get( 7 ).get( y+direction ) != 69 )
+            if( board.get( y+direction ).get( 7 ) != 69 )
                 if( gm.getPieceAt( 6 , y+direction ).getTeam() != this.isWhite )
-                    moves.get( 7 ).set( y+direction, 2 );
+                    moves.get( y+direction ).set( 7, 2 );
         if( x > 0 && x < 7){
-            if( board.get( x+1 ).get( y+direction ) != 69 )
+            if( board.get( y+direction ).get( x+1 ) != 69 )
                 if( gm.getPieceAt( x+1, y+direction ).getTeam() != this.isWhite )
-                    moves.get( x+1 ).set( y+direction, 2 );
-            if( board.get( x+1 ).get( y+direction ) != 69 )
+                    moves.get( y+direction ).set( x+1, 2 );
+            if( board.get( y+direction ).get( x-1 ) != 69 )
                 if( gm.getPieceAt( x-1, y+direction ).getTeam() != this.isWhite )
-                    moves.get( x-1 ).set( y+direction, 2 );
+                    moves.get( y+direction ).set( x-1, 2 );
         }
 
         return moves;
