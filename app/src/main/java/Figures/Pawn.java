@@ -1,5 +1,4 @@
 package Figures;
-import GameManager.*;
 
 import java.util.List;
 
