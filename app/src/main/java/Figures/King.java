@@ -12,13 +12,21 @@ public class King extends Figure{
         List< List< Integer >> moves = GameManager.Helpers.InitializeArray8x8();
         List< List< Integer >> board = gm.getBoard();
 
-        if( this.isWhite ){
-            ;
-        } else {
-            ;
+        int[][] possibilities = {{1,0},{1,-1},{0,-1},{-1,-1},{-1,0},{-1,1},{0,1},{1,1}};
+
+        for (int i = 0; i < 8; i++) {
+          int newX = x + possibilities[i][0];
+          int newY = y + possibilities[i][1];
+          if( (newX<8 && newX>=0) && (newY<8 && newY>=0)){
+            if( board.get( newY ).get( newX ) == 69 )
+              moves.get( newY ).set( newX, 1 );
+            else if ( board.get( newY ).get( newX ) != 69 && gm.getPieceAt( newX, newY ).getTeam() != this.isWhite )
+              moves.get( newY ).set( newX, 2 );
+            else
+              ;
+          }
+          
         }
-
-
         return moves;
     }
 }

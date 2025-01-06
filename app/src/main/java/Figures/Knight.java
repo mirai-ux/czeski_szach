@@ -17,9 +17,7 @@ public class Knight extends Figure {
         for (int i = 0; i < 8; i++) {
           int newX = x + possibilities[i][0];
           int newY = y + possibilities[i][1];
-          System.out.println( newX + "  " + newY);
           if( (newX<8 && newX>=0) && (newY<8 && newY>=0)){
-            System.out.println("Pierwszy");
             if( board.get( newY ).get( newX ) == 69 )
               moves.get( newY ).set( newX, 1 );
             else if ( board.get( newY ).get( newX ) != 69 && gm.getPieceAt( newX, newY ).getTeam() != this.isWhite )

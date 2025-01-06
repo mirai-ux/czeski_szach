@@ -10,6 +10,7 @@ public abstract class Figure {
   protected boolean isWhite; // Team White(1) or Black(0)
   protected int value; // Worth of piece
   protected char type; // Type of figure
+  protected char FEN_name; // Type of figure
 
   public Figure(int x_, int y_, boolean team) {
     x = x_;
@@ -52,6 +53,11 @@ public abstract class Figure {
 
   public char getType() {
     return type;
+  }
+
+  public char getFENName(){
+    FEN_name = isWhite ? type : Character.toLowerCase( type );
+    return FEN_name;
   }
 
   // Setters

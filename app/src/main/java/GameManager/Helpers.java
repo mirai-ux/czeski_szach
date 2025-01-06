@@ -101,4 +101,22 @@ public class Helpers {
       }
     }
   }
+
+  public static List<List<Integer>> mergeTwoArrays8x8( List<List<Integer>> array1, List<List<Integer>> array2){
+    List<List<Integer>> merged = InitializeArray8x8();
+    for ( int i = 0; i < 8; i++ ) {
+      for( int j = 0; j < 8; j++ ){
+        int val1 = array1.get( i ).get( j );
+        int val2 = array2.get( i ).get( j );
+        if( val1 == 1 || val2 == 1 ){
+          merged.get( i ).set( j, 1);
+        }
+        if( val1 == 2 || val2 == 2 ){
+          merged.get( i ).set( j, 2);
+        }
+
+      }
+    }
+    return merged;
+  }
 }
