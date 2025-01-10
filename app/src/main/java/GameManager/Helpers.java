@@ -9,10 +9,6 @@ import org.checkerframework.checker.units.qual.A;
 import Figures.*;
 
 public class Helpers {
-  public void testowa() {
-    System.out.println("Testowy Helper");
-  }
-
   private Figure interpretFromSave(String save) {
     char type = save.charAt(0);
     boolean team = save.charAt(3) == 't';

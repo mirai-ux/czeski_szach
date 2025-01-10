@@ -21,6 +21,8 @@ public class Queen extends Figure{
 
         moves = GameManager.Helpers.mergeTwoArrays8x8(movesRook, movesBishop);
 
+        moves.get( y ).set( x, 3 );
+        
         return moves;
     }
 }

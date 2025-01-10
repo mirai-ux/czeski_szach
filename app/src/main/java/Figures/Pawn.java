@@ -50,6 +50,8 @@ public class Pawn extends Figure {
                 if( gm.getPieceAt( x-1, y+direction ).getTeam() != this.isWhite )
                     moves.get( y+direction ).set( x-1, 2 );
         }
+        
+        moves.get( y ).set( x, 3 );
 
         return moves;
     }

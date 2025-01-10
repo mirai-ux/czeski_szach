@@ -27,6 +27,9 @@ public class King extends Figure{
           }
           
         }
+
+        moves.get( y ).set( x, 3 );
+        
         return moves;
     }
 }
