@@ -25,3 +25,5 @@ build
 # Local only folders for beautifying the pieces
 app/src/main/resources/pieces/old
 app/src/main/resources/pieces/xcf
+
+app/bin
