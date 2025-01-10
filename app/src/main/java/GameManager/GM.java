@@ -25,15 +25,19 @@ public class GM {
     System.out.println("\n");
 
     
-    selectedPiece = getPieceAt(2,2);
+    selectedPiece = getPieceAt(4,2);
     System.out.println(selectedPiece.getType());
     System.out.println(selectedPiece.getTeam ());
+
+    System.out.println(helper.ArrayToFEN( this ));
 
     possibleMoves = selectedPiece.getPossibleMoves(this);
     helper.printArray8x8(possibleMoves);
 
   }
   public List<List<Integer>> getBoard(){ return board; }
+  public List<Figure> getFigures(){ return AllFigures; }
+  public boolean getTurn(){ return isTurnWhite; }
 
   public Figure getPieceAt( int x_, int y_ ){
     int selectedPieceId = board.get( y_ ).get( x_ );
