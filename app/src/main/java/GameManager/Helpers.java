@@ -151,8 +151,14 @@ public class Helpers {
     else resultFEN += " b";
 
     // now code castling
-
+    resultFEN += " " + gm.possibleCastlings();
     // not playing with en passant
+    resultFEN += " -";
+    // how many halfmoves
+    int length = gm.getHistory().size();
+    resultFEN += " " + length;
+    // full turns
+    resultFEN += " " + ( (int) length/2 + 1);
 
     return resultFEN;
   }

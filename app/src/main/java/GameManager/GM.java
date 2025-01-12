@@ -13,6 +13,9 @@ public class GM {
   private Helpers helper;
   private String piecePosition;
   private String pieceDestination;
+  private List<Move> history;
+  private Move move;
+
 
   public GM() {
     isTurnWhite = true;
@@ -22,7 +25,8 @@ public class GM {
     board = helper.InitializeArray8x8();
     board = helper.UpgradeArray8x8( AllFigures, board );
     possibleMoves = helper.InitializeArray8x8();
-
+    history = new ArrayList<>();
+    move = new Move();
   }
 
   //  1. Na szachownicy wybrać pionka i zaktualizowac tablice na mozliwe ruchy
@@ -31,12 +35,16 @@ public class GM {
     selectedPiece = getPieceAt( x_, y_ );
     possibleMoves = selectedPiece.getPossibleMoves( this );
     piecePosition = "" + (char)( x_ + 97 ) + ( 8 - y_ );
+    move.setStart( piecePosition );
     System.out.println( "Pozycja wybranej figury: " + piecePosition );
     return possibleMoves;
   }
   //  2. Wybranie pola wywoluje selectDestination( xPola, yPola )
   public void selectDestination( int x_, int y_ ){
     pieceDestination = "" + (char)( x_ + 97 ) + ( 8 - y_ );
+    move.setStop( pieceDestination );
+    history.add( move );
+    move = new Move();
     makeMove( piecePosition + pieceDestination );
   }
   // 3. Poźniej trzeba od nowa pobrać tablice z figurami od GM'a getBoard()
@@ -45,6 +53,7 @@ public class GM {
   public List<List<Integer>> getBoard(){ return board; }
   public List<Figure> getFigures(){ return AllFigures; }
   public boolean getTurn(){ return isTurnWhite; }
+  public List<Move> getHistory(){ return history; }
 
   public Figure getPieceAt( int x_, int y_ ){
     selectedPieceId = board.get( y_ ).get( x_ );
@@ -69,7 +78,42 @@ public class GM {
     board.get( yDest ).set( xDest, currentID );
   }
 
+  public String possibleCastlings(){
+    String result = "";
+    int size = history.size();
+    String starts = "";
+
+    boolean whiteQueenside = false;
+    boolean whiteKingside = false;
+
+    for (int i = 0; i < size; i++) {
+      starts += history.get( i ).getStart();
+    }
+
+    if( starts.indexOf( "e1" ) == -1 ){
+      if( starts.indexOf( "a1" ) == -1 ){
+        result += ( ( board.get(7).get(1) + board.get(7).get(2) + board.get(7).get(3) ) == 207 ) ? "Q" : "";
+      }
+      if( starts.indexOf( "h1" ) == -1 ){
+        result += ( ( board.get(7).get(6) + board.get(7).get(5) == 138 ) ) ? "K" : "";
+      }
+    }
+    if( starts.indexOf( "e8" ) == -1 ){
+      if( starts.indexOf( "a8" ) == -1 ){
+        result += ( ( board.get(0).get(1) + board.get(0).get(2) + board.get(0).get(3) ) == 207 ) ? "q" : "";
+      }
+      if( starts.indexOf( "h8" ) == -1 ){
+        result += ( ( board.get(0).get(6) + board.get(0).get(5) == 138 ) ) ? "k" : "";
+      }
+    }
+
+
+
+    return result;
+  }
+
   public void tests(){
+    System.out.println( possibleCastlings() );
     int x_ = 4;
     int y_ = 2;
     helper.printArray8x8(board);
@@ -86,5 +130,9 @@ public class GM {
     makeMove( "e6f7" );
 
     helper.printArray8x8(board);
+
+    System.out.println( "\n\n\n" );
+
+
   }
 }

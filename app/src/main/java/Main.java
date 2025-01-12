@@ -21,6 +21,9 @@ public class Main extends Application {
     // board_init.initialize();
     System.out.println("no");
     GM gm = new GM();
+
+    gm.tests();
+    
     launch();
   }
 }
