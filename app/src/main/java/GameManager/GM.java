@@ -36,7 +36,7 @@ public class GM {
     possibleMoves = selectedPiece.getPossibleMoves( this );
     piecePosition = "" + (char)( x_ + 97 ) + ( 8 - y_ );
     move.setStart( piecePosition );
-    System.out.println( "Pozycja wybranej figury: " + piecePosition );
+    // System.out.println( "Pozycja wybranej figury: " + piecePosition );
 
     // look for possible castlings
     String castlings = possibleCastlings();
@@ -175,19 +175,21 @@ public class GM {
 
   public void tests(){
     System.out.println( possibleCastlings() );
-    int x_ = 4;
-    int y_ = 2;
+    int x_ = 3;
+    int y_ = 5;
     helper.printArray8x8(board);
+
+    System.out.println( "\n");
     selectedPiece = getPieceAt( x_, y_ );
-    System.out.println(selectedPiece.getType());
-    System.out.println(selectedPiece.getTeam ());
+    //System.out.println(selectedPiece.getType());
+    //System.out.println(selectedPiece.getTeam ());
     //piecePosition = "" + (char)( x_ + 97 ) + ( 8 - y_ );
-    System.out.println(helper.ArrayToFEN( this ));
-    System.out.println( selectedPieceId );
+    //System.out.println(helper.ArrayToFEN( this ));
+    //System.out.println( selectedPieceId );
 
     possibleMoves = getPossibilities(x_, y_);
     helper.printArray8x8(possibleMoves);
-
+    System.out.println( "\n");
     makeMove( "e6f7" );
 
     helper.printArray8x8(board);
