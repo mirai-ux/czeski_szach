@@ -22,9 +22,9 @@ import Figures.*;
 
 public class BoardController {
   private GM gm;
-  private List<List<Integer>> board;
-  private List<List<Integer>> possibleMoves;
-  private List<Figure> AllFigures;
+  private List<List<Integer>> boardForController;
+  private List<List<Integer>> possibleMovesForController;
+  private List<Figure> AllFiguresForController;
 
 
   @FXML
@@ -43,9 +43,9 @@ public class BoardController {
 
   public void initialize() {
     gm = new GM();
-    board = gm.getBoard();
-    possibleMoves = gm.getMoves();
-    AllFigures = gm.getFigures();
+    boardForController = gm.getBoard();
+    possibleMovesForController = gm.getMoves();
+    AllFiguresForController = gm.getFigures();
 
     int tileSize = 60;
     for (int row = 0; row < 8; row++) {
