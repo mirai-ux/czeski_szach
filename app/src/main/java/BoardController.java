@@ -15,7 +15,18 @@ import javafx.scene.image.ImageView;
 // import javafx.scene.Scene;
 // import java.io.IOException;
 
+import java.util.*;
+
+import GameManager.*;
+import Figures.*;
+
 public class BoardController {
+  private GM gm;
+  private List<List<Integer>> board;
+  private List<List<Integer>> possibleMoves;
+  private List<Figure> AllFigures;
+
+
   @FXML
   private GridPane chessBoard;
 
@@ -31,6 +42,10 @@ public class BoardController {
   };
 
   public void initialize() {
+    gm = new GM();
+    board = gm.getBoard();
+    possibleMoves = gm.getMoves();
+    
     int tileSize = 60;
     for (int row = 0; row < 8; row++) {
       for (int col = 0; col < 8; col++) {

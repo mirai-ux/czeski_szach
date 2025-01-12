@@ -116,6 +116,7 @@ public class GM {
 
   // getters
   public List<List<Integer>> getBoard(){ return board; }
+  public List<List<Integer>> getMoves(){ return possibleMoves; }
   public List<Figure> getFigures(){ return AllFigures; }
   public boolean getTurn(){ return isTurnWhite; }
   public List<Move> getHistory(){ return history; }
