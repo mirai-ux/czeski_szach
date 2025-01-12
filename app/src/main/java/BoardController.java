@@ -45,7 +45,8 @@ public class BoardController {
     gm = new GM();
     board = gm.getBoard();
     possibleMoves = gm.getMoves();
-    
+    AllFigures = gm.getFigures();
+
     int tileSize = 60;
     for (int row = 0; row < 8; row++) {
       for (int col = 0; col < 8; col++) {
