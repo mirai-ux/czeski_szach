@@ -37,15 +37,80 @@ public class GM {
     piecePosition = "" + (char)( x_ + 97 ) + ( 8 - y_ );
     move.setStart( piecePosition );
     System.out.println( "Pozycja wybranej figury: " + piecePosition );
+
+    // look for possible castlings
+    String castlings = possibleCastlings();
+    // castlings for white
+    if( selectedPiece.getFENName() == 'K' || selectedPiece.getFENName() == 'R' ){
+      if( castlings.indexOf( "Q") != -1){
+        possibleMoves.get(7).set(0, 4);
+        possibleMoves.get(7).set(4, 4);
+      }
+      if( castlings.indexOf( "K") != -1){
+        possibleMoves.get(7).set(7, 5);
+        possibleMoves.get(7).set(4, 5);
+      }
+    }
+    // castling for black
+    if( selectedPiece.getFENName() == 'k' || selectedPiece.getFENName() == 'r' ){
+      if( castlings.indexOf( "q") != -1){
+        possibleMoves.get(0).set(0, 6);
+        possibleMoves.get(0).set(4, 6);
+      }
+      if( castlings.indexOf( "k") != -1){
+        possibleMoves.get(0).set(7, 7);
+        possibleMoves.get(0).set(4, 7);
+      }
+    }
     return possibleMoves;
   }
   //  2. Wybranie pola wywoluje selectDestination( xPola, yPola )
+  //      jeśli mozliwa jest roszada, to wykona castling( arg ),
+  //        gdzie arg ma 4 mozliwosci -> Q lub K lub q lub k
   public void selectDestination( int x_, int y_ ){
     pieceDestination = "" + (char)( x_ + 97 ) + ( 8 - y_ );
     move.setStop( pieceDestination );
     history.add( move );
     move = new Move();
     makeMove( piecePosition + pieceDestination );
+  }
+  public void castling( String where ){
+    if ( where == "Q" ){
+      int rookID = board.get(7).get(0);
+      int kingID = board.get(7).get(4);
+      board.get(7).set(1,kingID);
+      board.get(7).set(2, rookID);
+      move = new Move( "Q", "Q");
+      history.add(move);
+      move = new Move();
+    }
+    if ( where == "K" ){
+      int rookID = board.get(7).get(7);
+      int kingID = board.get(7).get(4);
+      board.get(7).set(6,kingID);
+      board.get(7).set(5, rookID);
+      move = new Move( "K", "K");
+      history.add(move);
+      move = new Move();
+    }
+    if ( where == "q" ){
+      int rookID = board.get(0).get(0);
+      int kingID = board.get(0).get(4);
+      board.get(0).set(1,kingID);
+      board.get(0).set(2, rookID);
+      move = new Move( "q", "q");
+      history.add(move);
+      move = new Move();
+    }
+    if ( where == "k" ){
+      int rookID = board.get(0).get(7);
+      int kingID = board.get(0).get(4);
+      board.get(0).set(6,kingID);
+      board.get(0).set(5, rookID);
+      move = new Move( "k", "k");
+      history.add(move);
+      move = new Move();
+    }
   }
   // 3. Poźniej trzeba od nowa pobrać tablice z figurami od GM'a getBoard()
 
@@ -82,33 +147,29 @@ public class GM {
     String result = "";
     int size = history.size();
     String starts = "";
-
-    boolean whiteQueenside = false;
-    boolean whiteKingside = false;
+    String fullHistory = "-";
 
     for (int i = 0; i < size; i++) {
       starts += history.get( i ).getStart();
+      fullHistory += history.get(i).getMove() + "-";
     }
 
     if( starts.indexOf( "e1" ) == -1 ){
-      if( starts.indexOf( "a1" ) == -1 ){
+      if( (starts.indexOf( "a1" ) + fullHistory.indexOf( "e1a1" ) + fullHistory.indexOf( "a1e1" )) == -3 ){
         result += ( ( board.get(7).get(1) + board.get(7).get(2) + board.get(7).get(3) ) == 207 ) ? "Q" : "";
       }
-      if( starts.indexOf( "h1" ) == -1 ){
+      if( (starts.indexOf( "h1" ) + fullHistory.indexOf( "e1h1" ) + fullHistory.indexOf( "h1e1" )) == -3 ){
         result += ( ( board.get(7).get(6) + board.get(7).get(5) == 138 ) ) ? "K" : "";
       }
     }
     if( starts.indexOf( "e8" ) == -1 ){
-      if( starts.indexOf( "a8" ) == -1 ){
+      if( (starts.indexOf( "a8" ) + fullHistory.indexOf( "e1a8" ) + fullHistory.indexOf( "a8e1" )) == -3 ){
         result += ( ( board.get(0).get(1) + board.get(0).get(2) + board.get(0).get(3) ) == 207 ) ? "q" : "";
       }
-      if( starts.indexOf( "h8" ) == -1 ){
+      if( (starts.indexOf( "h8" ) + fullHistory.indexOf( "e1h8" ) + fullHistory.indexOf( "h8e1" )) == -3 ){
         result += ( ( board.get(0).get(6) + board.get(0).get(5) == 138 ) ) ? "k" : "";
       }
     }
-
-
-
     return result;
   }
 
