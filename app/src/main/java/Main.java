@@ -1,5 +1,4 @@
 import GameManager.*;
-import Figures.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,6 +20,9 @@ public class Main extends Application {
     // board_init.initialize();
     System.out.println("no");
     GM gm = new GM();
+
+    gm.tests();
+
     launch();
   }
 }

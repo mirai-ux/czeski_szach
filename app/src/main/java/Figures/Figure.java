@@ -1,5 +1,8 @@
 package Figures;
 
+import java.util.*;
+import GameManager.*;
+
 public abstract class Figure {
   protected int x; // X coordinate
   protected int y; // Y coordinate
@@ -7,6 +10,7 @@ public abstract class Figure {
   protected boolean isWhite; // Team White(1) or Black(0)
   protected int value; // Worth of piece
   protected char type; // Type of figure
+  protected char FEN_name; // Type of figure
 
   public Figure(int x_, int y_, boolean team) {
     x = x_;
@@ -51,12 +55,22 @@ public abstract class Figure {
     return type;
   }
 
+  public char getFENName(){
+    FEN_name = isWhite ? type : Character.toLowerCase( type );
+    return FEN_name;
+  }
+
   // Setters
   public void setX(int x_) {
     x = x_;
   }
 
   public void setY(int y_) {
+    y = y_;
+  }
+
+  public void setPosition( int x_, int y_ ){
+    x = x_;
     y = y_;
   }
 
@@ -70,4 +84,9 @@ public abstract class Figure {
     isActive = status;
   }
 
+  // returns 69 if piece cant move there
+  //         1  if can move there
+  //         2  if can attack there 
+  //         3  states where is the figure
+  public abstract List< List< Integer >> getPossibleMoves( GameManager.GM gm );
 }
