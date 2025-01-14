@@ -122,6 +122,7 @@ public class GM {
   public List<Move> getHistory(){ return history; }
 
   public Figure getPieceAt( int x_, int y_ ){
+    if ( board.get( y_ ).get( x_ ) == 69) return null;
     selectedPieceId = board.get( y_ ).get( x_ );
     return AllFigures.get( selectedPieceId );
   }
