@@ -20,8 +20,8 @@ public class GM {
     isTurnWhite = true;
     helper = new Helpers();
 
-    AllFigures = helper.ReadFromFile("newGameTemplate.txt");
-    // AllFigures = helper.ReadFromFile("testTemplate.txt");
+    // AllFigures = helper.ReadFromFile("newGameTemplate.txt");
+    AllFigures = helper.ReadFromFile("testTemplate.txt");
     board = helper.InitializeArray8x8();
     board = helper.UpgradeArray8x8(AllFigures, board);
     possibleMoves = helper.InitializeArray8x8();

@@ -142,44 +142,49 @@ public class BoardController {
   }
 
   public void showPossibilities(int x, int y) {
-    int indicatorSize = 25;
+    int moveSize = 25;
+    int attackSize = 70;
 
     System.out.println(gm.getPossibilities(x, y));
 
-    String indicatorStyle = "-fx-background-color: rgba(0, 0, 0, 0.25); " +
+    String moveStyle = "-fx-background-color: rgba(0, 0, 0, 0.25); " +
         "-fx-background-radius: 50%; " +
         "-fx-background-insets: 25%;";
-    // returns 69 if piece cant move there
-    // 1 if can move there
-    // 2 if can attack there
-    // 3 states where is the figure
+    String attackStyle = "-fx-background-color: transparent; " +
+        "-fx-border-color: rgba(0, 0, 0, 0.25); " +
+        "-fx-border-width: 5px; " +
+        "-fx-border-radius: 50%;";
+    String currentStyleModifier = (x + y) % 2 == 0 ? "rgba(245, 246, 129, 1)" : "rgba(185, 202, 66, 1))";
+    String currentStyle = "-fx-background-color: " + currentStyleModifier;
+
     for (int i = 0; i < 7; i++) {
       for (int j = 0; j < 7; j++) {
         Pane tile = tileList.get(j).get(i);
+        Pane indicator = new Pane();
 
         switch (gm.getPossibilities(x, y).get(j).get(i)) {
+          // returns 69 if piece cant move there
+          // 1 if can move there
+          // 2 if can attack there
+          // 3 states where is the figure
           case 1:
-            Pane indicator = new Pane();
-            indicator.setPrefSize(indicatorSize, indicatorSize);
-            indicator.setLayoutX((tileSize - indicatorSize) / 2);
-            indicator.setLayoutY((tileSize - indicatorSize) / 2);
+            indicator.setPrefSize(moveSize, moveSize);
+            indicator.setLayoutX((tileSize - moveSize) / 2);
+            indicator.setLayoutY((tileSize - moveSize) / 2);
+            indicator.setStyle(moveStyle);
             tile.getChildren().add(indicator);
-            indicator.setStyle(indicatorStyle);
-            // "-fx-background-color: transparent;" + // Ensure the tile itself remains
-            // visible
-            // "-fx-shape: 'M50,25a25,25 0 1,0 50,0a25,25 0 1,0 -50,0';" + // Circle path
-            // for styling
-            // "-fx-background-insets: 0;" +
-            // "-fx-opacity: 0.7;" // Semi-transparency effects
             break;
           case 2:
-            tile.setStyle(
-                "-fx-background-color: transparent;" + // Ensure the tile itself remains visible
-                    "-fx-shape: 'M50,25a25,25 0 1,0 50,0a25,25 0 1,0 -50,0';" + // Circle path for styling
-                    "-fx-background-insets: 0;" +
-                    "-fx-opacity: 0.7;" // Semi-transparency effects
-            );
+            indicator.setPrefSize(attackSize, attackSize);
+            indicator.setLayoutX((tileSize - attackSize) / 2);
+            indicator.setLayoutY((tileSize - attackSize) / 2);
+            indicator.setStyle(attackStyle);
+            tile.getChildren().add(indicator);
             break;
+          case 3:
+            indicator.setPrefSize(tileSize, tileSize);
+            indicator.setStyle(currentStyle);
+            tile.getChildren().add(indicator);
           default:
             break;
         }
