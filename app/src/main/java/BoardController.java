@@ -25,7 +25,9 @@ public class BoardController {
   private List<List<Integer>> boardForController;
   private List<List<Integer>> possibleMovesForController;
   private List<Figure> AllFiguresForController;
-  private List<List<Integer>> tileList;
+
+  List<List<Pane>> tileList = new ArrayList<>();
+  int tileSize = 60;
 
   @FXML
   private GridPane chessBoard;
@@ -51,14 +53,14 @@ public class BoardController {
     possibleMovesForController = gm.getMoves();
     AllFiguresForController = gm.getFigures();
 
-    tileList = new ArrayList<>();
-
-    int tileSize = 60;
     for (int row = 0; row < 8; row++) {
+      List<Pane> tileListRow = new ArrayList<>();
       for (int col = 0; col < 8; col++) {
         Pane tile = new Pane();
+        tileListRow.add(tile);
+
         tile.setPrefSize(tileSize, tileSize);
-        String tileColor = (row + col) % 2 == 0 ? "white" : "black";
+        String tileColor = (row + col) % 2 == 0 ? "rgba(235, 236, 208, 1)" : "rgba(115, 149, 82, 1)";
         tile.setStyle("-fx-background-color: " + tileColor + ";");
 
         if (gm.getPieceAt(col, row) != null) {
@@ -124,19 +126,64 @@ public class BoardController {
           piece.setFitHeight(tileSize);
           piece.setPickOnBounds(true);
 
+          final int rowIndex = row;
+          final int colIndex = col;
+
           piece.setOnMouseClicked(event -> {
-            System.out.println("skobidi");
+            showPossibilities(colIndex, rowIndex);
           });
         }
 
         chessBoard.add(tile, col, row);
       }
 
+      tileList.add(tileListRow);
     }
   }
 
-  //
-  // public void turn() {
-  //
-  // }
+  public void showPossibilities(int x, int y) {
+    int indicatorSize = 25;
+
+    System.out.println(gm.getPossibilities(x, y));
+
+    String indicatorStyle = "-fx-background-color: rgba(0, 0, 0, 0.25); " +
+        "-fx-background-radius: 50%; " +
+        "-fx-background-insets: 25%;";
+    // returns 69 if piece cant move there
+    // 1 if can move there
+    // 2 if can attack there
+    // 3 states where is the figure
+    for (int i = 0; i < 7; i++) {
+      for (int j = 0; j < 7; j++) {
+        Pane tile = tileList.get(j).get(i);
+
+        switch (gm.getPossibilities(x, y).get(j).get(i)) {
+          case 1:
+            Pane indicator = new Pane();
+            indicator.setPrefSize(indicatorSize, indicatorSize);
+            indicator.setLayoutX((tileSize - indicatorSize) / 2);
+            indicator.setLayoutY((tileSize - indicatorSize) / 2);
+            tile.getChildren().add(indicator);
+            indicator.setStyle(indicatorStyle);
+            // "-fx-background-color: transparent;" + // Ensure the tile itself remains
+            // visible
+            // "-fx-shape: 'M50,25a25,25 0 1,0 50,0a25,25 0 1,0 -50,0';" + // Circle path
+            // for styling
+            // "-fx-background-insets: 0;" +
+            // "-fx-opacity: 0.7;" // Semi-transparency effects
+            break;
+          case 2:
+            tile.setStyle(
+                "-fx-background-color: transparent;" + // Ensure the tile itself remains visible
+                    "-fx-shape: 'M50,25a25,25 0 1,0 50,0a25,25 0 1,0 -50,0';" + // Circle path for styling
+                    "-fx-background-insets: 0;" +
+                    "-fx-opacity: 0.7;" // Semi-transparency effects
+            );
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  }
 }
