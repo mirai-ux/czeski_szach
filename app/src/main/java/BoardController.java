@@ -141,11 +141,13 @@ public class BoardController {
     }
   }
 
+  private List<Pane> currentIndicators = new ArrayList<>();
+
   public void showPossibilities(int x, int y) {
     int moveSize = 25;
     int attackSize = 70;
 
-    System.out.println(gm.getPossibilities(x, y));
+    clearIndicators();
 
     String moveStyle = "-fx-background-color: rgba(0, 0, 0, 0.25); " +
         "-fx-background-radius: 50%; " +
@@ -154,8 +156,8 @@ public class BoardController {
         "-fx-border-color: rgba(0, 0, 0, 0.25); " +
         "-fx-border-width: 5px; " +
         "-fx-border-radius: 50%;";
-    String currentStyleModifier = (x + y) % 2 == 0 ? "rgba(245, 246, 129, 1)" : "rgba(185, 202, 66, 1))";
-    String currentStyle = "-fx-background-color: " + currentStyleModifier;
+    String positionStyleModifier = (x + y) % 2 == 0 ? "rgba(245, 246, 129, 1)" : "rgba(185, 202, 66, 1)";
+    String positionStyle = "-fx-background-color: " + positionStyleModifier;
 
     for (int i = 0; i < 7; i++) {
       for (int j = 0; j < 7; j++) {
@@ -173,6 +175,7 @@ public class BoardController {
             indicator.setLayoutY((tileSize - moveSize) / 2);
             indicator.setStyle(moveStyle);
             tile.getChildren().add(indicator);
+            currentIndicators.add(indicator);
             break;
           case 2:
             indicator.setPrefSize(attackSize, attackSize);
@@ -180,15 +183,27 @@ public class BoardController {
             indicator.setLayoutY((tileSize - attackSize) / 2);
             indicator.setStyle(attackStyle);
             tile.getChildren().add(indicator);
+            currentIndicators.add(indicator);
             break;
           case 3:
             indicator.setPrefSize(tileSize, tileSize);
-            indicator.setStyle(currentStyle);
-            tile.getChildren().add(indicator);
+            indicator.setStyle(positionStyle);
+            tile.getChildren().add(0, indicator);
+            currentIndicators.add(indicator);
           default:
             break;
         }
       }
     }
+  }
+
+  private void clearIndicators() {
+    for (Pane indicator : currentIndicators) {
+      Pane parent = (Pane) indicator.getParent();
+      if (parent != null) {
+        parent.getChildren().remove(indicator);
+      }
+    }
+    currentIndicators.clear();
   }
 }
