@@ -17,11 +17,10 @@ import javafx.scene.image.ImageView;
 
 import java.util.*;
 
-import GameManager.*;
 import Figures.*;
 
 public class BoardController {
-  private GM gm;
+  private GameManager.GM gm = new GameManager.GM();
   private List<List<Integer>> boardForController;
   private List<List<Integer>> possibleMovesForController;
   private List<Figure> AllFiguresForController;
@@ -32,27 +31,7 @@ public class BoardController {
   @FXML
   private GridPane chessBoard;
 
-  // private final String[][] initialPositions = {
-  // { "b_rook", "b_knight", "b_bishop", "b_queen", "b_king", "b_bishop",
-  // "b_knight", "b_rook" }, // Black pieces
-  // { "b_pawn", "b_pawn", "b_pawn", "b_pawn", "b_pawn", "b_pawn", "b_pawn",
-  // "b_pawn" }, // Black pawns
-  // { null, null, null, null, null, null, null, null }, // Empty row
-  // { null, null, null, null, null, null, null, null }, // Empty row
-  // { null, null, null, null, null, null, null, null }, // Empty row
-  // { null, null, null, null, null, null, null, null }, // Empty row
-  // { "w_pawn", "w_pawn", "w_pawn", "w_pawn", "w_pawn", "w_pawn", "w_pawn",
-  // "w_pawn" }, // White pawns
-  // { "w_rook", "w_knight", "w_bishop", "w_queen", "w_king", "w_bishop",
-  // "w_knight", "w_rook" } // White pieces
-  // };
-
   public void initialize() {
-    gm = new GM();
-    boardForController = gm.getBoard();
-    possibleMovesForController = gm.getMoves();
-    AllFiguresForController = gm.getFigures();
-
     for (int row = 0; row < 8; row++) {
       List<Pane> tileListRow = new ArrayList<>();
       for (int col = 0; col < 8; col++) {
@@ -148,6 +127,7 @@ public class BoardController {
     int attackSize = 70;
 
     clearIndicators();
+    System.out.println(gm.getPossibilities(x, y));
 
     String moveStyle = "-fx-background-color: rgba(0, 0, 0, 0.25); " +
         "-fx-background-radius: 50%; " +
@@ -164,6 +144,9 @@ public class BoardController {
         Pane tile = tileList.get(j).get(i);
         Pane indicator = new Pane();
 
+        final int iIndex = i;
+        final int jIndex = j;
+
         switch (gm.getPossibilities(x, y).get(j).get(i)) {
           // returns 69 if piece cant move there
           // 1 if can move there
@@ -176,6 +159,12 @@ public class BoardController {
             indicator.setStyle(moveStyle);
             tile.getChildren().add(indicator);
             currentIndicators.add(indicator);
+
+            // attack
+            tile.setOnMouseClicked(event -> {
+              gm.selectDestination(iIndex, jIndex);
+              clearIndicators();
+            });
             break;
           case 2:
             indicator.setPrefSize(attackSize, attackSize);
@@ -184,12 +173,22 @@ public class BoardController {
             indicator.setStyle(attackStyle);
             tile.getChildren().add(indicator);
             currentIndicators.add(indicator);
+
+            // attack
+            tile.setOnMouseClicked(event -> {
+              gm.selectDestination(iIndex, jIndex);
+              clearIndicators();
+            });
             break;
           case 3:
             indicator.setPrefSize(tileSize, tileSize);
             indicator.setStyle(positionStyle);
-            tile.getChildren().add(0, indicator);
+            tile.getChildren().add(0, indicator); // the zero adds it as the 0th index to not display above the pieces
             currentIndicators.add(indicator);
+            tile.setOnMouseClicked(event -> {
+              clearIndicators();
+            });
+            break;
           default:
             break;
         }

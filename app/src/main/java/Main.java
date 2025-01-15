@@ -17,13 +17,6 @@ public class Main extends Application {
   }
 
   public static void main(String[] args) {
-    // BoardController board_init = new BoardController();
-    // board_init.initialize();
-    System.out.println("no");
-    GM gm = new GM();
-
-    gm.tests();
-
     launch();
   }
 }
