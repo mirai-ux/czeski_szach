@@ -143,9 +143,22 @@ public class BoardController {
 
   private List<Pane> currentIndicators = new ArrayList<>();
 
+  private int lastX = -1; // -1 is an unobtainable xy value so it is used as default
+  private int lastY = -1;
+
   public void showPossibilities(int x, int y) {
     int moveSize = 25;
     int attackSize = 70;
+
+    if (x == lastX && y == lastY) {
+      clearIndicators();
+      lastX = -1; // Reset lastX and lastY since the indicators are cleared
+      lastY = -1;
+      return;
+    }
+
+    lastX = x;
+    lastY = y;
 
     clearIndicators();
 
@@ -188,7 +201,7 @@ public class BoardController {
           case 3:
             indicator.setPrefSize(tileSize, tileSize);
             indicator.setStyle(positionStyle);
-            tile.getChildren().add(0, indicator);
+            tile.getChildren().add(0, indicator); // the zero adds it as the 0th index to not display above the pieces
             currentIndicators.add(indicator);
           default:
             break;
