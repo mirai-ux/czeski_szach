@@ -122,22 +122,9 @@ public class BoardController {
 
   private List<Pane> currentIndicators = new ArrayList<>();
 
-  private int lastX = -1; // -1 is an unobtainable xy value so it is used as default
-  private int lastY = -1;
-
   public void showPossibilities(int x, int y) {
     int moveSize = 25;
     int attackSize = 70;
-
-    if (x == lastX && y == lastY) {
-      clearIndicators();
-      lastX = -1; // Reset lastX and lastY since the indicators are cleared
-      lastY = -1;
-      return;
-    }
-
-    lastX = x;
-    lastY = y;
 
     clearIndicators();
     System.out.println(gm.getPossibilities(x, y));
@@ -156,7 +143,6 @@ public class BoardController {
       for (int j = 0; j < 7; j++) {
         Pane tile = tileList.get(j).get(i);
         Pane indicator = new Pane();
-        System.out.println(tile.getChildren());
 
         final int iIndex = i;
         final int jIndex = j;
@@ -173,6 +159,12 @@ public class BoardController {
             indicator.setStyle(moveStyle);
             tile.getChildren().add(indicator);
             currentIndicators.add(indicator);
+
+            // attack
+            tile.setOnMouseClicked(event -> {
+              gm.selectDestination(iIndex, jIndex);
+              clearIndicators();
+            });
             break;
           case 2:
             indicator.setPrefSize(attackSize, attackSize);
@@ -186,8 +178,6 @@ public class BoardController {
             tile.setOnMouseClicked(event -> {
               gm.selectDestination(iIndex, jIndex);
               clearIndicators();
-              lastX = -1;
-              lastY = -1;
             });
             break;
           case 3:
@@ -195,11 +185,8 @@ public class BoardController {
             indicator.setStyle(positionStyle);
             tile.getChildren().add(0, indicator); // the zero adds it as the 0th index to not display above the pieces
             currentIndicators.add(indicator);
-            System.out.println(tile.getChildren());
             tile.setOnMouseClicked(event -> {
               clearIndicators();
-              lastX = -1;
-              lastY = -1;
             });
             break;
           default:
