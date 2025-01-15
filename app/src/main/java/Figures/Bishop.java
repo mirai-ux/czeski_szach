@@ -57,8 +57,7 @@ public class Bishop extends Figure {
             break;
     }
 
-
-
+    moves.get( y ).set( x, 3 );
 
     return moves;
   }

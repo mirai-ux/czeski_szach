@@ -69,6 +69,11 @@ public abstract class Figure {
     y = y_;
   }
 
+  public void setPosition( int x_, int y_ ){
+    x = x_;
+    y = y_;
+  }
+
   public void setActivity(boolean status) {
     isActive = status;
   }
@@ -82,5 +87,6 @@ public abstract class Figure {
   // returns 69 if piece cant move there
   //         1  if can move there
   //         2  if can attack there 
+  //         3  states where is the figure
   public abstract List< List< Integer >> getPossibleMoves( GameManager.GM gm );
 }

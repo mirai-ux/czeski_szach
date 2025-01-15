@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="BoardController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane id="mainStage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BoardController">
     <top>
-        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10; -fx-background-color: lightgray;">
-            <Label text="Chess Game" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+        <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10; -fx-background-color: lightgray;">
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Chess Game" />
         </HBox>
     </top>
 
@@ -17,10 +22,15 @@
     </center>
 
     <right>
-        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
-            <Button fx:id="newGameButton" text="New Game" />
-            <Button fx:id="undoButton" text="Undo Move" />
-            <Label fx:id="statusLabel" text="White's Turn" style="-fx-font-size: 14px; -fx-font-style: italic;" />
+        <VBox alignment="CENTER" prefHeight="642.0" prefWidth="196.0" spacing="10" style="-fx-padding: 10;">
+         <ScrollPane fx:id="moveListPane" hbarPolicy="NEVER" prefHeight="563.0" prefWidth="176.0" />
+         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <children>
+                  <Button fx:id="newGameButton" prefHeight="50.0" prefWidth="50.0" text="flag" />
+                  <Button fx:id="lastMoveButton" prefHeight="50.0" prefWidth="50.0" text="&lt;" />
+               <Button fx:id="nextMoveButton" prefHeight="50.0" prefWidth="50.0" text="&gt;" />
+            </children>
+         </HBox>
         </VBox>
     </right>
 </BorderPane>

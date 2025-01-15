@@ -9,10 +9,6 @@ import org.checkerframework.checker.units.qual.A;
 import Figures.*;
 
 public class Helpers {
-  public void testowa() {
-    System.out.println("Testowy Helper");
-  }
-
   private Figure interpretFromSave(String save) {
     char type = save.charAt(0);
     boolean team = save.charAt(3) == 't';
@@ -91,32 +87,82 @@ public class Helpers {
 
     return Array8x8;
   }
-  
-  public void printArray8x8( List<List<Integer>> array){
-    for(int i=0; i<8; i++){
+
+  public void printArray8x8(List<List<Integer>> array) {
+    for (int i = 0; i < 8; i++) {
       System.out.println();
-      for(int j=0; j<8; j++){
+      for (int j = 0; j < 8; j++) {
         System.out.print(array.get(i).get(j));
-        System.out.print( "\t");
+        System.out.print("\t");
       }
     }
   }
 
-  public static List<List<Integer>> mergeTwoArrays8x8( List<List<Integer>> array1, List<List<Integer>> array2){
+  public static List<List<Integer>> mergeTwoArrays8x8(List<List<Integer>> array1, List<List<Integer>> array2) {
     List<List<Integer>> merged = InitializeArray8x8();
-    for ( int i = 0; i < 8; i++ ) {
-      for( int j = 0; j < 8; j++ ){
-        int val1 = array1.get( i ).get( j );
-        int val2 = array2.get( i ).get( j );
-        if( val1 == 1 || val2 == 1 ){
-          merged.get( i ).set( j, 1);
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
+        int val1 = array1.get(i).get(j);
+        int val2 = array2.get(i).get(j);
+        if (val1 == 1 || val2 == 1) {
+          merged.get(i).set(j, 1);
         }
-        if( val1 == 2 || val2 == 2 ){
-          merged.get( i ).set( j, 2);
+        if (val1 == 2 || val2 == 2) {
+          merged.get(i).set(j, 2);
         }
 
       }
     }
     return merged;
+  }
+
+  public String ArrayToFEN(GM gm) {
+    // based on this -> https://www.chess.com/terms/fen-chess
+    List<List<Integer>> board = gm.getBoard();
+    List<Figure> figures = gm.getFigures();
+    String resultFEN = "";
+
+    // Loops for piece positions in FEN
+    for (int i = 0; i < 8; i++) {
+      int empty = 0;
+      for (int j = 0; j < 8; j++) {
+        int currentID = board.get(i).get(j);
+        // System.out.println(currentID);
+        if (currentID == 69) {
+          empty += 1;
+        } else if (empty != 0) {
+          resultFEN += empty;
+          resultFEN += figures.get(currentID).getFENName();
+          empty = 0;
+        } else {
+          resultFEN += figures.get(currentID).getFENName();
+          empty = 0;
+        }
+      }
+      if (empty != 0) {
+        resultFEN += empty;
+        empty = 0;
+      }
+      if (i == 7)
+        continue;
+      resultFEN += "/";
+    }
+    // whose turn this is
+    if (gm.getTurn())
+      resultFEN += " w";
+    else
+      resultFEN += " b";
+
+    // now code castling
+    resultFEN += " " + gm.possibleCastlings();
+    // not playing with en passant
+    resultFEN += " -";
+    // how many halfmoves
+    int length = gm.getHistory().size();
+    resultFEN += " " + length;
+    // full turns
+    resultFEN += " " + ((int) length / 2 + 1);
+
+    return resultFEN;
   }
 }
