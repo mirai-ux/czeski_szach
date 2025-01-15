@@ -26,20 +26,26 @@ public class BoardController {
   private List<List<Integer>> possibleMovesForController;
   private List<Figure> AllFiguresForController;
 
+  List<List<Pane>> tileList = new ArrayList<>();
+  int tileSize = 60;
 
   @FXML
   private GridPane chessBoard;
 
-  private final String[][] initialPositions = {
-      { "b_rook", "b_knight", "b_bishop", "b_queen", "b_king", "b_bishop", "b_knight", "b_rook" }, // Black pieces
-      { "b_pawn", "b_pawn", "b_pawn", "b_pawn", "b_pawn", "b_pawn", "b_pawn", "b_pawn" }, // Black pawns
-      { null, null, null, null, null, null, null, null }, // Empty row
-      { null, null, null, null, null, null, null, null }, // Empty row
-      { null, null, null, null, null, null, null, null }, // Empty row
-      { null, null, null, null, null, null, null, null }, // Empty row
-      { "w_pawn", "w_pawn", "w_pawn", "w_pawn", "w_pawn", "w_pawn", "w_pawn", "w_pawn" }, // White pawns
-      { "w_rook", "w_knight", "w_bishop", "w_queen", "w_king", "w_bishop", "w_knight", "w_rook" } // White pieces
-  };
+  // private final String[][] initialPositions = {
+  // { "b_rook", "b_knight", "b_bishop", "b_queen", "b_king", "b_bishop",
+  // "b_knight", "b_rook" }, // Black pieces
+  // { "b_pawn", "b_pawn", "b_pawn", "b_pawn", "b_pawn", "b_pawn", "b_pawn",
+  // "b_pawn" }, // Black pawns
+  // { null, null, null, null, null, null, null, null }, // Empty row
+  // { null, null, null, null, null, null, null, null }, // Empty row
+  // { null, null, null, null, null, null, null, null }, // Empty row
+  // { null, null, null, null, null, null, null, null }, // Empty row
+  // { "w_pawn", "w_pawn", "w_pawn", "w_pawn", "w_pawn", "w_pawn", "w_pawn",
+  // "w_pawn" }, // White pawns
+  // { "w_rook", "w_knight", "w_bishop", "w_queen", "w_king", "w_bishop",
+  // "w_knight", "w_rook" } // White pieces
+  // };
 
   public void initialize() {
     gm = new GM();
@@ -47,64 +53,65 @@ public class BoardController {
     possibleMovesForController = gm.getMoves();
     AllFiguresForController = gm.getFigures();
 
-    int tileSize = 60;
     for (int row = 0; row < 8; row++) {
+      List<Pane> tileListRow = new ArrayList<>();
       for (int col = 0; col < 8; col++) {
         Pane tile = new Pane();
-        tile.setPrefSize(tileSize, tileSize);
-        String color = (row + col) % 2 == 0 ? "white" : "black";
-        tile.setStyle("-fx-background-color: " + color + ";");
+        tileListRow.add(tile);
 
-        // Image w_king = new Image("pieces/w_king.png");
-        // ImageView piece = new ImageView(w_king);
-        if (initialPositions[row][col] != null) {
+        tile.setPrefSize(tileSize, tileSize);
+        String tileColor = (row + col) % 2 == 0 ? "rgba(235, 236, 208, 1)" : "rgba(115, 149, 82, 1)";
+        tile.setStyle("-fx-background-color: " + tileColor + ";");
+
+        if (gm.getPieceAt(col, row) != null) {
           ImageView piece = new ImageView();
-          switch (initialPositions[row][col]) {
-            case "w_king":
+          char pieceFEN = gm.getPieceAt(col, row).getFENName();
+          switch (pieceFEN) {
+            case 'K':
               Image w_king = new Image("pieces/w_king.png");
               piece.setImage(w_king);
               break;
-            case "w_queen":
+            case 'Q':
               Image w_queen = new Image("pieces/w_queen.png");
               piece.setImage(w_queen);
               break;
-            case "w_bishop":
+            case 'B':
               Image w_bishop = new Image("pieces/w_bishop.png");
               piece.setImage(w_bishop);
               break;
-            case "w_knight":
+            case 'N':
               Image w_knight = new Image("pieces/w_knight.png");
               piece.setImage(w_knight);
               break;
-            case "w_rook":
+            case 'R':
               Image w_rook = new Image("pieces/w_rook.png");
               piece.setImage(w_rook);
               break;
-            case "w_pawn":
+            case 'P':
               Image w_pawn = new Image("pieces/w_pawn.png");
               piece.setImage(w_pawn);
               break;
-            case "b_king":
+            case 'k':
               Image b_king = new Image("pieces/b_king.png");
               piece.setImage(b_king);
               break;
-            case "b_queen":
+            case 'q':
               Image b_queen = new Image("pieces/b_queen.png");
               piece.setImage(b_queen);
               break;
-            case "b_bishop":
+            case 'b':
               Image b_bishop = new Image("pieces/b_bishop.png");
               piece.setImage(b_bishop);
               break;
-            case "b_knight":
+            case 'n':
               Image b_knight = new Image("pieces/b_knight.png");
               piece.setImage(b_knight);
               break;
-            case "b_rook":
+            case 'r':
               Image b_rook = new Image("pieces/b_rook.png");
               piece.setImage(b_rook);
               break;
-            case "b_pawn":
+            case 'p':
               Image b_pawn = new Image("pieces/b_pawn.png");
               piece.setImage(b_pawn);
               break;
@@ -112,20 +119,91 @@ public class BoardController {
               break;
           }
           ;
+
           tile.getChildren().add(piece);
+
           piece.setFitWidth(tileSize);
           piece.setFitHeight(tileSize);
-          // Label piece = new Label(initialPositions[row][col]);
-          // piece.setFont(new Font(60)); // Adjust font size for visibility
-          // piece.setStyle("-fx-text-fill: " + (color.equals("white") ? "black" :
-          // "white") + ";");
-          // tile.getChildren().add(piece);
-          // piece.setLayoutX((tileSize - 60) / 2.0); // Center horizontally
-          // piece.setLayoutY((tileSize - 60) / 4.0); // Center vertically
+          piece.setPickOnBounds(true);
+
+          final int rowIndex = row;
+          final int colIndex = col;
+
+          piece.setOnMouseClicked(event -> {
+            showPossibilities(colIndex, rowIndex);
+          });
         }
 
         chessBoard.add(tile, col, row);
       }
+
+      tileList.add(tileListRow);
     }
+  }
+
+  private List<Pane> currentIndicators = new ArrayList<>();
+
+  public void showPossibilities(int x, int y) {
+    int moveSize = 25;
+    int attackSize = 70;
+
+    clearIndicators();
+
+    String moveStyle = "-fx-background-color: rgba(0, 0, 0, 0.25); " +
+        "-fx-background-radius: 50%; " +
+        "-fx-background-insets: 25%;";
+    String attackStyle = "-fx-background-color: transparent; " +
+        "-fx-border-color: rgba(0, 0, 0, 0.25); " +
+        "-fx-border-width: 5px; " +
+        "-fx-border-radius: 50%;";
+    String positionStyleModifier = (x + y) % 2 == 0 ? "rgba(245, 246, 129, 1)" : "rgba(185, 202, 66, 1)";
+    String positionStyle = "-fx-background-color: " + positionStyleModifier;
+
+    for (int i = 0; i < 7; i++) {
+      for (int j = 0; j < 7; j++) {
+        Pane tile = tileList.get(j).get(i);
+        Pane indicator = new Pane();
+
+        switch (gm.getPossibilities(x, y).get(j).get(i)) {
+          // returns 69 if piece cant move there
+          // 1 if can move there
+          // 2 if can attack there
+          // 3 states where is the figure
+          case 1:
+            indicator.setPrefSize(moveSize, moveSize);
+            indicator.setLayoutX((tileSize - moveSize) / 2);
+            indicator.setLayoutY((tileSize - moveSize) / 2);
+            indicator.setStyle(moveStyle);
+            tile.getChildren().add(indicator);
+            currentIndicators.add(indicator);
+            break;
+          case 2:
+            indicator.setPrefSize(attackSize, attackSize);
+            indicator.setLayoutX((tileSize - attackSize) / 2);
+            indicator.setLayoutY((tileSize - attackSize) / 2);
+            indicator.setStyle(attackStyle);
+            tile.getChildren().add(indicator);
+            currentIndicators.add(indicator);
+            break;
+          case 3:
+            indicator.setPrefSize(tileSize, tileSize);
+            indicator.setStyle(positionStyle);
+            tile.getChildren().add(0, indicator);
+            currentIndicators.add(indicator);
+          default:
+            break;
+        }
+      }
+    }
+  }
+
+  private void clearIndicators() {
+    for (Pane indicator : currentIndicators) {
+      Pane parent = (Pane) indicator.getParent();
+      if (parent != null) {
+        parent.getChildren().remove(indicator);
+      }
+    }
+    currentIndicators.clear();
   }
 }
