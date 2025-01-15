@@ -4,9 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane id="mainStage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BoardController">
     <top>
@@ -17,13 +20,18 @@
 
     <center>
         <GridPane fx:id="chessBoard" alignment="CENTER" style="-fx-padding: 10;">
-            <!-- Chessboard tiles will be dynamically added in the controller -->
-        </GridPane>
+         <columnConstraints>
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints></GridPane>
     </center>
 
     <right>
         <VBox alignment="CENTER" prefHeight="642.0" prefWidth="196.0" spacing="10" style="-fx-padding: 10;">
          <ScrollPane fx:id="moveListPane" hbarPolicy="NEVER" prefHeight="563.0" prefWidth="176.0" />
+         <Text fx:id="turnText" strokeType="OUTSIDE" strokeWidth="0.0" text="walter" />
          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
             <children>
                   <Button fx:id="newGameButton" prefHeight="50.0" prefWidth="50.0" text="flag" />

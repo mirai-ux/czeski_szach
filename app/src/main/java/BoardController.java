@@ -141,6 +141,10 @@ public class BoardController {
     }
   }
 
+  public void turn() {
+    private Text turnText;
+  }
+
   private List<Pane> currentIndicators = new ArrayList<>();
 
   private int lastX = -1; // -1 is an unobtainable xy value so it is used as default
@@ -161,6 +165,7 @@ public class BoardController {
     lastY = y;
 
     clearIndicators();
+    System.out.println(gm.getPossibilities(x, y));
 
     String moveStyle = "-fx-background-color: rgba(0, 0, 0, 0.25); " +
         "-fx-background-radius: 50%; " +
