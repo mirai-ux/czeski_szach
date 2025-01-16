@@ -8,7 +8,6 @@ import javafx.scene.layout.Pane;
 // import javafx.scene.text.Font;
 // import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 // import javafx.scene.layout.Pane;
 // import javafx.stage.Stage;
 // import javafx.fxml.FXMLLoader;
@@ -19,7 +18,7 @@ import java.util.*;
 public class BoardController {
   private GameManager.GM gm = new GameManager.GM();
 
-  private ImageView selectedPiece = null;
+  private LessStupidImageView selectedPiece = null;
 
   List<List<Pane>> tileList = new ArrayList<>();
   int tileSize = 60;
@@ -101,15 +100,15 @@ public class BoardController {
           piece.setFitHeight(tileSize);
           piece.setPickOnBounds(true);
 
-          piece.setTileX(row);
-          piece.setTileY(col);
+          piece.setTileX(col);
+          piece.setTileY(row);
 
           final int rowIndex = row;
           final int colIndex = col;
 
           piece.setOnMouseClicked(event -> {
             selectedPiece = piece;
-            displayPossibilities(piece.getTileX(), piece.getTileX());
+            displayPossibilities(piece.getTileX(), piece.getTileY());
           });
         }
 
@@ -163,6 +162,9 @@ public class BoardController {
             tile.setOnMouseClicked(event -> {
               gm.selectDestination(iIndex, jIndex);
               displayMove(tile, tileList.get(jIndex).get(iIndex));
+              selectedPiece.setTileX(jIndex);
+              selectedPiece.setTileY(iIndex);
+
               // System.out.println(gm.getPossibilities(x, y));
               clearIndicators();
             });
@@ -178,6 +180,8 @@ public class BoardController {
             // attack
             tile.setOnMouseClicked(event -> {
               gm.selectDestination(iIndex, jIndex);
+              selectedPiece.setTileX(jIndex);
+              selectedPiece.setTileY(iIndex);
               clearIndicators();
             });
             break;
@@ -186,6 +190,7 @@ public class BoardController {
             indicator.setStyle(positionStyle);
             tile.getChildren().add(0, indicator); // the zero adds it as the 0th index to not display above the pieces
             currentIndicators.add(indicator);
+
             tile.setOnMouseClicked(event -> {
               clearIndicators();
             });
