@@ -147,6 +147,10 @@ public class BoardController {
     int moveSize = 25;
     int attackSize = 70;
 
+    System.out.println( gm.getPieceAt(x, y).getFENName() );
+    Helpers helper = new Helpers();
+    helper.printArray8x8( gm.getPossibilities(x, y) );
+
     clearIndicators();
 
     String moveStyle = "-fx-background-color: rgba(0, 0, 0, 0.25); " +
