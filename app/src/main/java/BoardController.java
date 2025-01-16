@@ -14,16 +14,12 @@ import javafx.scene.image.ImageView;
 // import javafx.fxml.FXMLLoader;
 // import javafx.scene.Scene;
 // import java.io.IOException;
-
 import java.util.*;
-
-import Figures.*;
 
 public class BoardController {
   private GameManager.GM gm = new GameManager.GM();
-  private List<List<Integer>> boardForController;
-  private List<List<Integer>> possibleMovesForController;
-  private List<Figure> AllFiguresForController;
+
+  private ImageView selectedPiece = null;
 
   List<List<Pane>> tileList = new ArrayList<>();
   int tileSize = 60;
@@ -109,7 +105,8 @@ public class BoardController {
           final int colIndex = col;
 
           piece.setOnMouseClicked(event -> {
-            showPossibilities(colIndex, rowIndex);
+            selectedPiece = piece;
+            displayPossibilities(colIndex, rowIndex);
           });
         }
 
@@ -122,12 +119,11 @@ public class BoardController {
 
   private List<Pane> currentIndicators = new ArrayList<>();
 
-  public void showPossibilities(int x, int y) {
+  public void displayPossibilities(int x, int y) {
     int moveSize = 25;
     int attackSize = 70;
 
     clearIndicators();
-    System.out.println(gm.getPossibilities(x, y));
 
     String moveStyle = "-fx-background-color: rgba(0, 0, 0, 0.25); " +
         "-fx-background-radius: 50%; " +
@@ -160,9 +156,11 @@ public class BoardController {
             tile.getChildren().add(indicator);
             currentIndicators.add(indicator);
 
-            // attack
+            // move
             tile.setOnMouseClicked(event -> {
               gm.selectDestination(iIndex, jIndex);
+              displayMove(tile, tileList.get(jIndex).get(iIndex));
+              // System.out.println(gm.getPossibilities(x, y));
               clearIndicators();
             });
             break;
@@ -204,5 +202,10 @@ public class BoardController {
       }
     }
     currentIndicators.clear();
+  }
+
+  private void displayMove(Pane sourceTile, Pane destinationTile) {
+    sourceTile.getChildren().remove(selectedPiece);
+    destinationTile.getChildren().add(selectedPiece);
   }
 }

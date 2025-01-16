@@ -33,6 +33,7 @@ public class GM {
   // getPossibilities( xPola, yPola )
   public List<List<Integer>> getPossibilities(int x_, int y_) {
     selectedPiece = getPieceAt(x_, y_);
+
     possibleMoves = selectedPiece.getPossibleMoves(this);
     piecePosition = "" + (char) (x_ + 97) + (8 - y_);
     move.setStart(piecePosition);
