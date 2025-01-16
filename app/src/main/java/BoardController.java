@@ -39,7 +39,7 @@ public class BoardController {
         tile.setStyle("-fx-background-color: " + tileColor + ";");
 
         if (gm.getPieceAt(col, row) != null) {
-          ImageView piece = new ImageView();
+          LessStupidImageView piece = new LessStupidImageView();
           char pieceFEN = gm.getPieceAt(col, row).getFENName();
           switch (pieceFEN) {
             case 'K':
@@ -101,12 +101,15 @@ public class BoardController {
           piece.setFitHeight(tileSize);
           piece.setPickOnBounds(true);
 
+          piece.setTileX(row);
+          piece.setTileY(col);
+
           final int rowIndex = row;
           final int colIndex = col;
 
           piece.setOnMouseClicked(event -> {
             selectedPiece = piece;
-            displayPossibilities(colIndex, rowIndex);
+            displayPossibilities(piece.getTileX(), piece.getTileX());
           });
         }
 
