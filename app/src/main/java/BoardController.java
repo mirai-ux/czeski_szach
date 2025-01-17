@@ -1,6 +1,7 @@
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.Node;
 // import javafx.event.ActionEvent;
 // import javafx.fxml.FXML;
 // import javafx.scene.control.Button;
@@ -124,6 +125,8 @@ public class BoardController {
   public void displayPossibilities(int x, int y) {
     int moveSize = 25;
     int attackSize = 70;
+    System.out.println("x = " + x);
+    System.out.println("y = " + y);
 
     clearIndicators();
 
@@ -136,6 +139,8 @@ public class BoardController {
         "-fx-border-radius: 50%;";
     String positionStyleModifier = (x + y) % 2 == 0 ? "rgba(245, 246, 129, 1)" : "rgba(185, 202, 66, 1)";
     String positionStyle = "-fx-background-color: " + positionStyleModifier;
+
+    System.out.println(gm.getPossibilities(x, y));
 
     for (int i = 0; i < 7; i++) {
       for (int j = 0; j < 7; j++) {
@@ -160,13 +165,9 @@ public class BoardController {
 
             // move
             tile.setOnMouseClicked(event -> {
-              gm.selectDestination(iIndex, jIndex);
-              displayMove(tile, tileList.get(jIndex).get(iIndex));
-              selectedPiece.setTileX(jIndex);
-              selectedPiece.setTileY(iIndex);
-
-              // System.out.println(gm.getPossibilities(x, y));
-              clearIndicators();
+              displayMove(tileList.get(y).get(x), iIndex, jIndex); // Move piece
+              gm.selectDestination(iIndex, jIndex); // Update logical board
+              clearIndicators(); // Remove highlights
             });
             break;
           case 2:
@@ -179,10 +180,6 @@ public class BoardController {
 
             // attack
             tile.setOnMouseClicked(event -> {
-              gm.selectDestination(iIndex, jIndex);
-              selectedPiece.setTileX(jIndex);
-              selectedPiece.setTileY(iIndex);
-              clearIndicators();
             });
             break;
           case 3:
@@ -212,8 +209,12 @@ public class BoardController {
     currentIndicators.clear();
   }
 
-  private void displayMove(Pane sourceTile, Pane destinationTile) {
+  private void displayMove(Pane sourceTile, int xDest, int yDest) {
     sourceTile.getChildren().remove(selectedPiece);
-    destinationTile.getChildren().add(selectedPiece);
+    tileList.get(yDest).get(xDest).getChildren().add(selectedPiece);
+
+    selectedPiece.setTileX(xDest);
+    selectedPiece.setTileY(yDest);
+    selectedPiece = null;
   }
 }

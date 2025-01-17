@@ -163,7 +163,7 @@ public class GM {
     board.get(yDest).set(xDest, currentID);
 
     System.out.println("Move: " + move);
-    helper.printArray8x8(board);
+    // helper.printArray8x8(board);
   }
 
   public String possibleCastlings() {
