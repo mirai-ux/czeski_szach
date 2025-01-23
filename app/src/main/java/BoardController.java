@@ -145,10 +145,10 @@ public class BoardController {
 
     // System.out.println("Before move | getBoard");
     // printListOfLists(gm.getBoard());
-    printListOfLists(gm.getMoves());
+    // printListOfLists(gm.getMoves());
 
-    for (int i = 0; i < 7; i++) {
-      for (int j = 0; j < 7; j++) {
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
         Pane tile = tileList.get(j).get(i);
         Pane indicator = new Pane();
 
@@ -169,7 +169,7 @@ public class BoardController {
             currentIndicators.add(indicator);
 
             // move
-            tile.setOnMouseClicked(event -> {
+            indicator.setOnMouseClicked(event -> {
               displayMove(tileList.get(y).get(x), iIndex, jIndex);
               gm.selectDestination(iIndex, jIndex);
               clearIndicators();
@@ -182,7 +182,7 @@ public class BoardController {
 
               // System.out.println("After move | getBoard");
               // printListOfLists(gm.getBoard());
-              printListOfLists(gm.getMoves());
+              // printListOfLists(gm.getMoves());
             });
             break;
           case 2:
@@ -194,7 +194,7 @@ public class BoardController {
             currentIndicators.add(indicator);
 
             // attack
-            tile.setOnMouseClicked(event -> {
+            indicator.setOnMouseClicked(event -> {
             });
             break;
           case 3:
@@ -203,7 +203,7 @@ public class BoardController {
             tile.getChildren().add(0, indicator); // the zero adds it as the 0th index to not display above the pieces
             currentIndicators.add(indicator);
 
-            tile.setOnMouseClicked(event -> {
+            indicator.setOnMouseClicked(event -> {
               clearIndicators();
             });
             break;
@@ -213,6 +213,14 @@ public class BoardController {
       }
     }
   }
+
+  // private void clearIndicators() {
+  // int index = 0;
+  // while (currentIndicatorParents.size() != 0) {
+  // currentIndicatorParents.get(index).getChildren().removeAll();
+  // }
+  // currentIndicatorParents.clear();
+  // }
 
   private void clearIndicators() {
     for (Pane indicator : currentIndicators) {
@@ -236,7 +244,7 @@ public class BoardController {
   public static void printListOfLists(List<List<Integer>> list) {
     for (List<Integer> row : list) {
       for (int num : row) {
-        System.out.print(num + " ");
+        System.out.print(num + "\t");
       }
       System.out.println();
     }
