@@ -130,6 +130,10 @@ public class GM {
     return AllFigures;
   }
 
+  public void setTurn(boolean isTurnWhiteIndex) {
+    isTurnWhite = isTurnWhiteIndex;
+  }
+
   public boolean getTurn() {
     return isTurnWhite;
   }

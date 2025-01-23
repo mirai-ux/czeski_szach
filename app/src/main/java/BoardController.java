@@ -19,6 +19,8 @@ import java.util.*;
 public class BoardController {
   private GameManager.GM gm = new GameManager.GM();
 
+  int turnCount = 0;
+
   private List<LessStupidImageView> currentFigures = new ArrayList<>();
   private List<Pane> currentIndicators = new ArrayList<>();
 
@@ -48,50 +50,62 @@ public class BoardController {
             case 'K':
               Image w_king = new Image("pieces/w_king.png");
               piece.setImage(w_king);
+              piece.setTeam(true);
               break;
             case 'Q':
               Image w_queen = new Image("pieces/w_queen.png");
               piece.setImage(w_queen);
+              piece.setTeam(true);
               break;
             case 'B':
               Image w_bishop = new Image("pieces/w_bishop.png");
               piece.setImage(w_bishop);
+              piece.setTeam(true);
               break;
             case 'N':
               Image w_knight = new Image("pieces/w_knight.png");
               piece.setImage(w_knight);
+              piece.setTeam(true);
               break;
             case 'R':
               Image w_rook = new Image("pieces/w_rook.png");
               piece.setImage(w_rook);
+              piece.setTeam(true);
               break;
             case 'P':
               Image w_pawn = new Image("pieces/w_pawn.png");
               piece.setImage(w_pawn);
+              piece.setTeam(true);
               break;
             case 'k':
               Image b_king = new Image("pieces/b_king.png");
               piece.setImage(b_king);
+              piece.setTeam(false);
               break;
             case 'q':
               Image b_queen = new Image("pieces/b_queen.png");
               piece.setImage(b_queen);
+              piece.setTeam(false);
               break;
             case 'b':
               Image b_bishop = new Image("pieces/b_bishop.png");
               piece.setImage(b_bishop);
+              piece.setTeam(false);
               break;
             case 'n':
               Image b_knight = new Image("pieces/b_knight.png");
               piece.setImage(b_knight);
+              piece.setTeam(false);
               break;
             case 'r':
               Image b_rook = new Image("pieces/b_rook.png");
               piece.setImage(b_rook);
+              piece.setTeam(false);
               break;
             case 'p':
               Image b_pawn = new Image("pieces/b_pawn.png");
               piece.setImage(b_pawn);
+              piece.setTeam(false);
               break;
             default:
               break;
@@ -109,10 +123,22 @@ public class BoardController {
 
           currentFigures.add(piece);
 
-          piece.setOnMouseClicked(event -> {
-            selectedPiece = piece;
-            displayPossibilities(piece.getTileX(), piece.getTileY());
-          });
+          // White
+          if (piece.getTeam()) {
+            piece.setOnMouseClicked(event -> {
+              if (gm.getTurn()) {
+                selectedPiece = piece;
+                displayPossibilities(piece.getTileX(), piece.getTileY());
+              }
+            });
+          } else {
+            piece.setOnMouseClicked(event -> {
+              if (!gm.getTurn()) {
+                selectedPiece = piece;
+                displayPossibilities(piece.getTileX(), piece.getTileY());
+              }
+            });
+          }
         }
 
         chessBoard.add(tile, col, row);
@@ -120,6 +146,21 @@ public class BoardController {
 
       tileList.add(tileListRow);
     }
+
+    turn();
+  }
+
+  public void turn() {
+    if (turnCount % 2 == 0) {
+      gm.setTurn(true); // White
+    } else {
+      gm.setTurn(false); // Black
+    }
+
+    turnCount++;
+    System.out.println("##############");
+    System.out.println("  Turn no. " + turnCount);
+    System.out.println("##############");
   }
 
   public void displayPossibilities(int x, int y) {
@@ -172,17 +213,13 @@ public class BoardController {
             indicator.setOnMouseClicked(event -> {
               displayMove(tileList.get(y).get(x), iIndex, jIndex);
               gm.selectDestination(iIndex, jIndex);
+              turn();
               clearIndicators();
 
-              System.out.println("iIndex = " + iIndex);
-              System.out.println("jIndex = " + jIndex);
-
-              System.out.println("After move | getPossibilities");
-              printListOfLists(gm.getPossibilities(iIndex, jIndex));
-
-              // System.out.println("After move | getBoard");
-              // printListOfLists(gm.getBoard());
-              // printListOfLists(gm.getMoves());
+              // System.out.println("iIndex = " + iIndex);
+              // System.out.println("jIndex = " + jIndex);
+              // System.out.println("After move | getPossibilities");
+              // printListOfLists(gm.getPossibilities(iIndex, jIndex));
             });
             break;
           case 2:
@@ -197,6 +234,7 @@ public class BoardController {
             indicator.setOnMouseClicked(event -> {
               displayCapture(tileList.get(y).get(x), iIndex, jIndex);
               gm.selectDestination(iIndex, jIndex);
+              turn();
               clearIndicators();
             });
             break;
@@ -226,14 +264,6 @@ public class BoardController {
       }
     }
   }
-
-  // private void clearIndicators() {
-  // int index = 0;
-  // while (currentIndicatorParents.size() != 0) {
-  // currentIndicatorParents.get(index).getChildren().removeAll();
-  // }
-  // currentIndicatorParents.clear();
-  // }
 
   private void clearIndicators() {
     for (Pane indicator : currentIndicators) {
