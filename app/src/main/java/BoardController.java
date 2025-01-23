@@ -140,7 +140,12 @@ public class BoardController {
     String positionStyleModifier = (x + y) % 2 == 0 ? "rgba(245, 246, 129, 1)" : "rgba(185, 202, 66, 1)";
     String positionStyle = "-fx-background-color: " + positionStyleModifier;
 
-    System.out.println(gm.getPossibilities(x, y));
+    System.out.println("Before move");
+    printListOfLists(gm.getPossibilities(x, y));
+
+    // System.out.println("Before move | getBoard");
+    // printListOfLists(gm.getBoard());
+    printListOfLists(gm.getMoves());
 
     for (int i = 0; i < 7; i++) {
       for (int j = 0; j < 7; j++) {
@@ -165,9 +170,19 @@ public class BoardController {
 
             // move
             tile.setOnMouseClicked(event -> {
-              displayMove(tileList.get(y).get(x), iIndex, jIndex); // Move piece
-              gm.selectDestination(iIndex, jIndex); // Update logical board
-              clearIndicators(); // Remove highlights
+              displayMove(tileList.get(y).get(x), iIndex, jIndex);
+              gm.selectDestination(iIndex, jIndex);
+              clearIndicators();
+
+              System.out.println("iIndex = " + iIndex);
+              System.out.println("jIndex = " + jIndex);
+
+              System.out.println("After move | getPossibilities");
+              printListOfLists(gm.getPossibilities(iIndex, jIndex));
+
+              // System.out.println("After move | getBoard");
+              // printListOfLists(gm.getBoard());
+              printListOfLists(gm.getMoves());
             });
             break;
           case 2:
@@ -216,5 +231,14 @@ public class BoardController {
     selectedPiece.setTileX(xDest);
     selectedPiece.setTileY(yDest);
     selectedPiece = null;
+  }
+
+  public static void printListOfLists(List<List<Integer>> list) {
+    for (List<Integer> row : list) {
+      for (int num : row) {
+        System.out.print(num + " ");
+      }
+      System.out.println();
+    }
   }
 }
