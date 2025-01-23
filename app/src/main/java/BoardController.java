@@ -19,6 +19,9 @@ import java.util.*;
 public class BoardController {
   private GameManager.GM gm = new GameManager.GM();
 
+  private List<LessStupidImageView> currentFigures = new ArrayList<>();
+  private List<Pane> currentIndicators = new ArrayList<>();
+
   private LessStupidImageView selectedPiece = null;
 
   List<List<Pane>> tileList = new ArrayList<>();
@@ -104,8 +107,7 @@ public class BoardController {
           piece.setTileX(col);
           piece.setTileY(row);
 
-          final int rowIndex = row;
-          final int colIndex = col;
+          currentFigures.add(piece);
 
           piece.setOnMouseClicked(event -> {
             selectedPiece = piece;
@@ -120,11 +122,9 @@ public class BoardController {
     }
   }
 
-  private List<Pane> currentIndicators = new ArrayList<>();
-
   public void displayPossibilities(int x, int y) {
     int moveSize = 25;
-    int attackSize = 70;
+    int captureSize = 70;
     System.out.println("x = " + x);
     System.out.println("y = " + y);
 
@@ -133,7 +133,7 @@ public class BoardController {
     String moveStyle = "-fx-background-color: rgba(0, 0, 0, 0.25); " +
         "-fx-background-radius: 50%; " +
         "-fx-background-insets: 25%;";
-    String attackStyle = "-fx-background-color: transparent; " +
+    String captureStyle = "-fx-background-color: transparent; " +
         "-fx-border-color: rgba(0, 0, 0, 0.25); " +
         "-fx-border-width: 5px; " +
         "-fx-border-radius: 50%;";
@@ -186,24 +186,37 @@ public class BoardController {
             });
             break;
           case 2:
-            indicator.setPrefSize(attackSize, attackSize);
-            indicator.setLayoutX((tileSize - attackSize) / 2);
-            indicator.setLayoutY((tileSize - attackSize) / 2);
-            indicator.setStyle(attackStyle);
+            indicator.setPrefSize(captureSize, captureSize);
+            indicator.setLayoutX((tileSize - captureSize) / 2);
+            indicator.setLayoutY((tileSize - captureSize) / 2);
+            indicator.setStyle(captureStyle);
             tile.getChildren().add(indicator);
             currentIndicators.add(indicator);
 
-            // attack
+            // capture
             indicator.setOnMouseClicked(event -> {
+              displayCapture(tileList.get(y).get(x), iIndex, jIndex);
+              gm.selectDestination(iIndex, jIndex);
+              clearIndicators();
             });
             break;
           case 3:
+            // this Pane has no css attached to it, it just sits on top op the
+            // figure so that you can deselect it while still preserving the
+            // easy to click hitboxes of the figures and the background change
+            Pane deselectIndicator = new Pane();
+
+            deselectIndicator.setPrefSize(tileSize, tileSize);
+            tile.getChildren().add(deselectIndicator);
+            currentIndicators.add(deselectIndicator);
+
             indicator.setPrefSize(tileSize, tileSize);
             indicator.setStyle(positionStyle);
             tile.getChildren().add(0, indicator); // the zero adds it as the 0th index to not display above the pieces
             currentIndicators.add(indicator);
 
-            indicator.setOnMouseClicked(event -> {
+            deselectIndicator.setOnMouseClicked(event -> {
+              System.out.println("succ");
               clearIndicators();
             });
             break;
@@ -234,11 +247,31 @@ public class BoardController {
 
   private void displayMove(Pane sourceTile, int xDest, int yDest) {
     sourceTile.getChildren().remove(selectedPiece);
+
     tileList.get(yDest).get(xDest).getChildren().add(selectedPiece);
 
     selectedPiece.setTileX(xDest);
     selectedPiece.setTileY(yDest);
     selectedPiece = null;
+  }
+
+  private void displayCapture(Pane sourceTile, int xDest, int yDest) {
+    for (int index = 0; index < currentFigures.size(); index++) {
+      if ((currentFigures.get(index).getTileX() == xDest) && (currentFigures.get(index).getTileY() == yDest)) {
+        tileList.get(yDest).get(xDest).getChildren().remove(currentFigures.get(index));
+        currentFigures.remove(index);
+      }
+    }
+
+    // rest of the logic is same as displayMove
+    sourceTile.getChildren().remove(selectedPiece);
+
+    tileList.get(yDest).get(xDest).getChildren().add(selectedPiece);
+
+    selectedPiece.setTileX(xDest);
+    selectedPiece.setTileY(yDest);
+    selectedPiece = null;
+
   }
 
   public static void printListOfLists(List<List<Integer>> list) {

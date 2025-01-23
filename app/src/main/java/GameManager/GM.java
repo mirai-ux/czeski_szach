@@ -158,15 +158,15 @@ public class GM {
     // System.out.println( "Dest: ( " + xDest + ", " + yDest + " ).");
 
     Figure poorFigure = getPieceAt(xDest, yDest);
-    if( poorFigure != null)
+    if (poorFigure != null)
       poorFigure.setActivity(false);
-      
+
     board.get(yPos).set(xPos, 69);
     board.get(yDest).set(xDest, currentID);
 
     System.out.println("Move: " + move);
 
-    selectedPiece.setPosition( xDest, yDest );
+    selectedPiece.setPosition(xDest, yDest);
 
     // helper.printArray8x8(board);
   }
