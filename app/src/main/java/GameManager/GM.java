@@ -33,6 +33,7 @@ public class GM {
   // getPossibilities( xPola, yPola )
   public List<List<Integer>> getPossibilities(int x_, int y_) {
     selectedPiece = getPieceAt(x_, y_);
+
     possibleMoves = selectedPiece.getPossibleMoves(this);
     piecePosition = "" + (char) (x_ + 97) + (8 - y_);
     move.setStart(piecePosition);
@@ -129,6 +130,10 @@ public class GM {
     return AllFigures;
   }
 
+  public void setTurn(boolean isTurnWhiteIndex) {
+    isTurnWhite = isTurnWhiteIndex;
+  }
+
   public boolean getTurn() {
     return isTurnWhite;
   }
@@ -157,9 +162,17 @@ public class GM {
     // System.out.println( "Dest: ( " + xDest + ", " + yDest + " ).");
 
     Figure poorFigure = getPieceAt(xDest, yDest);
-    poorFigure.setActivity(false);
+    if (poorFigure != null)
+      poorFigure.setActivity(false);
+
     board.get(yPos).set(xPos, 69);
     board.get(yDest).set(xDest, currentID);
+
+    System.out.println("Move: " + move);
+
+    selectedPiece.setPosition(xDest, yDest);
+
+    // helper.printArray8x8(board);
   }
 
   public String possibleCastlings() {
