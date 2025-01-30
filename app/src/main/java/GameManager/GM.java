@@ -122,6 +122,19 @@ public class GM {
     return board;
   }
 
+  public List< String > getNiceHistoryForMrWithRustyHair(){
+    List <String> hist = new ArrayList<String>();
+    
+    for( Move m : history)
+      hist.add( m.toString() );
+
+    return hist;
+  }
+
+  public String getNiceLastMove(){
+    return history.getLast().toString();
+  }
+
   public List<List<Integer>> getMoves() {
     return possibleMoves;
   }

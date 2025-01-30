@@ -20,4 +20,9 @@ public class Move {
 
     public void setStart( String s ){ start = s; }
     public void setStop( String s ){ stop = s; }
+
+    @Override
+    public String toString(){
+        return start+stop;
+    }
 }

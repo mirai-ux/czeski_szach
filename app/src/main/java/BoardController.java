@@ -170,9 +170,9 @@ public class BoardController {
     System.out.println("x = " + x);
     System.out.println("y = " + y);
 
-    System.out.println( gm.getPieceAt(x, y).getFENName() );
-    Helpers helper = new Helpers();
-    helper.printArray8x8( gm.getPossibilities(x, y) );
+    // System.out.println( gm.getPieceAt(x, y).getFENName() );
+    // Helpers helper = new Helpers();
+    // helper.printArray8x8( gm.getPossibilities(x, y) );
 
     clearIndicators();
 
