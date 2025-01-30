@@ -160,6 +160,7 @@ public class BoardController {
     turnCount++;
     System.out.println("##############");
     System.out.println("  Turn no. " + turnCount);
+    System.out.println(" History: \n" + gm.getHistory());
     System.out.println("##############");
   }
 
@@ -181,8 +182,8 @@ public class BoardController {
     String positionStyleModifier = (x + y) % 2 == 0 ? "rgba(245, 246, 129, 1)" : "rgba(185, 202, 66, 1)";
     String positionStyle = "-fx-background-color: " + positionStyleModifier;
 
-    System.out.println("Before move");
-    printListOfLists(gm.getPossibilities(x, y));
+    // System.out.println("Before move");
+    // printListOfLists(gm.getPossibilities(x, y));
 
     // System.out.println("Before move | getBoard");
     // printListOfLists(gm.getBoard());
@@ -254,7 +255,7 @@ public class BoardController {
             currentIndicators.add(indicator);
 
             deselectIndicator.setOnMouseClicked(event -> {
-              System.out.println("succ");
+              // System.out.println("succ");
               clearIndicators();
             });
             break;
