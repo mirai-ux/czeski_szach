@@ -8,7 +8,7 @@
 
 <AnchorPane style="-fx-background-color: rgba(40, 40, 40, 1);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HistoryController">
    <children>
-      <ScrollPane fx:id="historyScrollPane" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.13" prefHeight="557.0" prefWidth="182.0" style="-fx-background-color: rgba(40, 40, 40, 1);" vbarPolicy="ALWAYS">
+      <ScrollPane fx:id="historyScrollPane" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="182.0" style="-fx-background: transparent;">
          <content>
             <GridPane fx:id="historyGridPane" prefHeight="39.0" prefWidth="182.0">
                <columnConstraints>

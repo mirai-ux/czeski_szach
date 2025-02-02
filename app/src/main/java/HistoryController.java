@@ -1,5 +1,6 @@
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Label;
@@ -36,10 +37,6 @@ public class HistoryController extends TurnAbstract {
   // }
 
   public void displayMoveHistory(String move) {
-    Label turnCountLabel = new Label((fullTurn) + ".");
-    Label whiteMoveLabel = new Label(move);
-    Label blackMoveLabel = new Label(move);
-    turnCountLabel.col
     // modulo to receive the specific types, not sure if necessary to store them
     // moveHistory.add(turnCountLabel);
     // moveHistory.add(whiteMoveLabel);
@@ -51,12 +48,22 @@ public class HistoryController extends TurnAbstract {
 
     switch (columnIndex) {
       case 1:
+        Label turnCountLabel = new Label((fullTurn) + ".");
+        Label whiteMoveLabel = new Label(move);
+        turnCountLabel.setTextFill(Color.BEIGE);
+        whiteMoveLabel.setTextFill(Color.BEIGE);
+
         historyGridPane.add(turnCountLabel, 0, fullTurn);
         historyGridPane.add(whiteMoveLabel, 1, fullTurn);
+
         columnIndex = 2;
         break;
       case 2:
+        Label blackMoveLabel = new Label(move);
+        blackMoveLabel.setTextFill(Color.BEIGE);
+
         historyGridPane.add(blackMoveLabel, 2, fullTurn);
+
         fullTurn++;
         columnIndex = 1;
         break;
