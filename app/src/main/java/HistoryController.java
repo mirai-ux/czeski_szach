@@ -1,43 +1,65 @@
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Label;
 import java.util.*;
 
 public class HistoryController extends TurnAbstract {
   // private GameManager.GM gm = new GameManager.GM();
-  private List<HBox> moveHistory = new ArrayList<>();
+  private List<Label> moveHistory = new ArrayList<>();
   // full turn is counts whenever both sides make a move
-  // not very useful for a computer, but easier to read as a human
+  // is also the index for the currently operated row in gridpane
   private int fullTurn;
+  private int columnIndex;
 
   @FXML
-  private AnchorPane historyPane;
+  private GridPane historyGridPane;
+
+  @FXML
+  private ScrollPane historyScrollPane;
 
   public void initialize() {
-    System.out.println("yes");
+    System.out.println("history is being made");
+    historyScrollPane.setContent(historyGridPane);
+
+    fullTurn = 0;
+    columnIndex = 1;
   }
 
-  private void fullTurnCounter() {
-    if (turnCount % 2 == 0) {
-      fullTurn++;
-    }
-  }
+  // private void fullTurnCounter() {
+  // if (turnCount % 2 == 0) {
+  // fullTurn++;
+  // }
+  // }
 
   public void displayMoveHistory(String move) {
-    fullTurnCounter();
-    HBox moveHBox = new HBox();
-    // Label turnCountLabel = new Label(fullTurn + ".");
-    // Label whiteMoveLabel = new Label(move);
-    // Label blackMoveLabel = new Label(move);
-    moveHBox.setPrefSize(60, 60);
-    moveHBox.setStyle("-fx-background-color: rgba(235, 236, 208, 1);");
-    moveHistory.add(moveHBox);
+    Label turnCountLabel = new Label((fullTurn) + ".");
+    Label whiteMoveLabel = new Label(move);
+    Label blackMoveLabel = new Label(move);
+    // modulo to receive the specific types, not sure if necessary to store them
+    // moveHistory.add(turnCountLabel);
+    // moveHistory.add(whiteMoveLabel);
+    // moveHistory.add(blackMoveLabel);
 
-    // moveHBox.getChildren().add(turnCountLabel);
-    // moveHBox.getChildren().add(whiteMoveLabel);
-    // moveHBox.getChildren().add(blackMoveLabel);
-    // historyScrollPane.setContent(moveHBox);
+    System.out.println("col ind: " + columnIndex);
+    System.out.println("full turn: " + fullTurn);
+    System.out.println("turn: " + turnCount);
+
+    switch (columnIndex) {
+      case 1:
+        historyGridPane.add(turnCountLabel, 0, fullTurn);
+        historyGridPane.add(whiteMoveLabel, 1, fullTurn);
+        columnIndex = 2;
+        break;
+      case 2:
+        historyGridPane.add(blackMoveLabel, 2, fullTurn);
+        fullTurn++;
+        columnIndex = 1;
+        break;
+      default:
+        System.err.println("oh");
+        break;
+    }
   }
 }

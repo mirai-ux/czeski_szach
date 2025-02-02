@@ -122,16 +122,16 @@ public class GM {
     return board;
   }
 
-  public List< String > getNiceHistoryForMrWithRustyHair(){
-    List <String> hist = new ArrayList<String>();
-    
-    for( Move m : history)
-      hist.add( m.toString() );
+  public List<String> getNiceHistoryForMrWithRustyHair() {
+    List<String> hist = new ArrayList<String>();
+
+    for (Move m : history)
+      hist.add(m.toString());
 
     return hist;
   }
 
-  public String getNiceLastMove(){
+  public String getNiceLastMove() {
     return history.getLast().toString();
   }
 
@@ -181,7 +181,7 @@ public class GM {
     board.get(yPos).set(xPos, 69);
     board.get(yDest).set(xDest, currentID);
 
-    System.out.println("Move: " + move);
+    // System.out.println("Move: " + move);
 
     selectedPiece.setPosition(xDest, yDest);
 

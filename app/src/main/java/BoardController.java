@@ -24,8 +24,6 @@ public class BoardController extends TurnAbstract {
     super();
   }
 
-  private HistoryController history = new HistoryController();
-
   private List<LessStupidImageView> currentFigures = new ArrayList<>();
   private List<Pane> currentIndicators = new ArrayList<>();
 
@@ -212,7 +210,7 @@ public class BoardController extends TurnAbstract {
               displayMove(tileList.get(y).get(x), iIndex, jIndex);
               gm.selectDestination(iIndex, jIndex);
               turn();
-              history.displayMoveHistory("yes");
+              historyController.displayMoveHistory(gm.getNiceLastMove());
               clearIndicators();
 
               // System.out.println("iIndex = " + iIndex);
@@ -234,7 +232,7 @@ public class BoardController extends TurnAbstract {
               displayCapture(tileList.get(y).get(x), iIndex, jIndex);
               gm.selectDestination(iIndex, jIndex);
               turn();
-              history.displayMoveHistory("yes");
+              historyController.displayMoveHistory(gm.getNiceLastMove());
               clearIndicators();
             });
             break;
@@ -316,12 +314,14 @@ public class BoardController extends TurnAbstract {
   @FXML
   private StackPane historyStackPane;
 
+  private HistoryController historyController;
+
   private void loadHistory() {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("history.fxml"));
-      AnchorPane history = fxmlLoader.load();
-      // Set childPane into contentPane
-      historyStackPane.getChildren().add(history);
+      AnchorPane historyAnchorPane = fxmlLoader.load();
+      historyController = fxmlLoader.getController();
+      historyStackPane.getChildren().add(historyAnchorPane);
     } catch (IOException e) {
       e.printStackTrace();
     }
