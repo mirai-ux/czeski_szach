@@ -14,11 +14,11 @@ public abstract class TurnAbstract {
 
   public String quoteOfTheTurn() {
     String quote[] = {
-        "Exceptionally Stupid",
+        "Exceptionally stupid",
         "Ridiculous",
-        "Frowned Upon",
+        "Frowned upon",
         "Exhilirating",
-        "Downright Embarassing",
+        "Downright embarassing",
         "Are you braindamaged?",
         "You good?",
         "The hell is wrong with you?",

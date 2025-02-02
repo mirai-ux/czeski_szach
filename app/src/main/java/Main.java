@@ -12,7 +12,7 @@ public class Main extends Application {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("chessboard.fxml"));
       Scene scene = new Scene(fxmlLoader.load(), 700, 700);
-      stage.setTitle("czess");
+      stage.setTitle("Greatestest Chess of Every Time There Ever Was");
       stage.setScene(scene);
       stage.show();
     } catch (IOException e) {
