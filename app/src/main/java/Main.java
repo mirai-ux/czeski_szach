@@ -9,11 +9,15 @@ import java.io.IOException;
 public class Main extends Application {
   @Override
   public void start(Stage stage) throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("chessboard.fxml"));
-    Scene scene = new Scene(fxmlLoader.load(), 700, 700);
-    stage.setTitle("za czess!");
-    stage.setScene(scene);
-    stage.show();
+    try {
+      FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("chessboard.fxml"));
+      Scene scene = new Scene(fxmlLoader.load(), 700, 700);
+      stage.setTitle("czess");
+      stage.setScene(scene);
+      stage.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   public static void main(String[] args) {

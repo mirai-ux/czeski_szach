@@ -1,25 +1,30 @@
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.Node;
 // import javafx.event.ActionEvent;
 // import javafx.fxml.FXML;
 // import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 // import javafx.scene.control.Label;
 // import javafx.scene.text.Font;
 // import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 // import javafx.scene.layout.Pane;
 // import javafx.stage.Stage;
-// import javafx.fxml.FXMLLoader;
 // import javafx.scene.Scene;
-// import java.io.IOException;
+import javafx.fxml.FXMLLoader;
 import java.util.*;
+import java.io.IOException;
 
-public class BoardController {
-  private GameManager.GM gm = new GameManager.GM();
+public class BoardController extends TurnAbstract {
+  public BoardController() {
+    super();
+  }
 
-  int turnCount = 0;
+  private HistoryController history = new HistoryController();
 
   private List<LessStupidImageView> currentFigures = new ArrayList<>();
   private List<Pane> currentIndicators = new ArrayList<>();
@@ -147,21 +152,9 @@ public class BoardController {
       tileList.add(tileListRow);
     }
 
+    loadHistory();
+
     turn();
-  }
-
-  public void turn() {
-    if (turnCount % 2 == 0) {
-      gm.setTurn(true); // White
-    } else {
-      gm.setTurn(false); // Black
-    }
-
-    turnCount++;
-    System.out.println("##############");
-    System.out.println("  Turn no. " + turnCount);
-    System.out.println(" History: \n" + gm.getHistory());
-    System.out.println("##############");
   }
 
   public void displayPossibilities(int x, int y) {
@@ -219,6 +212,7 @@ public class BoardController {
               displayMove(tileList.get(y).get(x), iIndex, jIndex);
               gm.selectDestination(iIndex, jIndex);
               turn();
+              history.displayMoveHistory("yes");
               clearIndicators();
 
               // System.out.println("iIndex = " + iIndex);
@@ -240,6 +234,7 @@ public class BoardController {
               displayCapture(tileList.get(y).get(x), iIndex, jIndex);
               gm.selectDestination(iIndex, jIndex);
               turn();
+              history.displayMoveHistory("yes");
               clearIndicators();
             });
             break;
@@ -315,6 +310,20 @@ public class BoardController {
         System.out.print(num + "\t");
       }
       System.out.println();
+    }
+  }
+
+  @FXML
+  private StackPane historyStackPane;
+
+  private void loadHistory() {
+    try {
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("history.fxml"));
+      AnchorPane history = fxmlLoader.load();
+      // Set childPane into contentPane
+      historyStackPane.getChildren().add(history);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 }
