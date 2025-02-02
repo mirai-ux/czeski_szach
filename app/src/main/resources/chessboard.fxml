@@ -9,17 +9,16 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
 <BorderPane id="mainStage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BoardController">
     <top>
-        <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10; -fx-background-color: lightgray;">
-            <Label fx:id="quoteLabel" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Greatestest Chess of Every Time There Ever Was" />
+        <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10; -fx-background-color: rgba(80, 73, 69, 1);">
+            <Label fx:id="quoteLabel" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Greatestest Chess of Every Time There Ever Was" textFill="#ebdbb2" />
         </HBox>
     </top>
 
     <center>
-        <GridPane fx:id="chessBoard" alignment="CENTER" style="-fx-padding: 10;">
+        <GridPane fx:id="chessBoard" alignment="CENTER" style="-fx-padding: 10; -fx-background-color: rgba(60, 56, 54, 1);">
          <columnConstraints>
             <ColumnConstraints />
          </columnConstraints>
@@ -29,9 +28,8 @@
     </center>
 
     <right>
-        <VBox alignment="CENTER" prefHeight="642.0" prefWidth="196.0" spacing="10" style="-fx-padding: 10;">
-         <StackPane fx:id="historyStackPane" prefHeight="557.0" prefWidth="182.0" />
-         <Text fx:id="turnText" strokeType="OUTSIDE" strokeWidth="0.0" text="walter" />
+        <VBox alignment="CENTER" prefHeight="642.0" prefWidth="196.0" spacing="10" style="-fx-padding: 0; -fx-background-color: rgba(29, 32, 33, 1);">
+         <StackPane fx:id="historyStackPane" prefHeight="528.0" prefWidth="214.0" />
          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
             <children>
                   <Button fx:id="newGameButton" prefHeight="50.0" prefWidth="50.0" text="flag" />

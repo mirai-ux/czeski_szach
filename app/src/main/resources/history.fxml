@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane style="-fx-background-color: rgba(40, 40, 40, 1);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HistoryController">
+<AnchorPane style="-fx-background-color: rgba(40, 40, 40, 1); -fx-border-color: rgba(40, 40, 40, 1);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HistoryController">
    <children>
-      <ScrollPane fx:id="historyScrollPane" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="182.0" style="-fx-background: rgba(40, 40, 40, 1);">
+      <ScrollPane fx:id="historyScrollPane" focusTraversable="false" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="182.0" style="-fx-background: rgba(40, 40, 40, 1); -fx-border-color: rgba(40, 40, 40, 1);">
          <content>
             <GridPane fx:id="historyGridPane" prefHeight="39.0" prefWidth="177.0">
                <columnConstraints>

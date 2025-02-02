@@ -30,7 +30,7 @@ public class BoardController extends TurnAbstract {
   private LessStupidImageView selectedPiece = null;
 
   List<List<Pane>> tileList = new ArrayList<>();
-  int tileSize = 60;
+  // int tileSize = 60;
 
   @FXML
   private Label quoteLabel;
@@ -45,7 +45,7 @@ public class BoardController extends TurnAbstract {
         Pane tile = new Pane();
         tileListRow.add(tile);
 
-        tile.setPrefSize(tileSize, tileSize);
+        tile.setPrefSize(CSS.tileSize, CSS.tileSize);
         String tileColor = (row + col) % 2 == 0 ? "rgba(235, 236, 208, 1)" : "rgba(115, 149, 82, 1)";
         tile.setStyle("-fx-background-color: " + tileColor + ";");
 
@@ -120,8 +120,8 @@ public class BoardController extends TurnAbstract {
 
           tile.getChildren().add(piece);
 
-          piece.setFitWidth(tileSize);
-          piece.setFitHeight(tileSize);
+          piece.setFitWidth(CSS.tileSize);
+          piece.setFitHeight(CSS.tileSize);
           piece.setPickOnBounds(true);
 
           piece.setTileX(col);
@@ -159,8 +159,8 @@ public class BoardController extends TurnAbstract {
   }
 
   public void displayPossibilities(int x, int y) {
-    int moveSize = 25;
-    int captureSize = 70;
+    // int moveSize = 25;
+    // int captureSize = 70;
     System.out.println("x = " + x);
     System.out.println("y = " + y);
 
@@ -170,14 +170,16 @@ public class BoardController extends TurnAbstract {
 
     clearIndicators();
 
-    String moveStyle = "-fx-background-color: rgba(0, 0, 0, 0.25); " +
-        "-fx-background-radius: 50%; " +
-        "-fx-background-insets: 25%;";
-    String captureStyle = "-fx-background-color: transparent; " +
-        "-fx-border-color: rgba(0, 0, 0, 0.25); " +
-        "-fx-border-width: 5px; " +
-        "-fx-border-radius: 50%;";
-    String positionStyleModifier = (x + y) % 2 == 0 ? "rgba(245, 246, 129, 1)" : "rgba(185, 202, 66, 1)";
+    // String moveStyle = "-fx-background-color: rgba(0, 0, 0, 0.25); " +
+    // "-fx-background-radius: 50%; " +
+    // "-fx-background-insets: 25%;";
+    // String captureStyle = "-fx-background-color: transparent; " +
+    // "-fx-border-color: rgba(0, 0, 0, 0.25); " +
+    // "-fx-border-width: 5px; " +
+    // "-fx-border-radius: 50%;";
+    // String positionStyleModifier = (x + y) % 2 == 0 ? "rgba(245, 246, 129, 1)" :
+    // "rgba(185, 202, 66, 1)";
+    String positionStyleModifier = (x + y) % 2 == 0 ? CSS.OffWhiteSelected : CSS.PaleGreenSelected;
     String positionStyle = "-fx-background-color: " + positionStyleModifier;
 
     // System.out.println("Before move");
@@ -201,10 +203,10 @@ public class BoardController extends TurnAbstract {
           // 2 if can attack there
           // 3 states where is the figure
           case 1:
-            indicator.setPrefSize(moveSize, moveSize);
-            indicator.setLayoutX((tileSize - moveSize) / 2);
-            indicator.setLayoutY((tileSize - moveSize) / 2);
-            indicator.setStyle(moveStyle);
+            indicator.setPrefSize(CSS.moveSize, CSS.moveSize);
+            indicator.setLayoutX((CSS.tileSize - CSS.moveSize) / 2);
+            indicator.setLayoutY((CSS.tileSize - CSS.moveSize) / 2);
+            indicator.setStyle(CSS.moveStyle);
             tile.getChildren().add(indicator);
             currentIndicators.add(indicator);
 
@@ -224,10 +226,10 @@ public class BoardController extends TurnAbstract {
             });
             break;
           case 2:
-            indicator.setPrefSize(captureSize, captureSize);
-            indicator.setLayoutX((tileSize - captureSize) / 2);
-            indicator.setLayoutY((tileSize - captureSize) / 2);
-            indicator.setStyle(captureStyle);
+            indicator.setPrefSize(CSS.captureSize, CSS.captureSize);
+            indicator.setLayoutX((CSS.tileSize - CSS.captureSize) / 2);
+            indicator.setLayoutY((CSS.tileSize - CSS.captureSize) / 2);
+            indicator.setStyle(CSS.captureStyle);
             tile.getChildren().add(indicator);
             currentIndicators.add(indicator);
 
@@ -247,11 +249,11 @@ public class BoardController extends TurnAbstract {
             // easy to click hitboxes of the figures and the background change
             Pane deselectIndicator = new Pane();
 
-            deselectIndicator.setPrefSize(tileSize, tileSize);
+            deselectIndicator.setPrefSize(CSS.tileSize, CSS.tileSize);
             tile.getChildren().add(deselectIndicator);
             currentIndicators.add(deselectIndicator);
 
-            indicator.setPrefSize(tileSize, tileSize);
+            indicator.setPrefSize(CSS.tileSize, CSS.tileSize);
             indicator.setStyle(positionStyle);
             tile.getChildren().add(0, indicator); // the zero adds it as the 0th index to not display above the pieces
             currentIndicators.add(indicator);
