@@ -26,4 +26,8 @@ build
 app/src/main/resources/pieces/old
 app/src/main/resources/pieces/xcf
 
+# palette for styling
+app/src/main/resources/gruvbox_palette.png
+
 app/bin
+
