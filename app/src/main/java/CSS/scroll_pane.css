@@ -1,0 +1,11 @@
+.scroll-pane {
+  -fx-background-color: lightblue;
+}
+
+.scroll-bar {
+  -fx-background-color: gray;
+}
+
+.scroll-bar .thumb {
+  -fx-background-color: darkgray;
+}

@@ -1,4 +1,5 @@
 import javafx.fxml.FXML;
+import java.util.Random;
 
 public abstract class TurnAbstract {
   protected GameManager.GM gm = new GameManager.GM();
@@ -10,6 +11,25 @@ public abstract class TurnAbstract {
   }
 
   public static int turnCount = 0;
+
+  public String quoteOfTheTurn() {
+    String quote[] = {
+        "Exceptionally Stupid",
+        "Ridiculous",
+        "Frowned Upon",
+        "Exhilirating",
+        "Downright Embarassing",
+        "Are you braindamaged?",
+        "You good?",
+        "The hell is wrong with you?",
+        "You bloody cretin!",
+        "Watch your step amputee!",
+        "Is your monitor good?",
+    };
+
+    Random random = new Random();
+    return quote[random.nextInt(quote.length)];
+  }
 
   public void turn() {
     if (turnCount % 2 == 0) {

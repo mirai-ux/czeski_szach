@@ -8,7 +8,7 @@ import javafx.scene.Node;
 // import javafx.fxml.FXML;
 // import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-// import javafx.scene.control.Label;
+import javafx.scene.control.Label;
 // import javafx.scene.text.Font;
 // import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -31,6 +31,9 @@ public class BoardController extends TurnAbstract {
 
   List<List<Pane>> tileList = new ArrayList<>();
   int tileSize = 60;
+
+  @FXML
+  private Label quoteLabel;
 
   @FXML
   private GridPane chessBoard;
@@ -210,6 +213,7 @@ public class BoardController extends TurnAbstract {
               displayMove(tileList.get(y).get(x), iIndex, jIndex);
               gm.selectDestination(iIndex, jIndex);
               turn();
+              quoteLabel.setText(quoteOfTheTurn());
               historyController.displayMoveHistory(gm.getNiceLastMove());
               clearIndicators();
 
@@ -232,6 +236,7 @@ public class BoardController extends TurnAbstract {
               displayCapture(tileList.get(y).get(x), iIndex, jIndex);
               gm.selectDestination(iIndex, jIndex);
               turn();
+              quoteLabel.setText(quoteOfTheTurn());
               historyController.displayMoveHistory(gm.getNiceLastMove());
               clearIndicators();
             });
