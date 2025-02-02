@@ -19,6 +19,8 @@ public class HistoryController extends TurnAbstract {
   @FXML
   private ScrollPane historyScrollPane;
 
+  private String fontColor;
+
   public void initialize() {
     System.out.println("history is being made");
     historyScrollPane.setContent(historyGridPane);
@@ -37,6 +39,7 @@ public class HistoryController extends TurnAbstract {
     Label turnCountLabel = new Label((fullTurn) + ".");
     Label whiteMoveLabel = new Label(move);
     Label blackMoveLabel = new Label(move);
+    turnCountLabel.col
     // modulo to receive the specific types, not sure if necessary to store them
     // moveHistory.add(turnCountLabel);
     // moveHistory.add(whiteMoveLabel);
