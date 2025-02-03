@@ -3,18 +3,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.Node;
-// import javafx.event.ActionEvent;
-// import javafx.fxml.FXML;
-// import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Label;
-// import javafx.scene.text.Font;
-// import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-// import javafx.scene.layout.Pane;
-// import javafx.stage.Stage;
-// import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import java.util.*;
 import java.io.IOException;
@@ -24,17 +14,13 @@ public class BoardController extends TurnAbstract {
     super();
   }
 
+  List<List<Pane>> tileList = new ArrayList<>();
   private List<LessStupidImageView> currentFigures = new ArrayList<>();
   private List<Pane> currentIndicators = new ArrayList<>();
-
   private LessStupidImageView selectedPiece = null;
-
-  List<List<Pane>> tileList = new ArrayList<>();
-  // int tileSize = 60;
 
   @FXML
   private Label quoteLabel;
-
   @FXML
   private GridPane chessBoard;
 
@@ -146,48 +132,19 @@ public class BoardController extends TurnAbstract {
             });
           }
         }
-
         chessBoard.add(tile, col, row);
       }
-
       tileList.add(tileListRow);
     }
-
     loadHistory();
-
     turn();
   }
 
   public void displayPossibilities(int x, int y) {
-    // int moveSize = 25;
-    // int captureSize = 70;
-    System.out.println("x = " + x);
-    System.out.println("y = " + y);
-
-    // System.out.println( gm.getPieceAt(x, y).getFENName() );
-    // Helpers helper = new Helpers();
-    // helper.printArray8x8( gm.getPossibilities(x, y) );
-
     clearIndicators();
 
-    // String moveStyle = "-fx-background-color: rgba(0, 0, 0, 0.25); " +
-    // "-fx-background-radius: 50%; " +
-    // "-fx-background-insets: 25%;";
-    // String captureStyle = "-fx-background-color: transparent; " +
-    // "-fx-border-color: rgba(0, 0, 0, 0.25); " +
-    // "-fx-border-width: 5px; " +
-    // "-fx-border-radius: 50%;";
-    // String positionStyleModifier = (x + y) % 2 == 0 ? "rgba(245, 246, 129, 1)" :
-    // "rgba(185, 202, 66, 1)";
     String positionStyleModifier = (x + y) % 2 == 0 ? CSS.OffWhiteSelected : CSS.PaleGreenSelected;
     String positionStyle = "-fx-background-color: " + positionStyleModifier;
-
-    // System.out.println("Before move");
-    // printListOfLists(gm.getPossibilities(x, y));
-
-    // System.out.println("Before move | getBoard");
-    // printListOfLists(gm.getBoard());
-    // printListOfLists(gm.getMoves());
 
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
@@ -218,11 +175,6 @@ public class BoardController extends TurnAbstract {
               quoteLabel.setText(quoteOfTheTurn());
               historyController.displayMoveHistory(gm.getNiceLastMove());
               clearIndicators();
-
-              // System.out.println("iIndex = " + iIndex);
-              // System.out.println("jIndex = " + jIndex);
-              // System.out.println("After move | getPossibilities");
-              // printListOfLists(gm.getPossibilities(iIndex, jIndex));
             });
             break;
           case 2:
@@ -259,7 +211,6 @@ public class BoardController extends TurnAbstract {
             currentIndicators.add(indicator);
 
             deselectIndicator.setOnMouseClicked(event -> {
-              // System.out.println("succ");
               clearIndicators();
             });
             break;
