@@ -121,7 +121,7 @@ public class BoardController extends TurnAbstract {
               if (gm.getTurn()) {
                 selectedPiece = piece;
                 displayPossibilities(piece.getTileX(), piece.getTileY());
-                selectedPiece.getParent().add(new Bubble("Fuck you"));
+                new Bubble("Fuck off", tile);
               }
             });
           } else {
@@ -129,7 +129,6 @@ public class BoardController extends TurnAbstract {
               if (!gm.getTurn()) {
                 selectedPiece = piece;
                 displayPossibilities(piece.getTileX(), piece.getTileY());
-                piece
               }
             });
           }
