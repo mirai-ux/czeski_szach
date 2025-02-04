@@ -15,6 +15,7 @@ public class GM {
   private String pieceDestination;
   private List<Move> history;
   private Move move;
+  private boolean isGameFinished = false;
 
   public GM() {
     isTurnWhite = true;
@@ -79,8 +80,8 @@ public class GM {
 
   public void castling(String where) {
     if (where == "Q") {
-      int rookID = board.get(7).get(0);
-      int kingID = board.get(7).get(4);
+      int rookID = board.get(7).get(0) % 100;
+      int kingID = board.get(7).get(4) % 100;
       board.get(7).set(1, kingID);
       board.get(7).set(2, rookID);
       move = new Move("Q", "Q");
@@ -88,8 +89,8 @@ public class GM {
       move = new Move();
     }
     if (where == "K") {
-      int rookID = board.get(7).get(7);
-      int kingID = board.get(7).get(4);
+      int rookID = board.get(7).get(7) % 100;
+      int kingID = board.get(7).get(4) % 100;
       board.get(7).set(6, kingID);
       board.get(7).set(5, rookID);
       move = new Move("K", "K");
@@ -97,8 +98,8 @@ public class GM {
       move = new Move();
     }
     if (where == "q") {
-      int rookID = board.get(0).get(0);
-      int kingID = board.get(0).get(4);
+      int rookID = board.get(0).get(0) % 100;
+      int kingID = board.get(0).get(4) % 100;
       board.get(0).set(1, kingID);
       board.get(0).set(2, rookID);
       move = new Move("q", "q");
@@ -106,8 +107,8 @@ public class GM {
       move = new Move();
     }
     if (where == "k") {
-      int rookID = board.get(0).get(7);
-      int kingID = board.get(0).get(4);
+      int rookID = board.get(0).get(7) % 100;
+      int kingID = board.get(0).get(4) % 100;
       board.get(0).set(6, kingID);
       board.get(0).set(5, rookID);
       move = new Move("k", "k");
@@ -158,7 +159,7 @@ public class GM {
   public Figure getPieceAt(int x_, int y_) {
     if (board.get(y_).get(x_) == 69)
       return null;
-    selectedPieceId = board.get(y_).get(x_);
+    selectedPieceId = board.get(y_).get(x_) % 100;
     return AllFigures.get(selectedPieceId);
   }
 
@@ -168,15 +169,18 @@ public class GM {
     int xDest = move.charAt(2) - 'a';
     int yDest = 8 - move.charAt(3) + '0';
 
-    int currentID = board.get(yPos).get(xPos);
+    int currentID = board.get(yPos).get(xPos) % 100;
 
     // System.out.println( "\nPos: ( " + xPos + ", " + yPos + " ).");
     // System.out.println( currentID );
     // System.out.println( "Dest: ( " + xDest + ", " + yDest + " ).");
 
     Figure poorFigure = getPieceAt(xDest, yDest);
-    if (poorFigure != null)
+    if (poorFigure != null){
       poorFigure.setActivity(false);
+      if( poorFigure.getType() == 'K')
+        isGameFinished = true;
+    }
 
     board.get(yPos).set(xPos, 69);
     board.get(yDest).set(xDest, currentID);
@@ -216,6 +220,10 @@ public class GM {
       }
     }
     return result;
+  }
+
+  public void updateBoard( int x_, int y_, int nV ){
+    board.get( y_ ).set( x_, nV );
   }
 
   public void tests() {
