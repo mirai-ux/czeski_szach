@@ -3,6 +3,7 @@ package Figures;
 import java.util.List;
 
 public class Rook extends Figure{
+
     public Rook( int x_, int y_, boolean team ){
         super( x_, y_, team );
         type = 'R';
@@ -61,4 +62,6 @@ public class Rook extends Figure{
 
         return moves;
     }
+
+    public boolean castlingPossible(){ return ( this.isActive && !this.haveIMoved ); }
 }

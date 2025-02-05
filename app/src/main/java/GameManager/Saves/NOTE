@@ -1,0 +1,5 @@
+in text files the order is:
+1st line -> white king
+2nd line -> black king
+
+GameManager gm.makemove() is using it

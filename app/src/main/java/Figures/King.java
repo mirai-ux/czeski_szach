@@ -32,7 +32,7 @@ public class King extends Figure{
         
         return moves;
     }
-
+    // adds 100 or 200 to value on gm.board where is the piece that is a danger to king
     public void inDanger( GameManager.GM gm ){
       List< Figure > figures = gm.getFigures();
       int marker = this.isWhite ? 100 : 200;
@@ -49,4 +49,6 @@ public class King extends Figure{
         }
       }
     }
+
+    public boolean castlingPossible(){ return ( this.isActive && !this.haveIMoved ); }
 }

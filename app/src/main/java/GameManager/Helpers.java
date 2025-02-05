@@ -73,7 +73,8 @@ public class Helpers {
     Figure elem;
     int val, x, y;
     // System.out.println("Siema");
-    for (int i = 0; i < 32; i++) {
+    // for (int i = 0; i < 32; i++) {
+    for (int i = 0; i < figures.size() ; i++) {
       elem = figures.get(i);
       x = elem.getX();
       y = elem.getY();
