@@ -32,4 +32,23 @@ public class King extends Figure{
         
         return moves;
     }
+    // adds 100 or 200 to value on gm.board where is the piece that is a danger to king
+    public void inDanger( GameManager.GM gm ){
+      List< Figure > figures = gm.getFigures();
+      int marker = this.isWhite ? 100 : 200;
+      for( Figure f : figures){
+        // if its the opponent and still active
+        if( f.getTeam() != this.isWhite && f.getActivity() ){
+          // if it can kill the king
+          if( f.getPossibleMoves( gm ).get( this.y ).get( this.x ) == 2){
+            int fx = f.getX();
+            int fy = f.getY();
+            int newVal = gm.getBoard().get( fy ).get( fx ) + marker;
+            gm.updateBoard( fx, fy, newVal );
+          }
+        }
+      }
+    }
+
+    public boolean castlingPossible(){ return ( this.isActive && !this.haveIMoved ); }
 }

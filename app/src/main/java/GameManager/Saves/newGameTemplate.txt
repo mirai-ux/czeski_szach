@@ -1,3 +1,5 @@
+l47t
+l40f
 p06t
 p16t
 p26t
@@ -12,7 +14,6 @@ k17t
 k67t
 b27t
 b57t
-l47t
 q37t
 p01f
 p11f
@@ -28,5 +29,4 @@ k10f
 k60f
 b20f
 b50f
-l40f
 q30f

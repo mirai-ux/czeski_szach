@@ -11,6 +11,7 @@ public abstract class Figure {
   protected int value; // Worth of piece
   protected char type; // Type of figure
   protected char FEN_name; // Type of figure
+  protected boolean haveIMoved;
 
   public Figure(int x_, int y_, boolean team) {
     x = x_;
@@ -83,6 +84,8 @@ public abstract class Figure {
     y = y_;
     isActive = status;
   }
+
+  public void moved(){ haveIMoved = true; }
 
   // returns 69 if piece cant move there
   //         1  if can move there
