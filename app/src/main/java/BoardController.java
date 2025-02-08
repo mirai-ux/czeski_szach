@@ -31,8 +31,8 @@ public class BoardController extends TurnAbstract {
         Pane tile = new Pane();
         tileListRow.add(tile);
 
-        tile.setPrefSize(CSS.tileSize, CSS.tileSize);
-        String tileColor = (row + col) % 2 == 0 ? "rgba(235, 236, 208, 1)" : "rgba(115, 149, 82, 1)";
+        tile.setPrefSize(Styling.tileSize, Styling.tileSize);
+        String tileColor = (row + col) % 2 == 0 ? Styling.OffWhite : Styling.PaleGreen;
         tile.setStyle("-fx-background-color: " + tileColor + ";");
 
         if (gm.getPieceAt(col, row) != null) {
@@ -106,8 +106,8 @@ public class BoardController extends TurnAbstract {
 
           tile.getChildren().add(piece);
 
-          piece.setFitWidth(CSS.tileSize);
-          piece.setFitHeight(CSS.tileSize);
+          piece.setFitWidth(Styling.tileSize);
+          piece.setFitHeight(Styling.tileSize);
           piece.setPickOnBounds(true);
 
           piece.setTileX(col);
@@ -121,7 +121,6 @@ public class BoardController extends TurnAbstract {
               if (gm.getTurn()) {
                 selectedPiece = piece;
                 displayPossibilities(piece.getTileX(), piece.getTileY());
-                new Bubble("Fuck off", tile);
               }
             });
           } else {
@@ -144,7 +143,7 @@ public class BoardController extends TurnAbstract {
   public void displayPossibilities(int x, int y) {
     clearIndicators();
 
-    String positionStyleModifier = (x + y) % 2 == 0 ? CSS.OffWhiteSelected : CSS.PaleGreenSelected;
+    String positionStyleModifier = (x + y) % 2 == 0 ? Styling.OffWhiteSelected : Styling.PaleGreenSelected;
     String positionStyle = "-fx-background-color: " + positionStyleModifier;
 
     for (int i = 0; i < 8; i++) {
@@ -161,10 +160,10 @@ public class BoardController extends TurnAbstract {
           // 2 if can attack there
           // 3 states where is the figure
           case 1:
-            indicator.setPrefSize(CSS.moveSize, CSS.moveSize);
-            indicator.setLayoutX((CSS.tileSize - CSS.moveSize) / 2);
-            indicator.setLayoutY((CSS.tileSize - CSS.moveSize) / 2);
-            indicator.setStyle(CSS.moveStyle);
+            indicator.setPrefSize(Styling.moveSize, Styling.moveSize);
+            indicator.setLayoutX((Styling.tileSize - Styling.moveSize) / 2);
+            indicator.setLayoutY((Styling.tileSize - Styling.moveSize) / 2);
+            indicator.setStyle(Styling.moveStyle);
             tile.getChildren().add(indicator);
             currentIndicators.add(indicator);
 
@@ -179,10 +178,10 @@ public class BoardController extends TurnAbstract {
             });
             break;
           case 2:
-            indicator.setPrefSize(CSS.captureSize, CSS.captureSize);
-            indicator.setLayoutX((CSS.tileSize - CSS.captureSize) / 2);
-            indicator.setLayoutY((CSS.tileSize - CSS.captureSize) / 2);
-            indicator.setStyle(CSS.captureStyle);
+            indicator.setPrefSize(Styling.captureSize, Styling.captureSize);
+            indicator.setLayoutX((Styling.tileSize - Styling.captureSize) / 2);
+            indicator.setLayoutY((Styling.tileSize - Styling.captureSize) / 2);
+            indicator.setStyle(Styling.captureStyle);
             tile.getChildren().add(indicator);
             currentIndicators.add(indicator);
 
@@ -202,14 +201,16 @@ public class BoardController extends TurnAbstract {
             // easy to click hitboxes of the figures and the background change
             Pane deselectIndicator = new Pane();
 
-            deselectIndicator.setPrefSize(CSS.tileSize, CSS.tileSize);
+            deselectIndicator.setPrefSize(Styling.tileSize, Styling.tileSize);
             tile.getChildren().add(deselectIndicator);
             currentIndicators.add(deselectIndicator);
 
-            indicator.setPrefSize(CSS.tileSize, CSS.tileSize);
+            indicator.setPrefSize(Styling.tileSize, Styling.tileSize);
             indicator.setStyle(positionStyle);
             tile.getChildren().add(0, indicator); // the zero adds it as the 0th index to not display above the pieces
             currentIndicators.add(indicator);
+
+            new Bubble("Fuck off", tile);
 
             deselectIndicator.setOnMouseClicked(event -> {
               clearIndicators();

@@ -12,6 +12,21 @@ public abstract class TurnAbstract {
 
   public static int turnCount = 0;
 
+  public void turn() {
+    if (turnCount % 2 == 0) {
+      gm.setTurn(true); // White
+    } else {
+      gm.setTurn(false); // Black
+    }
+
+    notifyPending = true;
+
+    turnCount++;
+    System.out.println("##############");
+    System.out.println("  Turn no. " + turnCount);
+    System.out.println("##############");
+  }
+
   public String quoteOfTheTurn() {
     String quote[] = {
         "Exceptionally stupid",
@@ -29,20 +44,5 @@ public abstract class TurnAbstract {
 
     Random random = new Random();
     return quote[random.nextInt(quote.length)];
-  }
-
-  public void turn() {
-    if (turnCount % 2 == 0) {
-      gm.setTurn(true); // White
-    } else {
-      gm.setTurn(false); // Black
-    }
-
-    notifyPending = true;
-
-    turnCount++;
-    System.out.println("##############");
-    System.out.println("  Turn no. " + turnCount);
-    System.out.println("##############");
   }
 }
