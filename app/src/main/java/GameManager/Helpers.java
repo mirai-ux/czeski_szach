@@ -9,6 +9,9 @@ import org.checkerframework.checker.units.qual.A;
 import Figures.*;
 
 public class Helpers {
+  private GameManager.GM gm;
+
+  public void setGM( GameManager.GM gm_ ){ gm = gm_;}
   private Figure interpretFromSave(String save) {
     char type = save.charAt(0);
     boolean team = save.charAt(3) == 't';
@@ -17,22 +20,22 @@ public class Helpers {
     Figure piece;
     switch (type) {
       case 'r':
-        piece = new Rook(x, y, team);
+        piece = new Rook(x, y, team, gm);
         break;
       case 'k':
-        piece = new Knight(x, y, team);
+        piece = new Knight(x, y, team, gm);
         break;
       case 'b':
-        piece = new Bishop(x, y, team);
+        piece = new Bishop(x, y, team, gm);
         break;
       case 'l': // like lord. k is taken by knight
-        piece = new King(x, y, team);
+        piece = new King(x, y, team, gm);
         break;
       case 'q':
-        piece = new Queen(x, y, team);
+        piece = new Queen(x, y, team, gm);
         break;
       default:
-        piece = new Pawn(x, y, team);
+        piece = new Pawn(x, y, team, gm);
         break;
     }
 

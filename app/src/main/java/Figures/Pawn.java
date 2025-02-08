@@ -3,8 +3,8 @@ package Figures;
 import java.util.List;
 
 public class Pawn extends Figure {
-    public Pawn( int x_, int y_, boolean team ){
-        super( x_, y_, team );
+    public Pawn( int x_, int y_, boolean team, GameManager.GM gm_) {
+        super(x_, y_, team, gm_);
         type = 'P';
         value = 1;
     }
@@ -12,7 +12,7 @@ public class Pawn extends Figure {
     // 69 if can't move there
     // 1  if can move there
     // 2  if can attack there
-    public List< List< Integer >> getPossibleMoves( GameManager.GM gm ){
+    public List< List< Integer >> getPossibleMoves( ){
         List< List< Integer >> moves = GameManager.Helpers.InitializeArray8x8();
         List< List< Integer >> board = gm.getBoard();
 
@@ -55,4 +55,12 @@ public class Pawn extends Figure {
 
         return moves;
     }
+    @ Override
+    public void setPosition( int x_, int y_ ){
+        x = x_;
+        y = y_;
+        int border = this.isWhite ? 0 : 7;
+        if( y == border )
+            gm.promotePawn( this );
+      }
 }

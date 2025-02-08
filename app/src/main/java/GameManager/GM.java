@@ -20,6 +20,7 @@ public class GM {
   public GM() {
     isTurnWhite = true;
     helper = new Helpers();
+    helper.setGM( this );
 
     // AllFigures = helper.ReadFromFile("newGameTemplate.txt");
     AllFigures = helper.ReadFromFile("testTemplate.txt");
@@ -35,7 +36,7 @@ public class GM {
   public List<List<Integer>> getPossibilities(int x_, int y_) {
     selectedPiece = getPieceAt(x_, y_);
 
-    possibleMoves = selectedPiece.getPossibleMoves(this);
+    possibleMoves = selectedPiece.getPossibleMoves();
     piecePosition = "" + (char) (x_ + 97) + (8 - y_);
     move.setStart(piecePosition);
     // System.out.println( "Pozycja wybranej figury: " + piecePosition );
@@ -156,6 +157,8 @@ public class GM {
     return history;
   }
 
+  public boolean EndGameCheck(){ return isGameFinished; }
+
   public Figure getPieceAt(int x_, int y_) {
     if (board.get(y_).get(x_) == 69)
       return null;
@@ -194,8 +197,8 @@ public class GM {
     // See NOTE in /Saves/
     King WhiteKing = (King) AllFigures.get(0);
     King BlackKing = (King) AllFigures.get(1);
-    WhiteKing.inDanger( this );
-    BlackKing.inDanger( this );
+    WhiteKing.inDanger(  );
+    BlackKing.inDanger(  );
 
     // helper.printArray8x8(board);
   }
@@ -259,6 +262,19 @@ public class GM {
 
   public void updateBoard( int x_, int y_, int nV ){
     board.get( y_ ).set( x_, nV );
+  }
+
+  public void promotePawn( Pawn pawn ) {
+    // make new queen
+    int x_ = pawn.getX();
+    int y_ = pawn.getY();
+    boolean team_ = pawn.getTeam();
+    Queen newQueen = new Queen(x_, y_, team_, this);
+    AllFigures.add( newQueen );
+    // remove old pawn
+    pawn.setActivity( false );
+    // replace old pawn
+    updateBoard(x_, y_, AllFigures.size()-1 );
   }
 
   public void tests() {

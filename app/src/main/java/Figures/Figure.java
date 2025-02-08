@@ -12,12 +12,14 @@ public abstract class Figure {
   protected char type; // Type of figure
   protected char FEN_name; // Type of figure
   protected boolean haveIMoved;
+  protected GameManager.GM gm;
 
-  public Figure(int x_, int y_, boolean team) {
+  public Figure(int x_, int y_, boolean team, GameManager.GM gm_) {
     x = x_;
     y = y_;
     isWhite = team;
     isActive = true;
+    gm = gm_;
   }
 
   public int[][] pathDisplay() {
@@ -91,5 +93,5 @@ public abstract class Figure {
   //         1  if can move there
   //         2  if can attack there 
   //         3  states where is the figure
-  public abstract List< List< Integer >> getPossibleMoves( GameManager.GM gm );
+  public abstract List< List< Integer >> getPossibleMoves(   );
 }
