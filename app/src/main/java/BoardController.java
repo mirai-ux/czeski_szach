@@ -5,9 +5,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.Node;
 import javafx.fxml.FXMLLoader;
 import java.util.*;
 import java.io.IOException;
+import javafx.collections.ObservableList;
 
 public class BoardController extends TurnAbstract {
   public BoardController() {
@@ -198,6 +200,8 @@ public class BoardController extends TurnAbstract {
               clearIndicators();
             });
             break;
+          case 5:
+          case 8:
           case 3:
             // this Pane has no css attached to it, it just sits on top op the
             // figure so that you can deselect it while still preserving the
@@ -220,9 +224,23 @@ public class BoardController extends TurnAbstract {
             });
             break;
           case 4:
+            indicator.setPrefSize(Styling.captureSize, Styling.captureSize);
+            indicator.setLayoutX((Styling.tileSize - Styling.captureSize) / 2);
+            indicator.setLayoutY((Styling.tileSize - Styling.captureSize) / 2);
+            indicator.setStyle(Styling.captureStyle);
+            tile.getChildren().add(indicator);
+            currentIndicators.add(indicator);
 
-            break;
-          case 5:
+            // capture
+            indicator.setOnMouseClicked(event -> {
+              // displayCapture(tileList.get(y).get(x), iIndex, jIndex);
+              // gm.selectDestination(iIndex, jIndex);
+              displayCastle("Q");
+              turn();
+              quoteLabel.setText(quoteOfTheTurn());
+              historyController.displayMoveHistory(gm.getNiceLastMove());
+              clearIndicators();
+            });
 
             break;
           // need to make sure that this doesn't break when i try to move with
@@ -290,6 +308,48 @@ public class BoardController extends TurnAbstract {
     selectedPiece.setTileY(yDest);
     selectedPiece = null;
 
+  }
+
+  private void displayCastle(String where) {
+    // ObservableList<Node> king;
+    // ObservableList<Node> rook;
+    LessStupidImageView king;
+    LessStupidImageView rook;
+    switch (where) {
+      case "Q":
+        king = (LessStupidImageView) tileList.get(7).get(4).getChildren()
+            .filtered(tileChild -> tileChild instanceof LessStupidImageView)
+            .get(0);
+
+        rook = (LessStupidImageView) tileList.get(7).get(0).getChildren()
+            .filtered(tileChild -> tileChild instanceof LessStupidImageView)
+            .get(0);
+
+        Pane kingParent = (Pane) king.getParent();
+        Pane rookParent = (Pane) rook.getParent();
+
+        kingParent.getChildren().remove(king);
+        rookParent.getChildren().remove(rook);
+
+        tileList.get(7).get(2).getChildren().add(king);
+        tileList.get(7).get(3).getChildren().add(rook);
+        break;
+      case "K":
+        break;
+      case "q":
+        break;
+      case "k":
+        break;
+    }
+
+    gm.castling(where);
+    // sourceTile.getChildren().remove(selectedPiece);
+    //
+    // tileList.get(yDest).get(xDest).getChildren().add(selectedPiece);
+    //
+    // selectedPiece.setTileX(xDest);
+    // selectedPiece.setTileY(yDest);
+    // selectedPiece = null;
   }
 
   @FXML
