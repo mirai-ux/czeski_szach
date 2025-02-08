@@ -176,9 +176,9 @@ public class GM {
     // System.out.println( "Dest: ( " + xDest + ", " + yDest + " ).");
 
     Figure poorFigure = getPieceAt(xDest, yDest);
-    if (poorFigure != null){
+    if (poorFigure != null) {
       poorFigure.setActivity(false);
-      if( poorFigure.getType() == 'K')
+      if (poorFigure.getType() == 'K')
         isGameFinished = true;
     }
 
@@ -194,8 +194,8 @@ public class GM {
     // See NOTE in /Saves/
     King WhiteKing = (King) AllFigures.get(0);
     King BlackKing = (King) AllFigures.get(1);
-    WhiteKing.inDanger( this );
-    BlackKing.inDanger( this );
+    WhiteKing.inCheck(this);
+    BlackKing.inCheck(this);
 
     // helper.printArray8x8(board);
   }
@@ -204,29 +204,29 @@ public class GM {
     String result = "";
 
     King K = getPieceAt(4, 7) instanceof King ? (King) getPieceAt(4, 7) : null;
-    if( K != null ){
+    if (K != null) {
       Rook RQ = getPieceAt(0, 7) instanceof Rook ? (Rook) getPieceAt(0, 7) : null;
-      if( RQ != null ){
+      if (RQ != null) {
         boolean clean_Q = ((board.get(7).get(1) + board.get(7).get(2) + board.get(7).get(3)) == 207);
-        result += ( clean_Q && RQ.castlingPossible() && K.castlingPossible() ) ? "Q" : ""; 
+        result += (clean_Q && RQ.castlingPossible() && K.castlingPossible()) ? "Q" : "";
       }
       Rook RK = getPieceAt(7, 7) instanceof Rook ? (Rook) getPieceAt(7, 7) : null;
-      if( RK != null ){
+      if (RK != null) {
         boolean clean_K = ((board.get(7).get(6) + board.get(7).get(5)) == 138);
-        result += ( clean_K && RK.castlingPossible() && K.castlingPossible() ) ? "K" : ""; 
+        result += (clean_K && RK.castlingPossible() && K.castlingPossible()) ? "K" : "";
       }
     }
     King k = getPieceAt(4, 0) instanceof King ? (King) getPieceAt(4, 0) : null;
-    if( k != null ){
+    if (k != null) {
       Rook rq = getPieceAt(0, 0) instanceof Rook ? (Rook) getPieceAt(0, 0) : null;
-      if( rq != null ){
+      if (rq != null) {
         boolean clean_q = ((board.get(0).get(1) + board.get(0).get(2) + board.get(0).get(3)) == 207);
-        result += ( clean_q && rq.castlingPossible() && k.castlingPossible() ) ? "q" : ""; 
+        result += (clean_q && rq.castlingPossible() && k.castlingPossible()) ? "q" : "";
       }
       Rook rk = getPieceAt(7, 0) instanceof Rook ? (Rook) getPieceAt(7, 0) : null;
-      if( rk != null ){
+      if (rk != null) {
         boolean clean_k = ((board.get(0).get(6) + board.get(0).get(5)) == 138);
-        result += ( clean_k && rk.castlingPossible() && k.castlingPossible() ) ? "k" : ""; 
+        result += (clean_k && rk.castlingPossible() && k.castlingPossible()) ? "k" : "";
       }
     }
     // int size = history.size();
@@ -234,31 +234,37 @@ public class GM {
     // String fullHistory = "-";
 
     // for (int i = 0; i < size; i++) {
-    //   starts += history.get(i).getStart();
-    //   fullHistory += history.get(i).getMove() + "-";
+    // starts += history.get(i).getStart();
+    // fullHistory += history.get(i).getMove() + "-";
     // }
 
     // if (starts.indexOf("e1") == -1) {
-    //   if ((starts.indexOf("a1") + fullHistory.indexOf("e1a1") + fullHistory.indexOf("a1e1")) == -3) {
-    //     result += ((board.get(7).get(1) + board.get(7).get(2) + board.get(7).get(3)) == 207) ? "Q" : "";
-    //   }
-    //   if ((starts.indexOf("h1") + fullHistory.indexOf("e1h1") + fullHistory.indexOf("h1e1")) == -3) {
-    //     result += ((board.get(7).get(6) + board.get(7).get(5) == 138)) ? "K" : "";
-    //   }
+    // if ((starts.indexOf("a1") + fullHistory.indexOf("e1a1") +
+    // fullHistory.indexOf("a1e1")) == -3) {
+    // result += ((board.get(7).get(1) + board.get(7).get(2) + board.get(7).get(3))
+    // == 207) ? "Q" : "";
+    // }
+    // if ((starts.indexOf("h1") + fullHistory.indexOf("e1h1") +
+    // fullHistory.indexOf("h1e1")) == -3) {
+    // result += ((board.get(7).get(6) + board.get(7).get(5) == 138)) ? "K" : "";
+    // }
     // }
     // if (starts.indexOf("e8") == -1) {
-    //   if ((starts.indexOf("a8") + fullHistory.indexOf("e1a8") + fullHistory.indexOf("a8e1")) == -3) {
-    //     result += ((board.get(0).get(1) + board.get(0).get(2) + board.get(0).get(3)) == 207) ? "q" : "";
-    //   }
-    //   if ((starts.indexOf("h8") + fullHistory.indexOf("e1h8") + fullHistory.indexOf("h8e1")) == -3) {
-    //     result += ((board.get(0).get(6) + board.get(0).get(5) == 138)) ? "k" : "";
-    //   }
+    // if ((starts.indexOf("a8") + fullHistory.indexOf("e1a8") +
+    // fullHistory.indexOf("a8e1")) == -3) {
+    // result += ((board.get(0).get(1) + board.get(0).get(2) + board.get(0).get(3))
+    // == 207) ? "q" : "";
+    // }
+    // if ((starts.indexOf("h8") + fullHistory.indexOf("e1h8") +
+    // fullHistory.indexOf("h8e1")) == -3) {
+    // result += ((board.get(0).get(6) + board.get(0).get(5) == 138)) ? "k" : "";
+    // }
     // }
     return result;
   }
 
-  public void updateBoard( int x_, int y_, int nV ){
-    board.get( y_ ).set( x_, nV );
+  public void updateBoard(int x_, int y_, int nV) {
+    board.get(y_).set(x_, nV);
   }
 
   public void tests() {

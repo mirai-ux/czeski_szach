@@ -74,7 +74,7 @@ public class Helpers {
     int val, x, y;
     // System.out.println("Siema");
     // for (int i = 0; i < 32; i++) {
-    for (int i = 0; i < figures.size() ; i++) {
+    for (int i = 0; i < figures.size(); i++) {
       elem = figures.get(i);
       x = elem.getX();
       y = elem.getY();
@@ -89,7 +89,7 @@ public class Helpers {
     return Array8x8;
   }
 
-  public void printArray8x8(List<List<Integer>> array) {
+  public static void printArray8x8(List<List<Integer>> array) {
     for (int i = 0; i < 8; i++) {
       System.out.println();
       for (int j = 0; j < 8; j++) {

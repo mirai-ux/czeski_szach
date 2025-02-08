@@ -143,6 +143,9 @@ public class BoardController extends TurnAbstract {
   public void displayPossibilities(int x, int y) {
     clearIndicators();
 
+    // System.out.println(gm.getPossibilities(x, y));
+    GameManager.Helpers.printArray8x8(gm.getPossibilities(x, y));
+
     String positionStyleModifier = (x + y) % 2 == 0 ? Styling.OffWhiteSelected : Styling.PaleGreenSelected;
     String positionStyle = "-fx-background-color: " + positionStyleModifier;
 
@@ -216,6 +219,33 @@ public class BoardController extends TurnAbstract {
               clearIndicators();
             });
             break;
+          case 4:
+
+            break;
+          case 5:
+
+            break;
+          // need to make sure that this doesn't break when i try to move with
+          // a king thats in check, ie, check condiiton 103
+          case 102:
+            // this Pane has no css attached to it, it just sits on top op the
+            // figure so that you can deselect it while still preserving the
+            // easy to click hitboxes of the figures and the background change
+            Pane inCheckIndicator = new Pane();
+
+            inCheckIndicator.setPrefSize(Styling.tileSize, Styling.tileSize);
+            tile.getChildren().add(inCheckIndicator);
+            currentIndicators.add(inCheckIndicator);
+
+            indicator.setPrefSize(Styling.tileSize, Styling.tileSize);
+            indicator.setStyle(positionStyle);
+            tile.getChildren().add(0, indicator); // the zero adds it as the 0th index to not display above the pieces
+            currentIndicators.add(indicator);
+
+            inCheckIndicator.setOnMouseClicked(event -> {
+              clearIndicators();
+            });
+            break;
           default:
             break;
         }
@@ -260,15 +290,6 @@ public class BoardController extends TurnAbstract {
     selectedPiece.setTileY(yDest);
     selectedPiece = null;
 
-  }
-
-  public static void printListOfLists(List<List<Integer>> list) {
-    for (List<Integer> row : list) {
-      for (int num : row) {
-        System.out.print(num + "\t");
-      }
-      System.out.println();
-    }
   }
 
   @FXML
