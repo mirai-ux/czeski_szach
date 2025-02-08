@@ -46,22 +46,22 @@ public class GM {
     if (selectedPiece.getFENName() == 'K' || selectedPiece.getFENName() == 'R') {
       if (castlings.indexOf("Q") != -1) {
         possibleMoves.get(7).set(0, 4);
-        possibleMoves.get(7).set(4, 4);
+        possibleMoves.get(7).set(4, 5);
       }
       if (castlings.indexOf("K") != -1) {
-        possibleMoves.get(7).set(7, 5);
+        possibleMoves.get(7).set(7, 6);
         possibleMoves.get(7).set(4, 5);
       }
     }
     // castling for black
     if (selectedPiece.getFENName() == 'k' || selectedPiece.getFENName() == 'r') {
       if (castlings.indexOf("q") != -1) {
-        possibleMoves.get(0).set(0, 6);
-        possibleMoves.get(0).set(4, 6);
+        possibleMoves.get(0).set(0, 7);
+        possibleMoves.get(0).set(4, 8);
       }
       if (castlings.indexOf("k") != -1) {
-        possibleMoves.get(0).set(7, 7);
-        possibleMoves.get(0).set(4, 7);
+        possibleMoves.get(0).set(7, 9);
+        possibleMoves.get(0).set(4, 8);
       }
     }
     return possibleMoves;
