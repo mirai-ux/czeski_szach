@@ -158,7 +158,10 @@ public class Helpers {
       resultFEN += " b";
 
     // now code castling
-    resultFEN += " " + gm.possibleCastlings();
+    resultFEN += " " + gm.checkCastling_Q();
+    resultFEN += gm.checkCastling_K();
+    resultFEN += gm.checkCastling_q();
+    resultFEN += gm.checkCastling_k();
     // not playing with en passant
     resultFEN += " -";
     // how many halfmoves
