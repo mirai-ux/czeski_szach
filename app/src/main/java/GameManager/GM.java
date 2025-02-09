@@ -80,7 +80,8 @@ public class GM {
   }
 
   public void castling(String where) {
-    if (where == "Q") {
+    // if (where == "Q") {
+    if ( where.equals("Q") ) {
       int rookID = board.get(7).get(0) % 100;
       int kingID = board.get(7).get(4) % 100;
       board.get(7).set(1, kingID);
@@ -89,7 +90,7 @@ public class GM {
       history.add(move);
       move = new Move();
     }
-    if (where == "K") {
+    if ( where.equals("K") ) {
       int rookID = board.get(7).get(7) % 100;
       int kingID = board.get(7).get(4) % 100;
       board.get(7).set(6, kingID);
@@ -98,7 +99,7 @@ public class GM {
       history.add(move);
       move = new Move();
     }
-    if (where == "q") {
+    if ( where.equals("q") ) {
       int rookID = board.get(0).get(0) % 100;
       int kingID = board.get(0).get(4) % 100;
       board.get(0).set(1, kingID);
@@ -107,7 +108,7 @@ public class GM {
       history.add(move);
       move = new Move();
     }
-    if (where == "k") {
+    if ( where.equals("k") ) {
       int rookID = board.get(0).get(7) % 100;
       int kingID = board.get(0).get(4) % 100;
       board.get(0).set(6, kingID);
