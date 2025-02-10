@@ -217,7 +217,7 @@ public class BoardController extends TurnAbstract {
             tile.getChildren().add(0, indicator); // the zero adds it as the 0th index to not display above the pieces
             currentIndicators.add(indicator);
 
-            new Bubble("Fuck off", tile);
+            new Bubble("Piss off mate", tile);
 
             deselectIndicator.setOnMouseClicked(event -> {
               clearIndicators();
@@ -227,24 +227,25 @@ public class BoardController extends TurnAbstract {
             indicator.setPrefSize(Styling.captureSize, Styling.captureSize);
             indicator.setLayoutX((Styling.tileSize - Styling.captureSize) / 2);
             indicator.setLayoutY((Styling.tileSize - Styling.captureSize) / 2);
+            // indicator.setStyle(Styling.castleStyle);
+            // indicator.getStylesheets().add("hollow-triangle");
             indicator.setStyle(Styling.captureStyle);
             tile.getChildren().add(indicator);
             currentIndicators.add(indicator);
 
             // capture
             indicator.setOnMouseClicked(event -> {
-              // displayCapture(tileList.get(y).get(x), iIndex, jIndex);
-              // gm.selectDestination(iIndex, jIndex);
               displayCastle("Q");
               turn();
               quoteLabel.setText(quoteOfTheTurn());
               historyController.displayMoveHistory(gm.getNiceLastMove());
               clearIndicators();
             });
-
             break;
-          // need to make sure that this doesn't break when i try to move with
-          // a king thats in check, ie, check condiiton 103
+          case 6:
+
+            // need to make sure that this doesn't break when i try to move with
+            // a king thats in check, ie, check condiiton 103
           case 102:
             // this Pane has no css attached to it, it just sits on top op the
             // figure so that you can deselect it while still preserving the
@@ -310,46 +311,93 @@ public class BoardController extends TurnAbstract {
 
   }
 
+  private void styleCastle(Pane indicator, Pane tile) {
+    indicator.setPrefSize(Styling.captureSize, Styling.captureSize);
+    indicator.setLayoutX((Styling.tileSize - Styling.captureSize) / 2);
+    indicator.setLayoutY((Styling.tileSize - Styling.captureSize) / 2);
+    // indicator.setStyle(Styling.castleStyle);
+    // indicator.getStylesheets().add("hollow-triangle");
+    indicator.setStyle(Styling.captureStyle);
+    tile.getChildren().add(indicator);
+    currentIndicators.add(indicator);
+
+    // capture
+    indicator.setOnMouseClicked(event -> {
+      displayCastle("Q");
+      turn();
+      quoteLabel.setText(quoteOfTheTurn());
+      historyController.displayMoveHistory(gm.getNiceLastMove());
+      clearIndicators();
+    });
+  }
+
   private void displayCastle(String where) {
-    // ObservableList<Node> king;
-    // ObservableList<Node> rook;
     LessStupidImageView king;
     LessStupidImageView rook;
+    Pane kingParent;
+    Pane rookParent;
+
+    // simply put if white castles, row = 7, if it's black who
+    // castles, then row = 0;
+    int row;
+    int kingStartX;
+    int rookStartX;
+    int kingEndX;
+    int rookEndX;
+
     switch (where) {
       case "Q":
-        king = (LessStupidImageView) tileList.get(7).get(4).getChildren()
-            .filtered(tileChild -> tileChild instanceof LessStupidImageView)
-            .get(0);
-
-        rook = (LessStupidImageView) tileList.get(7).get(0).getChildren()
-            .filtered(tileChild -> tileChild instanceof LessStupidImageView)
-            .get(0);
-
-        Pane kingParent = (Pane) king.getParent();
-        Pane rookParent = (Pane) rook.getParent();
-
-        kingParent.getChildren().remove(king);
-        rookParent.getChildren().remove(rook);
-
-        tileList.get(7).get(2).getChildren().add(king);
-        tileList.get(7).get(3).getChildren().add(rook);
+        row = 7;
+        kingStartX = 4;
+        rookStartX = 0;
+        kingEndX = 2;
+        rookEndX = 3;
         break;
       case "K":
+        row = 7;
+        kingStartX = 4;
+        rookStartX = 7;
+        kingEndX = 6;
+        rookEndX = 5;
         break;
       case "q":
+        row = 0;
+        kingStartX = 4;
+        rookStartX = 0;
+        kingEndX = 2;
+        rookEndX = 3;
         break;
       case "k":
+        row = 0;
+        kingStartX = 4;
+        rookStartX = 7;
+        kingEndX = 6;
+        rookEndX = 5;
         break;
+      default:
+        throw new IllegalArgumentException("Non-existant $where argument");
     }
 
+    king = (LessStupidImageView) tileList.get(row).get(kingStartX).getChildren()
+        .filtered(tileChild -> tileChild instanceof LessStupidImageView)
+        .get(0);
+    selectedPiece = king;
+
+    rook = (LessStupidImageView) tileList.get(row).get(rookStartX).getChildren()
+        .filtered(tileChild -> tileChild instanceof LessStupidImageView)
+        .get(0);
+
+    kingParent = (Pane) king.getParent();
+    rookParent = (Pane) rook.getParent();
+
+    kingParent.getChildren().remove(king);
+    rookParent.getChildren().remove(rook);
+
+    tileList.get(row).get(kingEndX).getChildren().add(king);
+    tileList.get(row).get(rookEndX).getChildren().add(rook);
+
     gm.castling(where);
-    // sourceTile.getChildren().remove(selectedPiece);
-    //
-    // tileList.get(yDest).get(xDest).getChildren().add(selectedPiece);
-    //
-    // selectedPiece.setTileX(xDest);
-    // selectedPiece.setTileY(yDest);
-    // selectedPiece = null;
+    selectedPiece = null;
   }
 
   @FXML
