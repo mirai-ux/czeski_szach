@@ -33,8 +33,7 @@
          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
             <children>
                   <Button fx:id="newGameButton" prefHeight="50.0" prefWidth="50.0" text="flag" />
-                  <Button fx:id="lastMoveButton" prefHeight="50.0" prefWidth="50.0" text="&lt;" />
-               <Button fx:id="nextMoveButton" prefHeight="50.0" prefWidth="50.0" text="&gt;" />
+               <Button fx:id="refreshButton" onAction="#onRefreshButton" prefHeight="50.0" prefWidth="68.0" text="refresh" />
             </children>
          </HBox>
         </VBox>

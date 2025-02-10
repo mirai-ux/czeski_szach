@@ -17,7 +17,7 @@ public class Main extends Application {
       stage.initStyle(StageStyle.TRANSPARENT);
       System.out.println(scene.getFill());
 
-      scene.getStylesheets().add(getClass().getResource("/Styling.css").toExternalForm());
+      // scene.getStylesheets().add(getClass().getResource("/Styling.css").toExternalForm());
 
       stage.setTitle("Greatestest Chess of Every Time There Ever Was");
       stage.setScene(scene);

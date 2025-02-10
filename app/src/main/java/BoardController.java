@@ -8,7 +8,11 @@ import javafx.scene.image.Image;
 import javafx.scene.Node;
 import javafx.fxml.FXMLLoader;
 import java.util.*;
+import javafx.scene.control.Button;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import java.io.IOException;
+
 import javafx.collections.ObservableList;
 
 public class BoardController extends TurnAbstract {
@@ -217,43 +221,21 @@ public class BoardController extends TurnAbstract {
             tile.getChildren().add(0, indicator); // the zero adds it as the 0th index to not display above the pieces
             currentIndicators.add(indicator);
 
-            new Bubble("Piss off mate", tile);
-
             deselectIndicator.setOnMouseClicked(event -> {
               clearIndicators();
             });
             break;
           case 4:
-            indicator.setPrefSize(Styling.captureSize, Styling.captureSize);
-            indicator.setLayoutX((Styling.tileSize - Styling.captureSize) / 2);
-            indicator.setLayoutY((Styling.tileSize - Styling.captureSize) / 2);
-            indicator.setStyle(Styling.captureStyle);
-            tile.getChildren().add(indicator);
-            currentIndicators.add(indicator);
-
-            indicator.setOnMouseClicked(event -> {
-              displayCastle("Q");
-              turn();
-              quoteLabel.setText(quoteOfTheTurn());
-              historyController.displayMoveHistory(gm.getNiceLastMove());
-              clearIndicators();
-            });
+            castle(indicator, tile, "Q");
             break;
           case 6:
-            indicator.setPrefSize(Styling.captureSize, Styling.captureSize);
-            indicator.setLayoutX((Styling.tileSize - Styling.captureSize) / 2);
-            indicator.setLayoutY((Styling.tileSize - Styling.captureSize) / 2);
-            indicator.setStyle(Styling.captureStyle);
-            tile.getChildren().add(indicator);
-            currentIndicators.add(indicator);
-
-            indicator.setOnMouseClicked(event -> {
-              displayCastle("K");
-              turn();
-              quoteLabel.setText(quoteOfTheTurn());
-              historyController.displayMoveHistory(gm.getNiceLastMove());
-              clearIndicators();
-            });
+            castle(indicator, tile, "K");
+            break;
+          case 7:
+            castle(indicator, tile, "q");
+            break;
+          case 9:
+            castle(indicator, tile, "k");
             break;
           case 102:
             // this Pane has no css attached to it, it just sits on top op the
@@ -320,7 +302,7 @@ public class BoardController extends TurnAbstract {
 
   }
 
-  private void styleCastle(Pane indicator, Pane tile) {
+  private void castle(Pane indicator, Pane tile, String where) {
     indicator.setPrefSize(Styling.captureSize, Styling.captureSize);
     indicator.setLayoutX((Styling.tileSize - Styling.captureSize) / 2);
     indicator.setLayoutY((Styling.tileSize - Styling.captureSize) / 2);
@@ -332,7 +314,7 @@ public class BoardController extends TurnAbstract {
 
     // capture
     indicator.setOnMouseClicked(event -> {
-      displayCastle("Q");
+      displayCastle(where);
       turn();
       quoteLabel.setText(quoteOfTheTurn());
       historyController.displayMoveHistory(gm.getNiceLastMove());
@@ -407,6 +389,15 @@ public class BoardController extends TurnAbstract {
 
     gm.castling(where);
     selectedPiece = null;
+  }
+
+  @FXML
+  private Button refreshButton;
+
+  @FXML
+  public void onRefreshButton(ActionEvent refreshButton) {
+    System.out.println("fuck you");
+    GameManager.Helpers.printArray8x8(gm.getBoard());
   }
 
   @FXML

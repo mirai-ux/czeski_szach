@@ -20,7 +20,7 @@ public class GM {
   public GM() {
     isTurnWhite = true;
     helper = new Helpers();
-    helper.setGM( this );
+    helper.setGM(this);
 
     // AllFigures = helper.ReadFromFile("newGameTemplate.txt");
     AllFigures = helper.ReadFromFile("testTemplate.txt");
@@ -42,7 +42,7 @@ public class GM {
     // System.out.println( "Pozycja wybranej figury: " + piecePosition );
 
     // look for possible castlings
-    String castlings = possibleCastlings( selectedPiece );
+    String castlings = possibleCastlings(selectedPiece);
     // castlings for white
     if (selectedPiece.getFENName() == 'K' || selectedPiece.getFENName() == 'R') {
       if (castlings.indexOf("Q") != -1) {
@@ -81,16 +81,16 @@ public class GM {
 
   public void castling(String where) {
     // if (where == "Q") {
-    if ( where.equals("Q") ) {
+    if (where.equals("Q")) {
       int rookID = board.get(7).get(0) % 100;
       int kingID = board.get(7).get(4) % 100;
-      board.get(7).set(1, kingID);
-      board.get(7).set(2, rookID);
+      board.get(7).set(2, kingID);
+      board.get(7).set(3, rookID);
       move = new Move("Q", "Q");
       history.add(move);
       move = new Move();
     }
-    if ( where.equals("K") ) {
+    if (where.equals("K")) {
       int rookID = board.get(7).get(7) % 100;
       int kingID = board.get(7).get(4) % 100;
       board.get(7).set(6, kingID);
@@ -99,16 +99,16 @@ public class GM {
       history.add(move);
       move = new Move();
     }
-    if ( where.equals("q") ) {
+    if (where.equals("q")) {
       int rookID = board.get(0).get(0) % 100;
       int kingID = board.get(0).get(4) % 100;
-      board.get(0).set(1, kingID);
-      board.get(0).set(2, rookID);
+      board.get(0).set(2, kingID);
+      board.get(0).set(3, rookID);
       move = new Move("q", "q");
       history.add(move);
       move = new Move();
     }
-    if ( where.equals("k") ) {
+    if (where.equals("k")) {
       int rookID = board.get(0).get(7) % 100;
       int kingID = board.get(0).get(4) % 100;
       board.get(0).set(6, kingID);
@@ -158,7 +158,9 @@ public class GM {
     return history;
   }
 
-  public boolean EndGameCheck(){ return isGameFinished; }
+  public boolean EndGameCheck() {
+    return isGameFinished;
+  }
 
   public Figure getPieceAt(int x_, int y_) {
     if (board.get(y_).get(x_) == 69)
@@ -198,105 +200,116 @@ public class GM {
     // See NOTE in /Saves/
     King WhiteKing = (King) AllFigures.get(0);
     King BlackKing = (King) AllFigures.get(1);
-    WhiteKing.inDanger(  );
-    BlackKing.inDanger(  );
+    WhiteKing.inDanger();
+    BlackKing.inDanger();
 
     // helper.printArray8x8(board);
   }
 
-  public String checkCastling_Q(){
+  public String checkCastling_Q() {
     King K = getPieceAt(4, 7) instanceof King ? (King) getPieceAt(4, 7) : null;
     if (K != null) {
       Rook RQ = getPieceAt(0, 7) instanceof Rook ? (Rook) getPieceAt(0, 7) : null;
       if (RQ != null) {
         boolean clean_Q = ((board.get(7).get(1) + board.get(7).get(2) + board.get(7).get(3)) == 207);
-        if( clean_Q && RQ.castlingPossible() && K.castlingPossible() )
+        if (clean_Q && RQ.castlingPossible() && K.castlingPossible())
           return "Q";
       }
     }
     return "";
   }
-  public String checkCastling_K(){
+
+  public String checkCastling_K() {
     King K = getPieceAt(4, 7) instanceof King ? (King) getPieceAt(4, 7) : null;
-    if( K != null ){
+    if (K != null) {
       Rook RK = getPieceAt(7, 7) instanceof Rook ? (Rook) getPieceAt(7, 7) : null;
       if (RK != null) {
         boolean clean_K = ((board.get(7).get(6) + board.get(7).get(5)) == 138);
-        if( clean_K && RK.castlingPossible() && K.castlingPossible() )
+        if (clean_K && RK.castlingPossible() && K.castlingPossible())
           return "K";
       }
     }
     return "";
   }
-  public String checkCastling_q(){
+
+  public String checkCastling_q() {
     King k = getPieceAt(4, 0) instanceof King ? (King) getPieceAt(4, 0) : null;
     if (k != null) {
       Rook rq = getPieceAt(0, 0) instanceof Rook ? (Rook) getPieceAt(0, 0) : null;
       if (rq != null) {
         boolean clean_q = ((board.get(0).get(1) + board.get(0).get(2) + board.get(0).get(3)) == 207);
-        if ( clean_q && rq.castlingPossible() && k.castlingPossible() )
+        if (clean_q && rq.castlingPossible() && k.castlingPossible())
           return "q";
       }
     }
     return "";
   }
-  public String checkCastling_k(){
+
+  public String checkCastling_k() {
     King k = getPieceAt(4, 0) instanceof King ? (King) getPieceAt(4, 0) : null;
-    if( k != null ){
+    if (k != null) {
       Rook rk = getPieceAt(7, 0) instanceof Rook ? (Rook) getPieceAt(7, 0) : null;
       if (rk != null) {
         boolean clean_k = ((board.get(0).get(6) + board.get(0).get(5)) == 138);
-        if( clean_k && rk.castlingPossible() && k.castlingPossible() )
+        if (clean_k && rk.castlingPossible() && k.castlingPossible())
           return "k";
       }
     }
     return "";
   }
+
   public String possibleCastlings(Figure f) {
     String result = "";
-    if( !(f instanceof Rook || f instanceof King) ) return result;
+    if (!(f instanceof Rook || f instanceof King))
+      return result;
 
-    if( f.getTeam() ){
-      if( f instanceof King )
-        result += ( checkCastling_Q() + checkCastling_K() );
-      if( f instanceof Rook && f.getX() == 0)
+    if (f.getTeam()) {
+      if (f instanceof King)
+        result += (checkCastling_Q() + checkCastling_K());
+      if (f instanceof Rook && f.getX() == 0)
         result += checkCastling_Q();
-      if( f instanceof Rook && f.getX() == 7)
+      if (f instanceof Rook && f.getX() == 7)
         result += checkCastling_K();
     } else {
-      if( f instanceof King )
-        result += ( checkCastling_q() + checkCastling_k() );
-      if( f instanceof Rook && f.getX() == 0)
+      if (f instanceof King)
+        result += (checkCastling_q() + checkCastling_k());
+      if (f instanceof Rook && f.getX() == 0)
         result += checkCastling_q();
-      if( f instanceof Rook && f.getX() == 7)
+      if (f instanceof Rook && f.getX() == 7)
         result += checkCastling_k();
     }
 
     // King K = getPieceAt(4, 7) instanceof King ? (King) getPieceAt(4, 7) : null;
     // if( K != null ){
-    //   Rook RQ = getPieceAt(0, 7) instanceof Rook ? (Rook) getPieceAt(0, 7) : null;
-    //   if( RQ != null ){
-    //     boolean clean_Q = ((board.get(7).get(1) + board.get(7).get(2) + board.get(7).get(3)) == 207);
-    //     result += ( clean_Q && RQ.castlingPossible() && K.castlingPossible() ) ? "Q" : ""; 
-    //   }
-    //   Rook RK = getPieceAt(7, 7) instanceof Rook ? (Rook) getPieceAt(7, 7) : null;
-    //   if( RK != null ){
-    //     boolean clean_K = ((board.get(7).get(6) + board.get(7).get(5)) == 138);
-    //     result += ( clean_K && RK.castlingPossible() && K.castlingPossible() ) ? "K" : ""; 
-    //   }
+    // Rook RQ = getPieceAt(0, 7) instanceof Rook ? (Rook) getPieceAt(0, 7) : null;
+    // if( RQ != null ){
+    // boolean clean_Q = ((board.get(7).get(1) + board.get(7).get(2) +
+    // board.get(7).get(3)) == 207);
+    // result += ( clean_Q && RQ.castlingPossible() && K.castlingPossible() ) ? "Q"
+    // : "";
+    // }
+    // Rook RK = getPieceAt(7, 7) instanceof Rook ? (Rook) getPieceAt(7, 7) : null;
+    // if( RK != null ){
+    // boolean clean_K = ((board.get(7).get(6) + board.get(7).get(5)) == 138);
+    // result += ( clean_K && RK.castlingPossible() && K.castlingPossible() ) ? "K"
+    // : "";
+    // }
     // }
     // King k = getPieceAt(4, 0) instanceof King ? (King) getPieceAt(4, 0) : null;
     // if( k != null ){
-    //   Rook rq = getPieceAt(0, 0) instanceof Rook ? (Rook) getPieceAt(0, 0) : null;
-    //   if( rq != null ){
-    //     boolean clean_q = ((board.get(0).get(1) + board.get(0).get(2) + board.get(0).get(3)) == 207);
-    //     result += ( clean_q && rq.castlingPossible() && k.castlingPossible() ) ? "q" : ""; 
-    //   }
-    //   Rook rk = getPieceAt(7, 0) instanceof Rook ? (Rook) getPieceAt(7, 0) : null;
-    //   if( rk != null ){
-    //     boolean clean_k = ((board.get(0).get(6) + board.get(0).get(5)) == 138);
-    //     result += ( clean_k && rk.castlingPossible() && k.castlingPossible() ) ? "k" : ""; 
-    //   }
+    // Rook rq = getPieceAt(0, 0) instanceof Rook ? (Rook) getPieceAt(0, 0) : null;
+    // if( rq != null ){
+    // boolean clean_q = ((board.get(0).get(1) + board.get(0).get(2) +
+    // board.get(0).get(3)) == 207);
+    // result += ( clean_q && rq.castlingPossible() && k.castlingPossible() ) ? "q"
+    // : "";
+    // }
+    // Rook rk = getPieceAt(7, 0) instanceof Rook ? (Rook) getPieceAt(7, 0) : null;
+    // if( rk != null ){
+    // boolean clean_k = ((board.get(0).get(6) + board.get(0).get(5)) == 138);
+    // result += ( clean_k && rk.castlingPossible() && k.castlingPossible() ) ? "k"
+    // : "";
+    // }
     // }
 
     // int size = history.size();
@@ -337,17 +350,17 @@ public class GM {
     board.get(y_).set(x_, nV);
   }
 
-  public void promotePawn( Pawn pawn ) {
+  public void promotePawn(Pawn pawn) {
     // make new queen
     int x_ = pawn.getX();
     int y_ = pawn.getY();
     boolean team_ = pawn.getTeam();
     Queen newQueen = new Queen(x_, y_, team_, this);
-    AllFigures.add( newQueen );
+    AllFigures.add(newQueen);
     // remove old pawn
-    pawn.setActivity( false );
+    pawn.setActivity(false);
     // replace old pawn
-    updateBoard(x_, y_, AllFigures.size()-1 );
+    updateBoard(x_, y_, AllFigures.size() - 1);
   }
 
   public void tests() {
