@@ -387,8 +387,17 @@ public class BoardController extends TurnAbstract {
     tileList.get(row).get(kingEndX).getChildren().add(king);
     tileList.get(row).get(rookEndX).getChildren().add(rook);
 
+    king.setTileX(kingEndX);
+    king.setTileY(row);
+
+    rook.setTileX(rookEndX);
+    rook.setTileY(row);
+
     gm.castling(where);
     selectedPiece = null;
+
+    System.out.println("\nPOST");
+    GameManager.Helpers.printArray8x8(gm.getPossibilities(kingEndX, row));
   }
 
   @FXML
