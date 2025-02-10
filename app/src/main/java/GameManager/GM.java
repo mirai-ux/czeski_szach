@@ -79,19 +79,30 @@ public class GM {
     makeMove(piecePosition + pieceDestination);
   }
 
+  private String position(int x, int y) {
+    return ("" + (char) (x + 97) + (8 - y));
+  }
+
   public void castling(String where) {
     // if (where == "Q") {
     if (where.equals("Q")) {
       int rookID = board.get(7).get(0) % 100;
       int kingID = board.get(7).get(4) % 100;
-      board.get(7).set(0, 69);
-      board.get(7).set(4, 69);
-      board.get(7).set(2, kingID);
-      board.get(7).set(3, rookID);
+      // board.get(7).set(0, 69);
+      // board.get(7).set(4, 69);
+      // board.get(7).set(2, kingID);
+      // board.get(7).set(3, rookID);
+
+      // king's move
+      makeMove(position(4, 7) + position(2, 7));
+      // rook's move
+      makeMove(position(0, 7) + position(3, 7));
+
       move = new Move("Q", "Q");
       history.add(move);
       move = new Move();
     }
+
     if (where.equals("K")) {
       int rookID = board.get(7).get(7) % 100;
       int kingID = board.get(7).get(4) % 100;
