@@ -227,13 +227,10 @@ public class BoardController extends TurnAbstract {
             indicator.setPrefSize(Styling.captureSize, Styling.captureSize);
             indicator.setLayoutX((Styling.tileSize - Styling.captureSize) / 2);
             indicator.setLayoutY((Styling.tileSize - Styling.captureSize) / 2);
-            // indicator.setStyle(Styling.castleStyle);
-            // indicator.getStylesheets().add("hollow-triangle");
             indicator.setStyle(Styling.captureStyle);
             tile.getChildren().add(indicator);
             currentIndicators.add(indicator);
 
-            // capture
             indicator.setOnMouseClicked(event -> {
               displayCastle("Q");
               turn();
@@ -243,9 +240,21 @@ public class BoardController extends TurnAbstract {
             });
             break;
           case 6:
+            indicator.setPrefSize(Styling.captureSize, Styling.captureSize);
+            indicator.setLayoutX((Styling.tileSize - Styling.captureSize) / 2);
+            indicator.setLayoutY((Styling.tileSize - Styling.captureSize) / 2);
+            indicator.setStyle(Styling.captureStyle);
+            tile.getChildren().add(indicator);
+            currentIndicators.add(indicator);
 
-            // need to make sure that this doesn't break when i try to move with
-            // a king thats in check, ie, check condiiton 103
+            indicator.setOnMouseClicked(event -> {
+              displayCastle("K");
+              turn();
+              quoteLabel.setText(quoteOfTheTurn());
+              historyController.displayMoveHistory(gm.getNiceLastMove());
+              clearIndicators();
+            });
+            break;
           case 102:
             // this Pane has no css attached to it, it just sits on top op the
             // figure so that you can deselect it while still preserving the
