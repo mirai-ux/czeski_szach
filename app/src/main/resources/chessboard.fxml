@@ -32,7 +32,7 @@
          <StackPane fx:id="historyStackPane" prefHeight="528.0" prefWidth="214.0" />
          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
             <children>
-                  <Button fx:id="newGameButton" prefHeight="50.0" prefWidth="50.0" text="flag" />
+                  <Button fx:id="forfeitButton" onAction="#onForfeitButton" prefHeight="50.0" prefWidth="50.0" text="flag" />
                <Button fx:id="refreshButton" onAction="#onRefreshButton" prefHeight="50.0" prefWidth="68.0" text="refresh" />
             </children>
          </HBox>

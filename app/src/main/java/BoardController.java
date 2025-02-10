@@ -410,6 +410,15 @@ public class BoardController extends TurnAbstract {
   }
 
   @FXML
+  private Button forfeitButton;
+
+  @FXML
+  public void onForfeitButton(ActionEvent forfeitButton) {
+    System.out.println("Scaredy little kitten, aren't we?");
+    super.gm = new GameManager.GM();
+  }
+
+  @FXML
   private StackPane historyStackPane;
 
   private HistoryController historyController;
