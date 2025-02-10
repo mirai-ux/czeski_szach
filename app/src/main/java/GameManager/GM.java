@@ -84,8 +84,10 @@ public class GM {
     if ( where.equals("Q") ) {
       int rookID = board.get(7).get(0) % 100;
       int kingID = board.get(7).get(4) % 100;
-      board.get(7).set(1, kingID);
-      board.get(7).set(2, rookID);
+      board.get(7).set(0,69);
+      board.get(7).set(4,69);
+      board.get(7).set(2, kingID);
+      board.get(7).set(3, rookID);
       move = new Move("Q", "Q");
       history.add(move);
       move = new Move();
@@ -93,6 +95,8 @@ public class GM {
     if ( where.equals("K") ) {
       int rookID = board.get(7).get(7) % 100;
       int kingID = board.get(7).get(4) % 100;
+      board.get(7).set(7,69);
+      board.get(7).set(4,69);
       board.get(7).set(6, kingID);
       board.get(7).set(5, rookID);
       move = new Move("K", "K");
@@ -102,8 +106,10 @@ public class GM {
     if ( where.equals("q") ) {
       int rookID = board.get(0).get(0) % 100;
       int kingID = board.get(0).get(4) % 100;
-      board.get(0).set(1, kingID);
-      board.get(0).set(2, rookID);
+      board.get(0).set(0,69);
+      board.get(0).set(4,69);
+      board.get(0).set(2, kingID);
+      board.get(0).set(3, rookID);
       move = new Move("q", "q");
       history.add(move);
       move = new Move();
@@ -111,6 +117,8 @@ public class GM {
     if ( where.equals("k") ) {
       int rookID = board.get(0).get(7) % 100;
       int kingID = board.get(0).get(4) % 100;
+      board.get(0).set(7,69);
+      board.get(0).set(4,69);
       board.get(0).set(6, kingID);
       board.get(0).set(5, rookID);
       move = new Move("k", "k");
