@@ -1,6 +1,6 @@
 l47t
 l40f
-p06t
+p02t
 p16t
 p26t
 p36t
@@ -22,7 +22,7 @@ p31f
 p41f
 p51f
 p61f
-p71f
+p75f
 r00f
 r70f
 k13f

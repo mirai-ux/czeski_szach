@@ -184,6 +184,7 @@ public class BoardController extends TurnAbstract {
               quoteLabel.setText(quoteOfTheTurn());
               historyController.displayMoveHistory(gm.getNiceLastMove());
               clearIndicators();
+              displayPromote();
             });
             break;
           case 2:
@@ -325,8 +326,8 @@ public class BoardController extends TurnAbstract {
   private void displayCastle(String where) {
     LessStupidImageView king;
     LessStupidImageView rook;
-    Pane kingParent;
-    Pane rookParent;
+    Pane kingTile;
+    Pane rookTile;
 
     // simply put if white castles, row = 7, if it's black who
     // castles, then row = 0;
@@ -378,11 +379,11 @@ public class BoardController extends TurnAbstract {
         .filtered(tileChild -> tileChild instanceof LessStupidImageView)
         .get(0);
 
-    kingParent = (Pane) king.getParent();
-    rookParent = (Pane) rook.getParent();
+    kingTile = (Pane) king.getParent();
+    rookTile = (Pane) rook.getParent();
 
-    kingParent.getChildren().remove(king);
-    rookParent.getChildren().remove(rook);
+    kingTile.getChildren().remove(king);
+    rookTile.getChildren().remove(rook);
 
     tileList.get(row).get(kingEndX).getChildren().add(king);
     tileList.get(row).get(rookEndX).getChildren().add(rook);
@@ -396,8 +397,37 @@ public class BoardController extends TurnAbstract {
     gm.castling(where);
     selectedPiece = null;
 
-    System.out.println("\nPOST");
-    GameManager.Helpers.printArray8x8(gm.getPossibilities(kingEndX, row));
+    // System.out.println("\nPOST");
+    // GameManager.Helpers.printArray8x8(gm.getPossibilities(kingEndX, row));
+  }
+
+  private void displayPromote() {
+    // white
+    if (!gm.getTurn()) {
+      for (int x = 0; x < 8; x++) {
+        if ((gm.getBoard().get(0).get(x) > 31) && (gm.getBoard().get(0).get(x) < 69)) {
+          Image w_queen = new Image("pieces/w_queen.png");
+          LessStupidImageView pawn = (LessStupidImageView) tileList.get(0)
+              .get(x).getChildren()
+              .filtered(tileChild -> tileChild instanceof LessStupidImageView)
+              .get(0);
+          pawn.setImage(w_queen);
+          return;
+        }
+      }
+    }
+
+    for (int x = 0; x < 8; x++) {
+      if ((gm.getBoard().get(7).get(x) > 31) && (gm.getBoard().get(7).get(x) < 69)) {
+        Image b_queen = new Image("pieces/b_queen.png");
+        LessStupidImageView pawn = (LessStupidImageView) tileList.get(7)
+            .get(x).getChildren()
+            .filtered(tileChild -> tileChild instanceof LessStupidImageView)
+            .get(0);
+        pawn.setImage(b_queen);
+        return;
+      }
+    }
   }
 
   @FXML
@@ -405,7 +435,6 @@ public class BoardController extends TurnAbstract {
 
   @FXML
   public void onRefreshButton(ActionEvent refreshButton) {
-    System.out.println("fuck you");
     GameManager.Helpers.printArray8x8(gm.getBoard());
   }
 
