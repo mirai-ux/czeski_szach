@@ -11,6 +11,10 @@ public class Queen extends Figure{
     public List< List< Integer >> getPossibleMoves( ){
         List< List< Integer >> moves = GameManager.Helpers.InitializeArray8x8();
 
+        if( gm.EndGameCheck() ) return moves;
+    
+        
+
         Rook r = new Rook(this.x, this.y, this.isWhite, gm);
         List< List< Integer >> movesRook = GameManager.Helpers.InitializeArray8x8();
         Bishop b = new Bishop(this.x, this.y, this.isWhite, gm);

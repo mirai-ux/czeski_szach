@@ -11,6 +11,10 @@ public class King extends Figure {
 
   public List<List<Integer>> getPossibleMoves() {
     List<List<Integer>> moves = GameManager.Helpers.InitializeArray8x8();
+
+    if( gm.EndGameCheck() ) return moves;
+
+    
     List<List<Integer>> board = gm.getBoard();
 
     int[][] possibilities = { { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
