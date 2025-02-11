@@ -48,6 +48,7 @@ public class King extends Figure {
           int fy = f.getY();
           int newVal = gm.getBoard().get(fy).get(fx) + marker;
           gm.updateBoard(fx, fy, newVal);
+          System.out.println( "\n Szach na:" + fx + " " + fy );
         }
       }
     }

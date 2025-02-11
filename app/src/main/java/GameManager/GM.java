@@ -227,8 +227,8 @@ public class GM {
     // See NOTE in /Saves/
     King WhiteKing = (King) AllFigures.get(0);
     King BlackKing = (King) AllFigures.get(1);
-    // WhiteKing.inDanger();
-    // BlackKing.inDanger();
+    WhiteKing.inDanger();
+    BlackKing.inDanger();
 
     // helper.printArray8x8(board);
   }
