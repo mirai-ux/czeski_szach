@@ -444,7 +444,7 @@ public class BoardController extends TurnAbstract {
   @FXML
   public void onForfeitButton(ActionEvent forfeitButton) {
     System.out.println("Scaredy little kitten, aren't we?");
-    super.gm = new GameManager.GM();
+    // super.gm = new GameManager.GM();
   }
 
   @FXML

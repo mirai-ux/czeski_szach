@@ -6,21 +6,8 @@ import java.io.IOException;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 
-public class Main extends Application {
-  private Forfeit forfeit;
-  private Stage stage;
-
-  public void forfeitManager() {
-    try {
-      start(new Stage());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  @Override
-  public void start(Stage stage) throws IOException {
-    // forfeit = new Forfeit(stage);
+public class Forfeit {
+  public Forfeit(Stage stage) {
     try {
       FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("chessboard.fxml"));
       Scene scene = new Scene(fxmlLoader.load(), 700, 700);
@@ -29,8 +16,7 @@ public class Main extends Application {
       stage.initStyle(StageStyle.TRANSPARENT);
       System.out.println(scene.getFill());
 
-      //
-      scene.getStylesheets().add(getClass().getResource("/Styling.css").toExternalForm());
+      // scene.getStylesheets().add(getClass().getResource("/Styling.css").toExternalForm());
 
       stage.setTitle("Greatestest Chess of Every Time There Ever Was");
       stage.setScene(scene);
@@ -38,9 +24,5 @@ public class Main extends Application {
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  public static void main(String[] args) {
-    launch();
   }
 }
