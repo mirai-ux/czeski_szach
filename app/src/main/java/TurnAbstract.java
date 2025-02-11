@@ -40,7 +40,8 @@ public abstract class TurnAbstract {
         "You bloody cretin!",
         "Watch your step amputee!",
         "Is your monitor good?",
-        "No to mamy czeski szach",
+        "Bri'ish ppl be like aight mate",
+        "Is your monitor good?",
         "Is your monitor good?",
     };
 
