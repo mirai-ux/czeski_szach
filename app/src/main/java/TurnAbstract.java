@@ -40,6 +40,8 @@ public abstract class TurnAbstract {
         "You bloody cretin!",
         "Watch your step amputee!",
         "Is your monitor good?",
+        "No to mamy czeski szach",
+        "Is your monitor good?",
     };
 
     Random random = new Random();

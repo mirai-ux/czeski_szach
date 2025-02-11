@@ -43,6 +43,7 @@ public class King extends Figure {
   public void inDanger() {
     List<Figure> figures = gm.getFigures();
     int marker = this.isWhite ? 100 : 200;
+    int kingVal = this.isWhite ? 100 : 201;
     for (Figure f : figures) {
       // if its the opponent and still active
       if (f.getTeam() != this.isWhite && f.getActivity()) {
@@ -53,6 +54,8 @@ public class King extends Figure {
           int newVal = gm.getBoard().get(fy).get(fx) + marker;
           gm.updateBoard(fx, fy, newVal);
           System.out.println( "\n Szach na:" + fx + " " + fy );
+          gm.updateBoard( this.x, this.y, kingVal );
+          GameManager.Helpers.printArray8x8( gm.getBoard() );
         }
       }
     }
