@@ -44,6 +44,7 @@ public class King extends Figure {
     List<Figure> figures = gm.getFigures();
     int marker = this.isWhite ? 100 : 200;
     int kingVal = this.isWhite ? 100 : 201;
+    boolean checked = false;
     for (Figure f : figures) {
       // if its the opponent and still active
       if (f.getTeam() != this.isWhite && f.getActivity()) {
@@ -56,16 +57,18 @@ public class King extends Figure {
           System.out.println( "\n Szach na:" + fx + " " + fy );
           gm.updateBoard( this.x, this.y, kingVal );
           GameManager.Helpers.printArray8x8( gm.getBoard() );
+          checked = true;
         } else if( f.getPossibleMoves().get(this.y).get(this.x) > 99 ){
           int fx = f.getX();
           int fy = f.getY();
           int newVal = gm.getBoard().get(fy).get(fx) - marker;
           gm.updateBoard(fx, fy, newVal);
-          gm.updateBoard( this.x, this.y, kingVal );
           GameManager.Helpers.printArray8x8( gm.getBoard() );
         }
       }
     }
+    if( !checked && gm.getBoard().get(this.y).get(this.x) > 99 )
+      gm.updateBoard( this.x, this.y, kingVal-marker );
   }
 
   public boolean castlingPossible() {
