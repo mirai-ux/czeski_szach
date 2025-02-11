@@ -32,8 +32,8 @@
          <StackPane fx:id="historyStackPane" prefHeight="528.0" prefWidth="214.0" />
          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
             <children>
-                  <Button fx:id="forfeitButton" onAction="#onForfeitButton" prefHeight="50.0" prefWidth="50.0" text="flag" />
-               <Button fx:id="refreshButton" onAction="#onRefreshButton" prefHeight="50.0" prefWidth="68.0" text="refresh" />
+                  <Button prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: rgba(80, 73, 69, 1);" text="flag" textFill="#ebdbb2" />
+               <Button fx:id="refreshButton" onAction="#onRefreshButton" prefHeight="50.0" prefWidth="68.0" style="-fx-background-color: rgba(80, 73, 69, 1);" text="refresh" textFill="#ebdbb2" />
             </children>
          </HBox>
         </VBox>

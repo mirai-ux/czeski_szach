@@ -438,14 +438,15 @@ public class BoardController extends TurnAbstract {
     GameManager.Helpers.printArray8x8(gm.getBoard());
   }
 
-  @FXML
-  private Button forfeitButton;
-
-  @FXML
-  public void onForfeitButton(ActionEvent forfeitButton) {
-    System.out.println("Scaredy little kitten, aren't we?");
-    // super.gm = new GameManager.GM();
-  }
+  // @FXML
+  // private Button forfeitButton;
+  //
+  // @FXML
+  // public void onForfeitButton(ActionEvent forfeitButton) {
+  // System.out.println("Scaredy little kitten, aren't we?");
+  // Main main = new Main();
+  // main.forfeitManager();
+  // }
 
   @FXML
   private StackPane historyStackPane;
