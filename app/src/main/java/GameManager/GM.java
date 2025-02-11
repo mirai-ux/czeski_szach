@@ -80,7 +80,7 @@ public class GM {
   }
 
   // private String position(int x, int y) {
-  //   return ("" + (char) (x + 97) + (8 - y));
+  // return ("" + (char) (x + 97) + (8 - y));
   // }
 
   public void castling(String where) {
@@ -92,8 +92,8 @@ public class GM {
       board.get(7).set(4, 69);
       board.get(7).set(2, kingID);
       board.get(7).set(3, rookID);
-      AllFigures.get( kingID ).setPosition(2,7);
-      AllFigures.get( rookID ).setPosition(3,7);
+      AllFigures.get(kingID).setPosition(2, 7);
+      AllFigures.get(rookID).setPosition(3, 7);
 
       // // king's move
       // makeMove(position(4, 7) + position(2, 7));
@@ -112,8 +112,8 @@ public class GM {
       board.get(7).set(4, 69);
       board.get(7).set(6, kingID);
       board.get(7).set(5, rookID);
-      AllFigures.get( kingID ).setPosition(6,7);
-      AllFigures.get( rookID ).setPosition(5,7);
+      AllFigures.get(kingID).setPosition(6, 7);
+      AllFigures.get(rookID).setPosition(5, 7);
       move = new Move("K", "K");
       history.add(move);
       move = new Move();
@@ -125,8 +125,8 @@ public class GM {
       board.get(0).set(4, 69);
       board.get(0).set(2, kingID);
       board.get(0).set(3, rookID);
-      AllFigures.get( kingID ).setPosition(2,0);
-      AllFigures.get( rookID ).setPosition(3,0);
+      AllFigures.get(kingID).setPosition(2, 0);
+      AllFigures.get(rookID).setPosition(3, 0);
       move = new Move("q", "q");
       history.add(move);
       move = new Move();
@@ -138,8 +138,8 @@ public class GM {
       board.get(0).set(4, 69);
       board.get(0).set(6, kingID);
       board.get(0).set(5, rookID);
-      AllFigures.get( kingID ).setPosition(6,0);
-      AllFigures.get( rookID ).setPosition(5,0);
+      AllFigures.get(kingID).setPosition(6, 0);
+      AllFigures.get(rookID).setPosition(5, 0);
       move = new Move("k", "k");
       history.add(move);
       move = new Move();
@@ -221,14 +221,14 @@ public class GM {
     // System.out.println("Move: " + move);
 
     selectedPiece.setPosition(xDest, yDest);
-    //selectedPiece.moved();
+    // selectedPiece.moved();
 
     // they always are at 0 and 1 index.
     // See NOTE in /Saves/
     King WhiteKing = (King) AllFigures.get(0);
     King BlackKing = (King) AllFigures.get(1);
-    // WhiteKing.inDanger();
-    // BlackKing.inDanger();
+    WhiteKing.inDanger();
+    BlackKing.inDanger();
 
     // helper.printArray8x8(board);
   }

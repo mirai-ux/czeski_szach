@@ -13,20 +13,16 @@ public class Main extends Application {
   private Forfeit forfeit;
   private Stage stage;
 
-  public void forfeitManager() {
-    this.stage.close();
-    Platform.runLater(() -> {
-      try {
-        start(new Stage());
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    });
-  }
-
-  public void onForfeitButton() {
-
-  }
+  // public void forfeitManager() {
+  // this.stage.close();
+  // Platform.runLater(() -> {
+  // try {
+  // start(new Stage());
+  // } catch (IOException e) {
+  // e.printStackTrace();
+  // }
+  // });
+  // }
 
   @Override
   public void start(Stage stage) throws IOException {
@@ -40,8 +36,6 @@ public class Main extends Application {
       stage.initStyle(StageStyle.TRANSPARENT);
       System.out.println(scene.getFill());
 
-      // scene.getStylesheets().add(getClass().getResource("/Styling.css").toExternalForm());
-
       stage.setTitle("Greatestest Chess of Every Time There Ever Was");
       stage.setScene(scene);
       stage.show();
@@ -49,10 +43,10 @@ public class Main extends Application {
       e.printStackTrace();
     }
 
-    final Button forfeitButton = new Button("🏳️");
-    forfeitButton.setOnAction(__ -> {
-      System.out.println("Restarting");
-    });
+    // final Button forfeitButton = new Button("🏳️");
+    // forfeitButton.setOnAction(__ -> {
+    // System.out.println("Restarting");
+    // });
 
   }
 

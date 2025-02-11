@@ -443,7 +443,6 @@ public class BoardController extends TurnAbstract {
   //
   // @FXML
   // public void onForfeitButton(ActionEvent forfeitButton) {
-  // System.out.println("Scaredy little kitten, aren't we?");
   // Main main = new Main();
   // main.forfeitManager();
   // }
