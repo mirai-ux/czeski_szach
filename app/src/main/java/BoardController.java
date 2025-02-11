@@ -9,8 +9,17 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.fxml.FXMLLoader;
 import java.util.*;
+
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
+
+import javax.print.attribute.standard.Media;
+
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
+
+import java.io.File;
 import java.io.IOException;
 
 public class BoardController extends TurnAbstract {
@@ -458,9 +467,23 @@ public class BoardController extends TurnAbstract {
       LessStupidImageView gameEndImageView = new LessStupidImageView();
       gameEndImageView.setImage(youreWinner);
       gameEnd.setGraphic(gameEndImageView);
+      //playSound();
       gameEnd.showAndWait();
     }
   }
+
+  public static void playSound() {
+    try {
+        File file = new File("/main/resources/winner.wav");
+        System.out.println( file );
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioStream);
+        clip.start();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 
   @FXML
   private Button refreshButton;
