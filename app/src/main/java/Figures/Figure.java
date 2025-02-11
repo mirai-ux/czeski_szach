@@ -75,6 +75,7 @@ public abstract class Figure {
   public void setPosition( int x_, int y_ ){
     x = x_;
     y = y_;
+    moved();
   }
 
   public void setActivity(boolean status) {
