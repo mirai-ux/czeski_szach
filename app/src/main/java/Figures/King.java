@@ -56,7 +56,7 @@ public class King extends Figure {
           System.out.println( "\n Szach na:" + fx + " " + fy );
           gm.updateBoard( this.x, this.y, kingVal );
           GameManager.Helpers.printArray8x8( gm.getBoard() );
-        } else if( f.getPossibleMoves().get(this.y).get(this.x) == 69 ){
+        } else if( f.getPossibleMoves().get(this.y).get(this.x) > 99 ){
           int fx = f.getX();
           int fy = f.getY();
           int newVal = gm.getBoard().get(fy).get(fx) - marker;
