@@ -11,7 +11,10 @@ import Figures.*;
 public class Helpers {
   private GameManager.GM gm;
 
-  public void setGM( GameManager.GM gm_ ){ gm = gm_;}
+  public void setGM(GameManager.GM gm_) {
+    gm = gm_;
+  }
+
   private Figure interpretFromSave(String save) {
     char type = save.charAt(0);
     boolean team = save.charAt(3) == 't';

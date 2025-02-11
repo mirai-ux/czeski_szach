@@ -1,19 +1,17 @@
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.Node;
 import javafx.fxml.FXMLLoader;
 import java.util.*;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import java.io.IOException;
-
-import javafx.collections.ObservableList;
 
 public class BoardController extends TurnAbstract {
   public BoardController() {
@@ -150,10 +148,13 @@ public class BoardController extends TurnAbstract {
     clearIndicators();
 
     // System.out.println(gm.getPossibilities(x, y));
-    GameManager.Helpers.printArray8x8(gm.getPossibilities(x, y));
+    // GameManager.Helpers.printArray8x8(gm.getPossibilities(x, y));
 
     String positionStyleModifier = (x + y) % 2 == 0 ? Styling.OffWhiteSelected : Styling.PaleGreenSelected;
     String positionStyle = "-fx-background-color: " + positionStyleModifier;
+
+    String checkStyleModifier = (x + y) % 2 == 0 ? Styling.checkStyleOffWhite : Styling.checkStylePaleGreen;
+    String checkStyle = "-fx-background-color: " + checkStyleModifier;
 
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
@@ -185,6 +186,7 @@ public class BoardController extends TurnAbstract {
               historyController.displayMoveHistory(gm.getNiceLastMove());
               clearIndicators();
               displayPromote();
+              displayCheck(checkStyle);
             });
             break;
           case 2:
@@ -203,6 +205,9 @@ public class BoardController extends TurnAbstract {
               quoteLabel.setText(quoteOfTheTurn());
               historyController.displayMoveHistory(gm.getNiceLastMove());
               clearIndicators();
+              endCondiction();
+              displayPromote();
+              displayCheck(checkStyle);
             });
             break;
           case 5:
@@ -430,6 +435,33 @@ public class BoardController extends TurnAbstract {
     }
   }
 
+  public void displayCheck(String checkStyle) {
+    for (int y = 0; y < 8; y++) {
+      for (int x = 0; x < 8; x++) {
+        if (gm.getBoard().get(y).get(x) > 100) {
+          Pane checkIndicator = new Pane();
+          checkIndicator.setPrefSize(Styling.tileSize, Styling.tileSize);
+          checkIndicator.setStyle(checkStyle);
+          tileList.get(y).get(x).getChildren().add(0, checkIndicator);
+          currentIndicators.add(checkIndicator);
+        }
+      }
+    }
+  }
+
+  public void endCondiction() {
+    if (gm.EndGameCheck()) {
+      Alert gameEnd = new Alert(AlertType.INFORMATION);
+      gameEnd.getDialogPane().setStyle(Styling.gameEndAlertStyle);
+      gameEnd.setTitle("CONGRATULATIONS");
+      Image youreWinner = new Image("yourewinner.jpg");
+      LessStupidImageView gameEndImageView = new LessStupidImageView();
+      gameEndImageView.setImage(youreWinner);
+      gameEnd.setGraphic(gameEndImageView);
+      gameEnd.showAndWait();
+    }
+  }
+
   @FXML
   private Button refreshButton;
 
@@ -438,14 +470,14 @@ public class BoardController extends TurnAbstract {
     GameManager.Helpers.printArray8x8(gm.getBoard());
   }
 
-  @FXML
-  private Button forfeitButton;
-
-  @FXML
-  public void onForfeitButton(ActionEvent forfeitButton) {
-    System.out.println("Scaredy little kitten, aren't we?");
-    super.gm = new GameManager.GM();
-  }
+  // @FXML
+  // private Button forfeitButton;
+  //
+  // @FXML
+  // public void onForfeitButton(ActionEvent forfeitButton) {
+  // Main main = new Main();
+  // main.forfeitManager();
+  // }
 
   @FXML
   private StackPane historyStackPane;
