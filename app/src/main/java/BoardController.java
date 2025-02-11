@@ -438,7 +438,7 @@ public class BoardController extends TurnAbstract {
   public void displayCheck(String checkStyle) {
     for (int y = 0; y < 8; y++) {
       for (int x = 0; x < 8; x++) {
-        if (gm.getBoard().get(y).get(x) > 100) {
+        if (gm.getBoard().get(y).get(x) > 99) {
           Pane checkIndicator = new Pane();
           checkIndicator.setPrefSize(Styling.tileSize, Styling.tileSize);
           checkIndicator.setStyle(checkStyle);
