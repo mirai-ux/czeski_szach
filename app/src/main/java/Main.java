@@ -34,7 +34,7 @@ public class Main extends Application {
 
       scene.setFill(Color.TRANSPARENT);
       stage.initStyle(StageStyle.TRANSPARENT);
-      System.out.println(scene.getFill());
+      // System.out.println(scene.getFill());
 
       stage.setTitle("Greatestest Chess of Every Time There Ever Was");
       stage.setScene(scene);

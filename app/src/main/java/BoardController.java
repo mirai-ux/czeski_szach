@@ -148,7 +148,7 @@ public class BoardController extends TurnAbstract {
     clearIndicators();
 
     // System.out.println(gm.getPossibilities(x, y));
-    GameManager.Helpers.printArray8x8(gm.getPossibilities(x, y));
+    // GameManager.Helpers.printArray8x8(gm.getPossibilities(x, y));
 
     String positionStyleModifier = (x + y) % 2 == 0 ? Styling.OffWhiteSelected : Styling.PaleGreenSelected;
     String positionStyle = "-fx-background-color: " + positionStyleModifier;
@@ -437,12 +437,12 @@ public class BoardController extends TurnAbstract {
 
   public void displayCheck(String checkStyle) {
     for (int y = 0; y < 8; y++) {
-      for (int x = 0; y < 8; x++) {
+      for (int x = 0; x < 8; x++) {
         if (gm.getBoard().get(y).get(x) > 100) {
           Pane checkIndicator = new Pane();
           checkIndicator.setPrefSize(Styling.tileSize, Styling.tileSize);
           checkIndicator.setStyle(checkStyle);
-          tileList.get(y).get(x).getChildren().add(checkIndicator);
+          tileList.get(y).get(x).getChildren().add(0, checkIndicator);
           currentIndicators.add(checkIndicator);
         }
       }
@@ -452,6 +452,7 @@ public class BoardController extends TurnAbstract {
   public void endCondiction() {
     if (gm.EndGameCheck()) {
       Alert gameEnd = new Alert(AlertType.INFORMATION);
+      gameEnd.getDialogPane().setStyle(Styling.gameEndAlertStyle);
       gameEnd.setTitle("CONGRATULATIONS");
       Image youreWinner = new Image("yourewinner.jpg");
       LessStupidImageView gameEndImageView = new LessStupidImageView();

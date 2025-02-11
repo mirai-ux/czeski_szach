@@ -24,6 +24,8 @@ interface Styling {
   public static final String OffWhiteSelected = "rgba(245, 246, 129, 1)";
   public static final String PaleGreenSelected = "rgba(185, 202, 66, 1)";
 
+  public static final String gameEndAlertStyle = "-fx-background-color: rgba(60, 56, 54, 1)";
+
   public static final int tileSize = 60;
   public static final int moveSize = 25;
   public static final int captureSize = 70;
