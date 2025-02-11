@@ -15,7 +15,7 @@ public class Pawn extends Figure {
     public List< List< Integer >> getPossibleMoves( ){
         List< List< Integer >> moves = GameManager.Helpers.InitializeArray8x8();
 
-        if( gm.EndGameCheck() ) return moves;
+        if( gm.EndGameCheck() || !this.isActive) return moves;
     
         
         List< List< Integer >> board = gm.getBoard();
@@ -45,14 +45,16 @@ public class Pawn extends Figure {
         // GameManager.Helpers.printArray8x8(moves);
         if( x == 0 )
             if( board.get( y+direction ).get( 0 ) != 69 )
-                if( gm.getPieceAt( 1 , y+direction ).getTeam() != this.isWhite )
-                    moves.get( y+direction ).set( 1, 2 );
+                if( gm.getPieceAt( 1 , y+direction ) != null)
+                    if( gm.getPieceAt( 1 , y+direction ).getTeam() != this.isWhite )
+                        moves.get( y+direction ).set( 1, 2 );
         // System.out.println( "Po 0\n");
         // GameManager.Helpers.printArray8x8(moves);
         if( x == 7 )
             if( board.get( y+direction ).get( 7 ) != 69 )
-                if( gm.getPieceAt( 6 , y+direction ).getTeam() != this.isWhite )
-                    moves.get( y+direction ).set( 6, 2 );
+                if( gm.getPieceAt( 6 , y+direction ) != null)
+                    if( gm.getPieceAt( 6 , y+direction ).getTeam() != this.isWhite )
+                        moves.get( y+direction ).set( 6, 2 );
         // System.out.println( "Po 7\n");
         // GameManager.Helpers.printArray8x8(moves);
         if( x > 0 && x < 7){
