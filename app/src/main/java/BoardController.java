@@ -1,4 +1,6 @@
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -203,6 +205,7 @@ public class BoardController extends TurnAbstract {
               quoteLabel.setText(quoteOfTheTurn());
               historyController.displayMoveHistory(gm.getNiceLastMove());
               clearIndicators();
+              checkEndCondiction();
             });
             break;
           case 5:
@@ -427,6 +430,18 @@ public class BoardController extends TurnAbstract {
         pawn.setImage(b_queen);
         return;
       }
+    }
+  }
+
+  public void checkEndCondiction() {
+    if (gm.EndGameCheck()) {
+      Alert gameEnd = new Alert(AlertType.INFORMATION);
+      gameEnd.setTitle("CONGRATULATIONS");
+      Image youreWinner = new Image("yourewinner.jpg");
+      LessStupidImageView gameEndImageView = new LessStupidImageView();
+      gameEndImageView.setImage(youreWinner);
+      gameEnd.setGraphic(gameEndImageView);
+      gameEnd.showAndWait();
     }
   }
 
