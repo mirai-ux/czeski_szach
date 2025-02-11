@@ -7,15 +7,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.Node;
 import javafx.fxml.FXMLLoader;
 import java.util.*;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import java.io.IOException;
-
-import javafx.collections.ObservableList;
 
 public class BoardController extends TurnAbstract {
   public BoardController() {
@@ -157,6 +153,9 @@ public class BoardController extends TurnAbstract {
     String positionStyleModifier = (x + y) % 2 == 0 ? Styling.OffWhiteSelected : Styling.PaleGreenSelected;
     String positionStyle = "-fx-background-color: " + positionStyleModifier;
 
+    String checkStyleModifier = (x + y) % 2 == 0 ? Styling.checkStyleOffWhite : Styling.checkStylePaleGreen;
+    String checkStyle = "-fx-background-color: " + checkStyleModifier;
+
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
         Pane tile = tileList.get(j).get(i);
@@ -187,6 +186,7 @@ public class BoardController extends TurnAbstract {
               historyController.displayMoveHistory(gm.getNiceLastMove());
               clearIndicators();
               displayPromote();
+              displayCheck(checkStyle);
             });
             break;
           case 2:
@@ -205,7 +205,9 @@ public class BoardController extends TurnAbstract {
               quoteLabel.setText(quoteOfTheTurn());
               historyController.displayMoveHistory(gm.getNiceLastMove());
               clearIndicators();
-              checkEndCondiction();
+              endCondiction();
+              displayPromote();
+              displayCheck(checkStyle);
             });
             break;
           case 5:
@@ -433,7 +435,21 @@ public class BoardController extends TurnAbstract {
     }
   }
 
-  public void checkEndCondiction() {
+  public void displayCheck(String checkStyle) {
+    for (int y = 0; y < 8; y++) {
+      for (int x = 0; y < 8; x++) {
+        if (gm.getBoard().get(y).get(x) > 100) {
+          Pane checkIndicator = new Pane();
+          checkIndicator.setPrefSize(Styling.tileSize, Styling.tileSize);
+          checkIndicator.setStyle(checkStyle);
+          tileList.get(y).get(x).getChildren().add(checkIndicator);
+          currentIndicators.add(checkIndicator);
+        }
+      }
+    }
+  }
+
+  public void endCondiction() {
     if (gm.EndGameCheck()) {
       Alert gameEnd = new Alert(AlertType.INFORMATION);
       gameEnd.setTitle("CONGRATULATIONS");

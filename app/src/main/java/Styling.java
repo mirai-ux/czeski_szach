@@ -18,6 +18,9 @@ interface Styling {
       "-fx-padding: 0; " + // Remove any default padding
       "-fx-shape: \"M %f 0 L %f %f L 0 %f Z\";";
 
+  public static final String checkStyleOffWhite = "rgba(250, 123, 64)";
+  public static final String checkStylePaleGreen = "rgba(220, 101, 33)";
+
   public static final String OffWhiteSelected = "rgba(245, 246, 129, 1)";
   public static final String PaleGreenSelected = "rgba(185, 202, 66, 1)";
 
