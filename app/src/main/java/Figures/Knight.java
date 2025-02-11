@@ -10,6 +10,10 @@ public class Knight extends Figure {
     }
     public List< List< Integer >> getPossibleMoves( ){
         List< List< Integer >> moves = GameManager.Helpers.InitializeArray8x8();
+
+        if( gm.EndGameCheck() ) return moves;
+    
+        
         List< List< Integer >> board = gm.getBoard();
 
         int[][] possibilities = {{-2,-1},{-2,1},{-1,-2},{-1,2},{1,-2},{1,2},{2,-1},{2,1}};

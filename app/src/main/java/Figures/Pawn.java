@@ -14,6 +14,10 @@ public class Pawn extends Figure {
     // 2  if can attack there
     public List< List< Integer >> getPossibleMoves( ){
         List< List< Integer >> moves = GameManager.Helpers.InitializeArray8x8();
+
+        if( gm.EndGameCheck() ) return moves;
+    
+        
         List< List< Integer >> board = gm.getBoard();
 
         int direction = this.isWhite ? -1 : 1;
